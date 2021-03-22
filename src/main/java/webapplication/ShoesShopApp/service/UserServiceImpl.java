@@ -12,6 +12,7 @@ import webapplication.ShoesShopApp.model.Role;
 import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
 import webapplication.ShoesShopApp.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(UserRegistrationDto registrationDto) {
+    public User save(@Valid UserRegistrationDto registrationDto) {
         User user = new User(registrationDto.getFirstName(),
                 registrationDto.getLastName(), registrationDto.getEmail(),
                 passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));

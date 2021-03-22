@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+    <nav id="heading">
+        <ul>
+            <li>
+                <a href="Converse"><b>Converse</b><span class="caret"></span></a>
+            </li>
+            <li>
+                <a href="Nike"><b>Nike</b><span class="caret"></span></a>
+            </li>
+            <li>
+                <a href="Adidas"><b>Adidas</b><span class="caret"></span></a>
+            </li>
+            <li>
+                <a href="Puma"><b>Puma</b><span class="caret"></span></a>
+            </li>
+            <li>
+                <a href="New Balance"><b>New Balance</b><span class="caret"></span></a>
+            </li>
+            <li>
+                <a href="Reebok"><b>Reebok</b><span class="caret"></span></a>
+            </li>
+            <li>
+                <a href="Vans"><b>Vans</b><span class="caret"></span></a>
+            </li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{logout}">Logout</a></li>
+        </ul>
+    </nav>
+</main>
+</body>
+</html>

@@ -1,9 +1,15 @@
 package webapplication.ShoesShopApp.model.dto;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+
 public class UserRegistrationDto {
     private String firstName;
     private String lastName;
+    @Email
     private String email;
+    @Length(min = 8,max = 15)
     private String password;
 
     public UserRegistrationDto() {
