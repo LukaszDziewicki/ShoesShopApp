@@ -18,6 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -40,8 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.authorizeRequests().antMatchers("/newarticle")
-                .access("hasRole('ROLE_ADMIN')");
+       /* http.authorizeRequests().antMatchers("/newarticle")
+                .access("hasRole('ROLE_ADMIN')");*/
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Error403");
 
         http.authorizeRequests().antMatchers(
@@ -62,7 +63,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
-
 
 
 }

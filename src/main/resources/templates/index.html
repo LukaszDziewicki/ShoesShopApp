@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>SkiRental</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<main>
+    <div class="pos-center">
+        <div th:include="heading"></div>
+
+        <div id="author">
+            <center><h1>Welcome in my application</h1></center>
+            <div id="info1">
+               <p><h3>Logged in successfully:</h3> </p> <div th:text="${#authentication.name}" ></div>
+            </div>
+        </div>
+        <div th:include="footer"></div>
+    </div>
+</main>
+</body>
+</html>
