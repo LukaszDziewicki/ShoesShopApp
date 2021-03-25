@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
+import webapplication.ShoesShopApp.repository.UserEmailRepository;
 import webapplication.ShoesShopApp.service.UserService;
 
 @Controller
@@ -15,10 +17,12 @@ import webapplication.ShoesShopApp.service.UserService;
 public class UserRegistrationController {
 
     private UserService userService;
+    private UserEmailRepository userEmailRepository;
 
-    public UserRegistrationController(UserService userService) {
+    public UserRegistrationController(UserService userService, UserEmailRepository userEmailRepository) {
         super();
         this.userService = userService;
+        this.userEmailRepository = userEmailRepository;
     }
 
     @ModelAttribute("user")
@@ -33,9 +37,13 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@Validated @ModelAttribute("user") UserRegistrationDto registrationDto, BindingResult result) {
-        if (result.hasErrors()) {
+        boolean present = userEmailRepository.findByEmail(registrationDto.getEmail()).isPresent();
+        if (result.hasErrors() || present) {
             return "redirect:/registration?failed";
         }
+      /*else  if(present){
+            throw new IllegalArgumentException("Email already taken");
+        }*/
         else {
             userService.save(registrationDto);
             return "redirect:/registration?success";
