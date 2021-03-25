@@ -1,9 +1,12 @@
 package webapplication.ShoesShopApp.model.dto;
 
 import org.hibernate.validator.constraints.Length;
+import webapplication.ShoesShopApp.passwordvalidation.PasswordMatches;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 
+@PasswordMatches
 public class UserRegistrationDto {
     private String firstName;
     private String lastName;
@@ -12,6 +15,8 @@ public class UserRegistrationDto {
     @Length(min = 8,max = 15)
     private String password;
 
+    @Length(min = 8,max = 15)
+    private String confirmPassword;
     public UserRegistrationDto() {
     }
 
@@ -21,6 +26,7 @@ public class UserRegistrationDto {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+
     }
 
     public String getFirstName() {
@@ -53,5 +59,17 @@ public class UserRegistrationDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+    @AssertTrue(message = "Passwords should match")
+    public boolean isPasswordsEqual() {
+        return password.equals(confirmPassword);
     }
 }
