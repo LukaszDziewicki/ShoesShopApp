@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.repository.UserRepository;
 import webapplication.ShoesShopApp.service.UserService;
@@ -28,12 +29,21 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String home(Model model){
-        List<User> userList = userServiceImpl.listAll();
-        model.addAttribute("userList",userList);
-        logger.info(userList.size());
+    public String home(){
         return "index";
     }
 
+    @GetMapping("/privileges")
+    public String privileges(Model model){
+        List<User> userList = userServiceImpl.listAll();
+        model.addAttribute("userList",userList);
+        return "privileges";
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public String delUser(@PathVariable(name = "id") int id){
+        userServiceImpl.delete(id);
+        return "index";
+    }
 
 }
