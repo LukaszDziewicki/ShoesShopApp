@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>SkiRental</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<main>
+    <div class="pos-center">
+        <div th:include="heading"></div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">User ID</th>
+                <th class="text-center">First Name</th>
+                <th class="text-center">Last Name</th>
+                <th class="text-center">Email</th>
+                <th class="text-center" rowspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.id}">User ID</td>
+                <td th:text="${user.firstName}">First Name</td>
+                <td th:text="${user.lastName}">Last Name</td>
+                <td th:text="${user.email}">Email</td>
+                <td>
+                    <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:include="footer"></div>
+    </div>
+</main>
+</body>
+</html>
+
