@@ -7,13 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
 import webapplication.ShoesShopApp.repository.UserEmailRepository;
-import webapplication.ShoesShopApp.repository.UserRepository;
 import webapplication.ShoesShopApp.service.UserService;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/registration")
@@ -43,15 +39,15 @@ public class UserRegistrationController {
     @PostMapping
     public String registerUserAccount(@Validated @ModelAttribute("user") UserRegistrationDto registrationDto, BindingResult result) {
         boolean present = userEmailRepository.findByEmail(registrationDto.getEmail()).isPresent();
-        if (result.hasErrors() || present) {
+        if (result.hasErrors()) {
             return "redirect:/registration?failed";
+        } else if (present) {
+            return "redirect:/registration?emailFailed";
         }
-      /*if(!registrationDto.isPasswordsEqual()){
-          return "";
-      }*/
         else {
             userService.save(registrationDto);
             return "redirect:/registration?success";
         }
     }
+
 }
