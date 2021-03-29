@@ -1,6 +1,7 @@
 package webapplication.ShoesShopApp.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -10,6 +11,11 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @ManyToMany
+    private List<User> userList;
+
+
 
     public Role() {
 

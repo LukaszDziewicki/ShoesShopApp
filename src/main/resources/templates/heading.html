@@ -29,7 +29,12 @@
             <li>
                 <a href="Vans"><b>Vans</b><span class="caret"></span></a>
             </li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{logout}">Logout</a></li>
+            <li>
+                <a href="login"><b>Login</b><span class="caret"></span></a>
+            </li>
+            <li
+                    sec:authorize="isAuthenticated()"><a th:href="@{logout}">Logout</a>
+            </li>
         </ul>
     </nav>
 </main>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="ISO-8859-1">
-    <title>SkiRental</title>
+    <title>Privileges</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -17,6 +17,7 @@
                 <th class="text-center">First Name</th>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
+                <th class="text-center">Role</th>
                 <th class="text-center" rowspan="2">Actions</th>
             </tr>
             </thead>
@@ -26,10 +27,21 @@
                 <td th:text="${user.firstName}">First Name</td>
                 <td th:text="${user.lastName}">Last Name</td>
                 <td th:text="${user.email}">Email</td>
+
                 <td>
                     <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom">Delete</a>
                 </td>
+                <td>
+                    <a th:href="@{'/blockUser/' + ${user.id}}" class="btn btn-custom">Block</a>
+                </td>
+                <td>
+                    <select>
+                    <option th:value="'ADMIN'" th:text="ADMIN"></option>
+                    <option th:value="'USER'" th:text="USER"></option>
+                    </select>
+                </td>
             </tr>
+
             </tbody>
         </table>
         <div th:include="footer"></div>

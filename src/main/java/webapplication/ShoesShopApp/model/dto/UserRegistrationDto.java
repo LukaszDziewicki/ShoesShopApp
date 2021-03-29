@@ -17,6 +17,7 @@ public class UserRegistrationDto {
 
     @Length(min = 8,max = 15)
     private String confirmPassword;
+
     public UserRegistrationDto() {
     }
 

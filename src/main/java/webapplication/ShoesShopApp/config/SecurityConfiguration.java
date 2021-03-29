@@ -39,18 +39,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/privileges").hasRole("ADMIN")
+                .antMatchers("/index").hasRole("USER")
+                .and()
+                .httpBasic();
 
+        http.authorizeRequests()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/Error403");
 
-        http.authorizeRequests().antMatchers("/newarticle")
-                .access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Error403");
-
-        http.authorizeRequests().antMatchers(
-                "/registration",
-                "/js/**",
-                "/css/**",
-                "/img/**").permitAll()
-                .anyRequest().authenticated()
+        http.authorizeRequests()
+                .antMatchers("/login", "/registration", "/js/**", "/css/**", "/img/**")
+                .permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -63,7 +65,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
-
 
 }
 

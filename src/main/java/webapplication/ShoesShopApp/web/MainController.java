@@ -2,16 +2,17 @@ package webapplication.ShoesShopApp.web;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import webapplication.ShoesShopApp.model.Role;
 import webapplication.ShoesShopApp.model.User;
-import webapplication.ShoesShopApp.repository.UserRepository;
-import webapplication.ShoesShopApp.service.UserService;
 import webapplication.ShoesShopApp.service.UserServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,20 +24,25 @@ public class MainController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping("/login")
+    @GetMapping("/")
+    public String home(){
+        return "home";
+    }
+
+    @RequestMapping("/login")
     public String login (){
         return "login";
     }
 
-    @GetMapping("/")
-    public String home(){
+    @GetMapping("/index")
+    public String index(){
         return "index";
     }
 
     @GetMapping("/privileges")
     public String privileges(Model model){
         List<User> userList = userServiceImpl.listAll();
-        model.addAttribute("userList",userList);
+        model.addAttribute("userList", userList);
         return "privileges";
     }
 
