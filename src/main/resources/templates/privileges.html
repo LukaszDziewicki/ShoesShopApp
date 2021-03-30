@@ -17,8 +17,9 @@
                 <th class="text-center">First Name</th>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
-                <th class="text-center">Role</th>
                 <th class="text-center" rowspan="2">Actions</th>
+                <th class="text-center">Blocked</th>
+                <th class="text-center">Roles</th>
             </tr>
             </thead>
             <tbody>
@@ -32,11 +33,12 @@
                     <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom">Delete</a>
                 </td>
                 <td>
-                    <a th:href="@{'/blockUser/' + ${user.id}}" class="btn btn-custom">Block</a>
+                    <input type="checkbox" name="active"/> <!--th:checked="${user.blocked}" -->
+
                 </td>
                 <td>
                     <select>
-                    <option th:value="'ADMIN'" th:text="ADMIN"></option>
+                    <option th:value="'ADMIN'" th:text="${user.roles}"></option>
                     <option th:value="'USER'" th:text="USER"></option>
                     </select>
                 </td>

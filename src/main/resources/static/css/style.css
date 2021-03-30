@@ -275,3 +275,9 @@
         .table-hover tbody tr:hover {
               background-color: #666;
         }
+
+		a:-webkit-any-link {
+			color: #B0E0E6;
+			cursor: pointer;
+			text-decoration: underline;
+		}
