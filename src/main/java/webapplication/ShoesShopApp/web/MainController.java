@@ -18,7 +18,6 @@ import java.util.List;
 @Controller
 public class MainController {
     private UserServiceImpl userServiceImpl;
-    private static Logger logger = LogManager.getLogger();
 
     public MainController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;

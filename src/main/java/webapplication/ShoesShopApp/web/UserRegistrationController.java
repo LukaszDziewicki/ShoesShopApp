@@ -11,6 +11,8 @@ import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
 import webapplication.ShoesShopApp.repository.UserEmailRepository;
 import webapplication.ShoesShopApp.service.UserService;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
@@ -37,15 +39,15 @@ public class UserRegistrationController {
 
 
     @PostMapping
-    public String registerUserAccount(@Validated @ModelAttribute("user") UserRegistrationDto registrationDto, BindingResult result) {
-        boolean present = userEmailRepository.findByEmail(registrationDto.getEmail()).isPresent();
+    public String registerUserAccount(@Valid @ModelAttribute("user") UserRegistrationDto userRegistrationDto, BindingResult result) {
+        boolean present = userEmailRepository.findByEmail(userRegistrationDto.getEmail()).isPresent();
         if (result.hasErrors()) {
             return "redirect:/registration?failed";
         } else if (present) {
             return "redirect:/registration?emailFailed";
         }
         else {
-            userService.save(registrationDto);
+            userService.save(userRegistrationDto);
             return "redirect:/registration?success";
         }
     }

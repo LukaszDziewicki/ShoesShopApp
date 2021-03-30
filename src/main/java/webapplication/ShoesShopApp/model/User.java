@@ -37,13 +37,14 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password,Collection<Role> roles) {
+    public User(String firstName, String lastName, String email, String password,Collection<Role> roles, boolean blocked) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.blocked = blocked;
     }
 
 
@@ -95,6 +96,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -104,6 +113,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
+                ", blocked=" + blocked +
                 '}';
     }
 }
