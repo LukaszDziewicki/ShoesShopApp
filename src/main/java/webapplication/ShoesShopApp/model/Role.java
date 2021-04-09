@@ -34,10 +34,6 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -50,10 +46,22 @@ public class Role {
         this.userList = userList;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
-        return name;
+        return returnNameOfRole();
 
+    }
+
+    private String returnNameOfRole() {
+        if(name.equals("ROLE_USER"))
+            return "USER";
+        else if(name.equals("ROLE_ADMIN"))
+            return "ADMIN";
+        return "OTHERS";
     }
 
 }
