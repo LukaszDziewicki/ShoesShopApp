@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import webapplication.ShoesShopApp.model.Product;
 import webapplication.ShoesShopApp.model.Role;
 import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.service.UserServiceImpl;
@@ -32,6 +33,12 @@ public class MainController {
     public String login (){
         return "login";
     }
+
+   /* @GetMapping("/products")
+    public String products(Model model)
+    { List<Product> products;
+        return "products";
+    }*/
 
     @GetMapping("/index")
     public String index(){

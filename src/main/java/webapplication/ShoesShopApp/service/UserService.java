@@ -7,4 +7,6 @@ import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
 public interface UserService extends UserDetailsService {
     User save(UserRegistrationDto registrationDto);
 
+
+
 }
