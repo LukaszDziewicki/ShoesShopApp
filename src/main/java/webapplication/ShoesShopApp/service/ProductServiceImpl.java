@@ -7,7 +7,7 @@ import webapplication.ShoesShopApp.repository.ProductRepository;
 
 import javax.validation.Valid;
 
-@Service
+//@Service
 public class ProductServiceImpl {
 
     private ProductRepository productRepository;

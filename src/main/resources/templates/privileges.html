@@ -39,13 +39,14 @@
                     <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom">Delete</a>
                 </td>
                 <td>
-                    <input type="checkbox" name="active"/> <!--th:checked="${user.blocked}" -->
+                    <input type="checkbox" name="active"/>
 
                 </td>
                 <td>
                     <select>
-                    <option th:value="'ADMIN'" th:text="${user.roles}"></option>
-                    <option th:value="'USER'" th:text="USER"></option>
+                    <option th:value="'ROLE_ADMIN'" th:text="${user.roles}"></option>
+                    <option th:value="'ROLE_USER'" th:text="USER"></option>
+                        <option th:value="'ROLE_DATAADMIN'" th:text="DATAADMIN"></option>
                     </select>
                 </td>
             </tr>
