@@ -24,9 +24,9 @@
                 <th class="text-center">First Name</th>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
-                <th class="text-center" rowspan="2">Actions</th>
+                <th class="text-center">Role</th>
                 <th class="text-center">Blocked</th>
-                <th class="text-center">Roles</th>
+
             </tr>
             </thead>
             <tbody>
@@ -34,19 +34,11 @@
                 <td th:text="${user.firstName}">First Name</td>
                 <td th:text="${user.lastName}">Last Name</td>
                 <td th:text="${user.email}">Email</td>
-
-                <td>
-                    <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom">Delete</a>
-                </td>
-                <td>
-                    <a th:href="@{/editUserStatus}" class="btn btn-custom">Edit</a>
-
-                </td>
+                <td th:text="${user.roles}">Role</td>
                 <td>
                     <select>
-                    <option th:value="'ROLE_ADMIN'" th:text="${user.roles}"></option>
-                    <option th:value="'ROLE_USER'" th:text="USER"></option>
-                        <option th:value="'ROLE_DATAADMIN'" th:text="DATAADMIN"></option>
+                        <option th:value="'False'" th:text="${user.blocked}"></option>
+                        <option th:value="'True'" th:text="True"></option>
                     </select>
                 </td>
             </tr>

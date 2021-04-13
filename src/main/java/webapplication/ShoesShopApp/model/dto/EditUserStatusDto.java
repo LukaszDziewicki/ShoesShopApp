@@ -4,8 +4,8 @@ package webapplication.ShoesShopApp.model.dto;
 public class EditUserStatusDto {
 
     private String role;
-
     private boolean blocked; //shift ctrl strzałka w górę
+
 
     public String getRole() {
         return role;

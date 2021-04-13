@@ -3,16 +3,20 @@ package webapplication.ShoesShopApp.model.dto;
 import webapplication.ShoesShopApp.model.Attribute;
 import webapplication.ShoesShopApp.model.Category;
 
+import java.util.Set;
+
 public class ProductDto {
     private String name;
+    private int amount;
     private Category category;
-    private Attribute attribute;
+    private Set<Attribute> attributes;
 
 
-    public ProductDto(String name, Category category, Attribute attribute) {
+    public ProductDto(String name, int amount, Category category, Set<Attribute> attributes) {
         this.name = name;
         this.category = category;
-        this.attribute = attribute;
+        this.attributes = attributes;
+        this.amount = amount;
     }
 
     public String getName() {
@@ -31,11 +35,19 @@ public class ProductDto {
         this.category = category;
     }
 
-    public Attribute getAttribute() {
-        return attribute;
+    public Set<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
+    public void setAttributes(Set<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

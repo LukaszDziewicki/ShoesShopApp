@@ -6,8 +6,9 @@ import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.ProductRepository;
 
 import javax.validation.Valid;
+import java.util.List;
 
-//@Service
+@Service
 public class ProductServiceImpl {
 
     private ProductRepository productRepository;
@@ -16,12 +17,16 @@ public class ProductServiceImpl {
         this.productRepository = productRepository;
     }
 
-    /*public Product save (@Valid ProductDto productDto){
+   /* public Product save (@Valid ProductDto productDto){
         Product product = new Product(productDto.getName(),
+                productDto.getAmount(),
                 productDto.getCategory(),
-                productDto.getAttribute());
+                productDto.getAttributes());
 
         return productRepository.save(product);
-    }
-    */
+    }*/
+
+   public List<Product> findAllProducts(){
+       return productRepository.findAll();
+   }
 }
