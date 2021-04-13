@@ -90,6 +90,7 @@ public class User {
     }
 
     public Collection<Role> getRoles() {
+
         return roles;
     }
 

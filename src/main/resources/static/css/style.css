@@ -298,3 +298,11 @@
 			border-top: none;
 			border-bottom:1px solid white ;
 		}
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+			border-radius: 2px;
+		}
+
