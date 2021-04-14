@@ -15,8 +15,6 @@ public class Role {
     @ManyToMany
     private List<User> userList;
 
-
-
     public Role() {
 
     }
@@ -52,8 +50,7 @@ public class Role {
 
     @Override
     public String toString() {
-        return returnNameOfRole();
-
+       return returnNameOfRole();
     }
 
     private String returnNameOfRole() {

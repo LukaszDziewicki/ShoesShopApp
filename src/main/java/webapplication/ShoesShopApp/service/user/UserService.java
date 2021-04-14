@@ -1,4 +1,4 @@
-package webapplication.ShoesShopApp.service;
+package webapplication.ShoesShopApp.service.user;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import webapplication.ShoesShopApp.model.User;

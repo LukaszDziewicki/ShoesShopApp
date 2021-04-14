@@ -1,22 +1,19 @@
 package webapplication.ShoesShopApp.model.dto;
 
 import webapplication.ShoesShopApp.model.Attribute;
-import webapplication.ShoesShopApp.model.Category;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ProductDto {
     private String name;
-    private int amount;
-    private Category category;
-    private Set<Attribute> attributes;
+    private String categoryName;
+    private Set<Attribute> attributes = new HashSet<>();
 
-
-    public ProductDto(String name, int amount, Category category, Set<Attribute> attributes) {
+    public ProductDto(String name, String categoryName, Set<Attribute> attributes) {
         this.name = name;
-        this.category = category;
+        this.categoryName = categoryName;
         this.attributes = attributes;
-        this.amount = amount;
     }
 
     public String getName() {
@@ -27,12 +24,12 @@ public class ProductDto {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Set<Attribute> getAttributes() {
@@ -41,13 +38,5 @@ public class ProductDto {
 
     public void setAttributes(Set<Attribute> attributes) {
         this.attributes = attributes;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 }

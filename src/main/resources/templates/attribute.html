@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Attributes</title>
+</head>
+<body>
+<div align="center">
+    <h1>Add new Attribute</h1>
+    <form action="#" th:action="@{/saveAttribute}" th:object="${attribute}" method="post">
+        <table border="0" cellpadding="10">
+            <div class="form-group">
+                <label class="control-label" for="name"> Name</label>
+                <input id="name" class="form-control" th:field="*{name}"
+                       required autofocus="autofocus" maxlength="255"/>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="value"> Value </label>
+                <input id="value" class="form-control" th:field="*{value}"
+                       required autofocus="autofocus" maxlength="255"/>
+            </div>
+            <tr>
+                <td colspan="2">
+                    <button class="btn btn-primary" type="submit">Save Attribute</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

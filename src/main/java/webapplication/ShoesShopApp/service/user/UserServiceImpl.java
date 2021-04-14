@@ -1,4 +1,4 @@
-package webapplication.ShoesShopApp.service;
+package webapplication.ShoesShopApp.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
