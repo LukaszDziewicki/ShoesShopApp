@@ -28,7 +28,7 @@ public class ProductsController {
         this.categoryServiceImpl = categoryServiceImpl;
     }
 
-    @RequestMapping("/products")
+    @RequestMapping("/product")
     public String newProduct(Model model) {
         Product product = new Product();
         Category category = new Category();
@@ -36,7 +36,7 @@ public class ProductsController {
         model.addAttribute("attribute", attribute);
         model.addAttribute("category", category);
         model.addAttribute("product", product);
-        return "products";
+        return "product";
     }
 
     @RequestMapping("/category")

@@ -8,6 +8,7 @@
 <body>
 <main>
     <div class="pos-center">
+        <form action="#" th:action="@{/changeUserStatus}" th:object="${user}" method="post">
         <style type="text/css">
             .table {
                 margin: 0 auto;
@@ -17,28 +18,33 @@
             }
         </style>
         <div th:include="heading"></div>
-
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th class="text-center">First Name</th>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
-                <th class="text-center">Role</th>
                 <th class="text-center">Blocked</th>
+                <th class="text-center">Role</th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${userList}">
+            <tr>
                 <td th:text="${user.firstName}">First Name</td>
                 <td th:text="${user.lastName}">Last Name</td>
                 <td th:text="${user.email}">Email</td>
-                <td th:text="${user.roles}">Role</td>
                 <td>
                     <select>
                         <option th:value="'False'" th:text="${user.blocked}"></option>
                         <option th:value="'True'" th:text="True"></option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option th:value="'ROLE_ADMIN'" th:text="${user.roles}"></option>
+                        <option th:value="'ROLE_USER'" th:text="USER"></option>
+                        <option th:value="'ROLE_DATAADMIN'" th:text="DATAADMIN"></option>
                     </select>
                 </td>
             </tr>
@@ -51,6 +57,7 @@
             </div>
         </div>
         <div th:include="footer"></div>
+        </form>
     </div>
 </main>
 </body>

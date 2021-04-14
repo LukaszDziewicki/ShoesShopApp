@@ -85,5 +85,8 @@ public class UserServiceImpl implements UserService {
 
         //tak samo dla roli
     }
+    public User getUserById(Long id){
+        return userRepository.findById(id).get();
+    }
 
 }

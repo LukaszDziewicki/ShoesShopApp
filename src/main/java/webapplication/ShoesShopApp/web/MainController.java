@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.model.dto.EditUserStatusDto;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
@@ -67,6 +68,14 @@ public class MainController {
         List<User> userList = userServiceImpl.listAll();
         model.addAttribute("userList",userList);
         return "editUserStatus";
+    }
+
+    @GetMapping("/editUserStatus/{id}")
+    public ModelAndView editUserStatus(@PathVariable(name = "id") Long id){
+        ModelAndView modelAndView = new ModelAndView("editUserStatus");
+        User user = userServiceImpl.getUserById(id);
+        modelAndView.addObject("user",user);
+        return modelAndView;
     }
 
 }

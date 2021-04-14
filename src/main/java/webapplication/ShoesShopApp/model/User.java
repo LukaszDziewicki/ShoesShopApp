@@ -2,6 +2,7 @@ package webapplication.ShoesShopApp.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "appuser", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -30,7 +31,7 @@ public class User {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private List<Role> roles;
 
 
     private Boolean blocked;
@@ -38,7 +39,7 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password,Collection<Role> roles, boolean blocked) {
+    public User(String firstName, String lastName, String email, String password,List<Role> roles, boolean blocked) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -89,12 +90,11 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
-
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -114,7 +114,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
                 ", blocked=" + blocked +
                 '}';
     }
