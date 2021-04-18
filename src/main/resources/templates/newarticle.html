@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Article</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+</head>
+<body>
+<main>
+    <div th:include="heading"></div>
+    <div class="card w-60">
+        <div class = "shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+            <h5 class="card-title">Add Product</h5>
+            <div>
+                <label for="productNameInput">Name</label>
+            </div>
+            <input type="email" class="form-control" id="productNameInput" aria-describedby="emailHelp">
+            <div class="select">
+                <label for="exampleFormControlSelect1">Amount</label>
+                <select class="form-control" data-live-search="true" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="select">
+                <label for="exampleFormControlSelect1">Category</label>
+                <select class="form-control" data-live-search="true" id="exampleFormControlSelect2">
+                    <option>Converse</option>
+                    <option>Nike</option>
+                    <option>Adidas</option>
+                    <option>Puma</option>
+                    <option>New Balance</option>
+                    <option>Reebok</option>
+                    <option>Vans</option>
+                </select>
+            </div>
+            <div class="select">
+                <label for="exampleFormControlSelect1">Color</label>
+                <select class="form-control" data-live-search="true" id="exampleFormControlSelect3">
+                    <option>Black</option>
+                    <option>White</option>
+                    <option>Blue</option>
+                    <option>Yellow</option>
+                    <option>Orange</option>
+                    <option>Red</option>
+                    <option>Green</option>
+                </select>
+            </div>
+            <div class="select">
+                <label for="exampleFormControlSelect1">Size</label>
+                <select class="form-control" data-live-search="true" id="exampleFormControlSelect4" >
+                    <option>45</option>
+                    <option>44.5</option>
+                    <option>44</option>
+                    <option>43.5</option>
+                    <option>43</option>
+                    <option>42.5</option>
+                    <option>42</option>
+                    <option>41.5</option>
+                    <option>41</option>
+                    <option>40.5</option>
+                    <option>39.5</option>
+                    <option>39</option>
+                    <option>38.5</option>
+                    <option>38</option>
+                    <option>37.5</option>
+                    <option>37</option>
+                    <option>36.5</option>
+                    <option>36</option>
+                </select>
+            </div>
+            <a href="#" class="btn btn-primary">Add</a>
+        </div>
+        </div>
+    </div>
+    <div th:include="footer"></div>
+    </div>
+</main>
+</body>
+</html>
