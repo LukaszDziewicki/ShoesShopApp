@@ -305,4 +305,27 @@
 			margin-bottom: 20px;
 			border-radius: 2px;
 		}
+		.card {
+			width: 21.5em;
+			margin:0 auto;
+			margin-top: 100px;
+			margin-bottom: 100px;
+		}
+		.form-group {
+			position: relative;
+			font-family: Arial, serif;
+		}
+		.card .btn-primary{
+			margin-top: 10px;
+			margin-left: 80px;
+			width: 40%;
+		}
+		.card select, input {
+			margin-bottom: 10px;
+		}
+		.card label {
+			font-weight: bold;
+		}
+
+
 

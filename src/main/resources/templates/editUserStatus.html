@@ -8,7 +8,7 @@
 <body>
 <main>
     <div class="pos-center">
-        <form action="#" th:action="@{/changeUserStatus}" th:object="${user}" method="post">
+        <form action="#" th:action="@{'/changeUserStatus/'} + ${user.id}" th:object="${user}" method="get">
         <style type="text/css">
             .table {
                 margin: 0 auto;
@@ -37,7 +37,7 @@
                 <td>
                     <select>
                         <option th:value="'False'" th:text="${user.blocked}"></option>
-                        <option th:value="'True'" th:text="True"></option>
+                        <option th:value="'True'" th:text="${!user.blocked}"></option>
                     </select>
                 </td>
                 <td>
@@ -53,11 +53,12 @@
         </table>
         <div class="container">
             <div class="center">
-                <button type="button" class="btn btn-outline-primary">Save</button>
+                <button type="submit" class="btn btn-outline-primary">Save</button>
             </div>
         </div>
-        <div th:include="footer"></div>
         </form>
+        <div th:include="footer"></div>
+
     </div>
 </main>
 </body>

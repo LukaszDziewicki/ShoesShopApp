@@ -1,5 +1,8 @@
 package webapplication.ShoesShopApp.web;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jboss.jandex.Main;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.model.dto.EditUserStatusDto;
+import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.user.UserServiceImpl;
 
@@ -20,6 +24,7 @@ import java.util.List;
 public class MainController {
     private UserServiceImpl userServiceImpl;
     private ProductServiceImpl productService;
+    private static Logger logger = LogManager.getLogger(MainController.class);
 
     public MainController(UserServiceImpl userServiceImpl, ProductServiceImpl productService) {
         this.userServiceImpl = userServiceImpl;
@@ -41,6 +46,11 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/newarticle")
+    public String newArticle(){
+        return "newarticle";
+    }
+
     @GetMapping("/privileges")
     public String privileges(Model model){
         List<User> userList = userServiceImpl.listAll();
@@ -55,13 +65,14 @@ public class MainController {
     }
     @GetMapping("/changeUserStatus/{id}")
     public String changeUserStatus(
-            @PathVariable(name = "id") int id,
+            @PathVariable(name = "id") long id,
             @Valid @ModelAttribute("userStatus") EditUserStatusDto editUserStatusDto,
-            BindingResult result
+            UserRegistrationDto userRegistrationDto
     ){
-        userServiceImpl.changeUserStatus(id, editUserStatusDto);
+        userServiceImpl.changeUserStatus(id, editUserStatusDto,userRegistrationDto);
         return "privileges";
     }
+
 
     @GetMapping("/editUserStatus")
     public String editUserStatus(Model model){

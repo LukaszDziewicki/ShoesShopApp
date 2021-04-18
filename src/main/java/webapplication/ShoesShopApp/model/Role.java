@@ -1,7 +1,10 @@
 package webapplication.ShoesShopApp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -13,7 +16,7 @@ public class Role {
     private String name;
 
     @ManyToMany
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
 
     public Role() {
 
@@ -60,6 +63,7 @@ public class Role {
             return "ADMIN";
         return "OTHERS";
     }
+
 
 }
 

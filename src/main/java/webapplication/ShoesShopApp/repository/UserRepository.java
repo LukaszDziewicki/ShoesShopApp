@@ -12,12 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    @Transactional
-    @Modifying
-    @Query("update User u" +
-            " set u.blocked = TRUE WHERE u.id = ?1")
-    void changeUserStatus(Long id);
-
-
-
+    @Query("select u.blocked from User u" +
+            " where u.id = ?1")
+    Boolean isBlocked(Long id);
 }

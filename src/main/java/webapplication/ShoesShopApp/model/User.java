@@ -1,8 +1,7 @@
 package webapplication.ShoesShopApp.model;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "appuser", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -31,7 +30,7 @@ public class User {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
 
     private Boolean blocked;
@@ -105,6 +104,11 @@ public class User {
     public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
+
+    /*public void addRoles(Role role){
+        roles.add(role);
+        role.getUserList().add(this);
+    }*/
 
     @Override
     public String toString() {

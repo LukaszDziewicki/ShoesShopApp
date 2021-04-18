@@ -1,5 +1,7 @@
 package webapplication.ShoesShopApp.service.user;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,11 +18,14 @@ import webapplication.ShoesShopApp.repository.RoleRepository;
 import webapplication.ShoesShopApp.repository.UserRepository;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static Logger logger  = LogManager.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -69,22 +74,36 @@ public class UserServiceImpl implements UserService {
     public void delete(long id){ userRepository.deleteById(id); }
 
     @Transactional
-    public void changeUserStatus(long id, EditUserStatusDto editUserStatusDto){//shift f6
+    public void changeUserStatus(long id, EditUserStatusDto editUserStatusDto, UserRegistrationDto userRegistrationDto){//shift f6
         Optional<User> userOptional = userRepository.findById(id);
+        boolean isBlocked = userRepository.isBlocked(id);
         if(userOptional.isPresent()){
             User user = userOptional.get();
-            user.setBlocked(editUserStatusDto.isBlocked());
-            List<Role> roles = new LinkedList<>();
-            Role role = this.roleRepository.findByName(editUserStatusDto.getRole());
+
+            if(isBlocked){
+                user.setBlocked(false);
+            }
+           else {
+                user.setBlocked(true);
+            }
+           List<Role> roles = new ArrayList<>();
+          /*  user.addRoles(role);
+            logger.info(user.getRoles());
+            logger.info(new Role().getUserList());*/
+            Role role = roleRepository.findByName(editUserStatusDto.getRole());
             roles.add(role);
             user.setRoles(roles);
+           // user.setRoles(roles);
         }
+
         //przekazanie usera (email) z thymeleaf
         //zaaktualizowanie pola block
         //zapis
 
         //tak samo dla roli
     }
+
+
     public User getUserById(Long id){
         return userRepository.findById(id).get();
     }
