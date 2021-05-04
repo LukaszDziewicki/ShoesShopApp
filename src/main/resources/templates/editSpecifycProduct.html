@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Edit Product</title>
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
+</head>
+<body>
+<main>
+    <div th:include="navbar"></div>
+
+
+    <div class="card w-60">
+        <div class = "shadow-lg p-3 mb-5 bg-white rounded">
+
+            <div class="card-body" >
+                <h5 class="card-title">Add Product</h5>
+
+                <form action="#"  th:action="@{'/editSpecifycProduct/' + ${product.productId}}" th:object="${product}" method="post">
+
+                    <div>
+                        <label for="productNameInput">Name:</label>
+                    </div>
+
+                    <input th:field="${product.productName}" type="text" class="form-control"  required autofocus="autofocus"   id="productNameInput" aria-describedby="emailHelp"/>
+
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Amount:</label>
+
+                            <input th:field="${product.amount}" type="text" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect1"/>
+
+                    </div>
+
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Category:</label>
+                        <select th:field="${product.category}"  class="form-control" data-live-search="true" id="exampleFormControlSelect2">
+                            <option th:each="category : ${categoryList}"
+                                    th:value="${category.id}"
+                                    th:text="${category.categoryName}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Color:</label>
+                        <th:block th:each="color : ${colorList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
+                            <div>
+                                <input type = "checkbox" th:field="${product.colors}"
+                                       th:value="${color.colorID}"
+                                       th:text="${color.colorName}">
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Size:</label>
+                        <th:block th:each="size : ${sizeList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
+                            <div>
+                                <input type = "checkbox" th:field="${product.sizes}"
+                                       th:value="${size.sizeID}"
+                                       th:text="${size.value}"/>
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <label for="exampleFormControlSelect1">Price:</label>
+                    <input th:field="${product.price}" type="text" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect5"/>
+
+
+                    <button class="btn btn-primary" type="submit">Add product</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+</body>
+</html>
+

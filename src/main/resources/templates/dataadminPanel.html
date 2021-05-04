@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>DataAdminPanel</title>
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
+</head>
+<body>
+<main>
+    <div th:include="navbar"></div>
+
+    <div class="pos-center">
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="text-center">Product Name</th>
+                <th class="text-center">Ammount</th>
+                <th class="text-center">Size</th>
+                <th class="text-center">Color</th>
+                <th class="text-center">Category</th>
+                <th class="text-center" rowspan="2">Actions</th>
+                <th class="text-center">Edit Panel</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${productList}">
+                <th th:text="${product.productName}" class="text-center">Product Name</th>
+                <th th:text="${product.amount}" class="text-center">Ammount</th>
+                <th th:text="${product.sizes}" class="text-center">Size</th>
+                <th th:text="${product.colors}" class="text-center">Color</th>
+                <th th:text="${product.category}" class="text-center">Category</th>
+
+                <td>
+                    <a th:href="@{'/deleteProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: bold; color: red;">Delete</a>
+                </td>
+
+                <td>
+                    <a th:href="@{'/editSpecifycProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: 500; color: lightblue;">Edit</a>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <div class="container">
+            <div class="center">
+                <button type="button" class="btn btn-outline-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
+
