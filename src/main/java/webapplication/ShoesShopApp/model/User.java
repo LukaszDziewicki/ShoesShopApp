@@ -18,7 +18,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-
+    @Column(unique = true)
     private String email;
     private String password;
 
@@ -27,10 +27,19 @@ public class User {
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
+                    name = "user_id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles = new ArrayList<>();
+                    name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_address",
+            joinColumns =  @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn (
+                    name = "address_id", referencedColumnName = "address_id"))
+    private Set<Address> addresses = new HashSet<>();
 
 
     private Boolean blocked;
@@ -38,7 +47,7 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password,List<Role> roles, boolean blocked) {
+    public User(String firstName, String lastName, String email, String password,Set<Role> roles, boolean blocked) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,7 +56,6 @@ public class User {
         this.roles = roles;
         this.blocked = blocked;
     }
-
 
     public Long getId() {
         return id;
@@ -89,11 +97,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -105,10 +113,28 @@ public class User {
         this.blocked = blocked;
     }
 
-    /*public void addRoles(Role role){
-        roles.add(role);
-        role.getUserList().add(this);
-    }*/
+    public void addRole(Role role){
+        this.roles.add(role);
+        role.getUser().add(this);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUser().remove(this);
+    }
+
+    public void addAddress(Address address){
+        this.addresses.add(address);
+        address.getUsers().add(this);
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
 
     @Override
     public String toString() {

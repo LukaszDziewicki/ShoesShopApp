@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style_3.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+
+    <script>
+        var options =  {
+            'onKeyPress': function(cep, e, field, options){
+                var masks = ['00000', '0000Z'];
+                mask = (cep == '0000') ? masks[1] : masks[0];
+                $('#zipcode').mask(mask, options);
+            },
+            'clearIfNotMatch': true,
+            'translation': {
+                'Z': {
+                    pattern: /[1-9]/
+                }
+            }
+        };
+
+        $('#postalCode').mask("00-000", options);
+
+        $('#houseNumber').mask("000");
+
+    </script>
+
+
+    <title>Your Account Details</title>
+</head>
+<body>
+<main>
+    <div th:include="navbar"></div>
+
+    <div class="card">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+
+            <div class="card-body">
+                <h5 class="card-title">Your Account Details</h5>
+
+                <form th:action="@{/saveUserData}" th:object="${user}" method="post">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Incorrect old password!
+                        </div>
+                    </div>
+                    <div class="block">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" th:field="*{firstName}"
+                               required autofocus="autofocus" maxlength="25">
+                    </div>
+
+
+                    <div class="block">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" th:field="*{lastName}"
+                               required autofocus="autofocus" maxlength="25">
+                    </div>
+
+
+                    <div class="block">
+                        <label>Email </label>
+                        <input type="text" disabled="disabled" class="form-control" th:field="*{email}">
+                    </div>
+
+
+                    <div class="block">
+                        <label>Old Password</label>
+                        <input placeholder="Leave blank if you don't want to change password" name="oldPassword"
+                               type="password" class="form-control" minlength="8" maxlength="25">
+                    </div>
+
+
+                    <div class="block">
+                        <label>New Password </label>
+                        <input name="newPassword" type="password" class="form-control" minlength="8" maxlength="25">
+                    </div>
+
+                    <div class="block">
+                        <label>Assigned Roles </label>
+                        <input type="text" disabled="disabled" class="form-control" th:field="${user.roles}">
+                    </div>
+
+
+                    <div id="accordion">
+                        <h5 class="mb-0">
+                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                Add Your Shipping Address
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="block1">
+                        <label>Street</label>
+                        <input name="street" type="text" class="form-control" th:object="${address}" th:field="*{street}" maxlength="25">
+                        </div>
+
+
+                        <div class="block2">
+                        <label>House Number </label>
+                        <input name="houseNumber" type="text" class="form-control" th:object="${address}" th:field="*{houseNumber}" maxlength="3">
+                        </div>
+
+                        <div class="m-grid">
+                        <div class="block3">
+                        <label>Postal Code</label>
+                        <input name="postalCode" type="text" class="form-control"  th:object="${address}" th:field="*{postalCode}" >
+                        </div>
+
+                        <div class="block4">
+                        <label>City</label>
+                        <input name="city" type="text" class="form-control" th:object="${address}" th:field="*{city}" maxlength="25">
+                        </div>
+                        </div>
+
+                        <div class="block5">
+                        <label>Country</label>
+                        <input name="country" type="text" class="form-control" th:object="${address}" th:field="*{country}" maxlength="25">
+                        </div>
+
+                    </div>
+
+
+                    <!--                <div>-->
+                    <!--                    <label for="passwordInput">Name</label>-->
+                    <!--                </div>-->
+                    <!--                <input type="password" class="form-control"  th:object="${user}" th:field="*{password}" id="passwordInput">-->
+
+                    <div class="buttondiv">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <a href="/">
+                            <button class="btn btn-primary" type="button">Cancel</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

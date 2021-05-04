@@ -3,61 +3,65 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Privileges</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
 </head>
 <body>
 <main>
+    <div th:include="navbar"></div>
     <div class="pos-center">
-        <form action="#" th:action="@{'/changeUserStatus/'} + ${user.id}" th:object="${user}" method="get">
-        <style type="text/css">
-            .table {
-                margin: 0 auto;
-                width: 50%;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-        </style>
-        <div th:include="heading"></div>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th class="text-center">First Name</th>
-                <th class="text-center">Last Name</th>
-                <th class="text-center">Email</th>
-                <th class="text-center">Blocked</th>
-                <th class="text-center">Role</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td th:text="${user.firstName}">First Name</td>
-                <td th:text="${user.lastName}">Last Name</td>
-                <td th:text="${user.email}">Email</td>
-                <td>
-                    <select>
-                        <option th:value="'False'" th:text="${user.blocked}"></option>
-                        <option th:value="'True'" th:text="${!user.blocked}"></option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option th:value="'ROLE_ADMIN'" th:text="${user.roles}"></option>
-                        <option th:value="'ROLE_USER'" th:text="USER"></option>
-                        <option th:value="'ROLE_DATAADMIN'" th:text="DATAADMIN"></option>
-                    </select>
-                </td>
-            </tr>
 
-            </tbody>
-        </table>
-        <div class="container">
-            <div class="center">
-                <button type="submit" class="btn btn-outline-primary">Save</button>
+        <form action="#" th:action="@{'/changeUserStatus/'} + ${user.id}" th:object="${user}" method="get" style="text-align: center">
+
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="text-center">First Name</th>
+                    <th class="text-center">Last Name</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Block</th>
+                    <th class="text-center">Change Role</th>
+                    <th class="text-center">Role</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${user.firstName}">First Name</td>
+                    <td th:text="${user.lastName}">Last Name</td>
+                    <td th:text="${user.email}">Email</td>
+                    <td>
+                        <select th:field="*{blocked}">
+                            <option th:value="'True'" th:text="True"></option>
+                            <option th:value="'False'" th:text="False"></option>
+                        </select>
+                    </td>
+
+                    <td>
+                        <div class="form-group">
+                        <select th:field="${user.roles}" id="roles">
+                            <option th:each="role : ${roles}"
+                                    th:value="${role.id}"
+                                    th:text="${role}">
+                            </option>
+                        </select>
+                        </div>
+                    </td>
+                      <td>
+                        <span th:each="role,iterStat : ${user.roles}">
+                        <span th:text="${role}"/><th:block th:if="${!iterStat.last}">,</th:block>
+                        </span>
+                      </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="container">
+                <div class="center">
+                    <button type="submit" class="btn btn-outline-primary">Save</button>
+                </div>
             </div>
-        </div>
         </form>
-        <div th:include="footer"></div>
 
     </div>
 </main>

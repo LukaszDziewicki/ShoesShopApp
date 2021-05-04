@@ -1,0 +1,103 @@
+
+footer {
+    display: block;
+  }
+
+#body{
+background-color: aliceblue;
+}
+
+span{
+    color: white;
+    font:caption;
+}
+
+span:hover{
+    color: wheat;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+a{
+    color: white;
+    text-decoration: none;
+    }
+
+  p{
+      font-weight: 700;
+  }
+
+input[type=checkbox]:checked:before {
+    color:black;
+}
+
+
+
+.pos-center .table {
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-style: solid;
+    text-align: center;
+}
+
+.container .center{
+text-align: center;
+}
+
+/* card in Home page */
+.card {
+    width: 21.5em;
+    margin:0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.form-group {
+    position: relative;
+    font-family: Arial, serif;
+}
+.card .btn-primary{
+    margin-top: 10px;
+    margin-left: 80px;
+    width: 45%;
+}
+.card select, input {
+    margin-bottom: 10px;
+}
+.card label {
+    font-weight: bold;
+}
+/* end card*/
+
+
+
+
+/* table in editUserStatus */
+.table-bordered span{
+    color: green;
+    font:caption;
+    font-weight: bold;
+}
+
+.table-bordered span:hover{
+    color: wheat;
+}
+
+/* end table */
+
+
+
+
+/* section products */
+section.products{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+

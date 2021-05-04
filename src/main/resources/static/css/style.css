@@ -327,5 +327,42 @@
 			font-weight: bold;
 		}
 
+		/* -----------------style_2*/
 
 
+		footer {
+			display: block;
+		}
+
+		#body{
+			background-color: aliceblue;
+		}
+
+		span{
+			color: white;
+			font:caption;
+		}
+
+		span:hover{
+			color: wheat;
+		}
+
+		.nav {
+			display: flex;
+			flex-wrap: wrap;
+			padding-left: 0;
+			margin-bottom: 0;
+			list-style: none;
+		}
+		a{
+			color: white;
+			text-decoration: none;
+		}
+
+		p{
+			font-weight: 700;
+		}
+
+		input[type=checkbox]:checked:before {
+			color:black;
+		}

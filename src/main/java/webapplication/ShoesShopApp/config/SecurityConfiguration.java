@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import webapplication.ShoesShopApp.service.user.UserService;
+import webapplication.ShoesShopApp.service.user.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +22,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserServiceImpl();
+    }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -40,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -48,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/privileges").hasRole("ADMIN")
                 .antMatchers("/index").hasRole("USER")
-               // .antMatchers("/products").hasRole("DATAADMIN")
+                .antMatchers("/products").hasRole("DATAADMIN")
                 .and()
                 .httpBasic();
 

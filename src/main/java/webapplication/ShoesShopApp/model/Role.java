@@ -1,9 +1,7 @@
 package webapplication.ShoesShopApp.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,18 +11,19 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    @Column(name = "role_name")
+    private String roleName;
 
-    @ManyToMany
-    private List<User> userList = new ArrayList<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 
     public Role() {
 
     }
 
-    public Role(String name) {
+    public Role(String roleName) {
         super();
-        this.name = name;
+        this.roleName = roleName;
     }
 
     public Long getId() {
@@ -35,21 +34,34 @@ public class Role {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public Set<User> getUser() {
+        return users;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
+
+
+
+   /* public void addUser(User user){
+        this.users.add(user);
+        user.getRoles().add(this);
+    }
+
+    public void removeUser(User user) {
+        this.users.remove(user);
+        user.getRoles().remove(this);
+    }*/
+
 
     @Override
     public String toString() {
@@ -57,11 +69,11 @@ public class Role {
     }
 
     private String returnNameOfRole() {
-        if(name.equals("ROLE_USER"))
+        if(roleName.equals("ROLE_USER"))
             return "USER";
-        else if(name.equals("ROLE_ADMIN"))
+        else if(roleName.equals("ROLE_ADMIN"))
             return "ADMIN";
-        return "OTHERS";
+        return "DATA-ADMIN";
     }
 
 

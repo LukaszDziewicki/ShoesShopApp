@@ -2,32 +2,76 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style_2.css}" />
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
     <title>Products</title>
 </head>
 <body>
-<div align="center">
-    <h1>Add new product</h1>
-<form action="#" th:action="@{/saveProduct}" th:object="${product}" method="post">
-    <table border="0" cellpadding="10">
-    <div class="form-group">
-        <label class="control-label" for="name"> Name</label>
-        <input id="name" class="form-control" th:field="*{name}"
-               required autofocus="autofocus" maxlength="255"/>
-    </div>
+<main>
+    <div th:include="navbar"></div>
 
-    <div class="form-group">
-        <label class="control-label" for="amount"> Amount </label>
-        <input id="amount" class="form-control" th:field="*{amount}"
-               required autofocus="autofocus" maxlength="255"/>
-    </div>
-        <tr>
-            <td colspan="2">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </td>
-        </tr>
-    </table>
-</form>
-</div>
 
+    <div class="card w-60">
+        <div class = "shadow-lg p-3 mb-5 bg-white rounded">
+
+            <div class="card-body" >
+                <h5 class="card-title">Add Product</h5>
+                <form action="#" th:action="@{/product/save}" th:object="${product}" method="post">
+
+                    <div>
+                        <label for="productNameInput">Name:</label>
+                    </div>
+                    <input type="text" class="form-control"  required autofocus="autofocus"  th:object="${product}" th:field="*{productName}" id="productNameInput" aria-describedby="emailHelp">
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Amount:</label>
+                        <select class="form-control" th:object="${product}" th:field="*{amount}" data-live-search="true" id="exampleFormControlSelect1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+
+                            <div class="select">
+                                <label for="exampleFormControlSelect1">Category:</label>
+                                <select th:field="*{category}"  class="form-control" data-live-search="true" id="exampleFormControlSelect2">
+                                    <option th:each="category : ${categoryList}"
+                                            th:value="${category.id}"
+                                            th:text="${category.categoryName}">
+                                    </option>
+                                </select>
+                            </div>
+
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Color:</label>
+                        <th:block th:each="color : ${colorList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
+                            <div>
+                                <input type = "checkbox" th:field="*{colors}"
+                                       th:value="${color.colorID}"
+                                       th:text="${color.colorName}">
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Size:</label>
+                        <th:block th:each="size : ${sizeList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
+                           <div>
+                            <input type = "checkbox" th:field="*{sizes}"
+                                    th:value="${size.sizeID}"
+                                    th:text="${size.value}"/>
+                           </div>
+                        </th:block>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Add product</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
 </body>
 </html>

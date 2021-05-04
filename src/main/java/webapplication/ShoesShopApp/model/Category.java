@@ -2,50 +2,57 @@ package webapplication.ShoesShopApp.model;
 
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private Long categoryId;
-    private String name;
+    private Long id;
+    @Column(name = "category_name")
+    private String categoryName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
-    private List<Product> products;
+    @OneToMany( mappedBy = "category",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
 
-    public Category(Long categoryId, String name) {
-        this.categoryId = categoryId;
-        this.name = name;
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", name='" + name + '\'' +
-                ", products=" + products +
-                '}';
+    public Set<Product> getProducts() {
+        return products;
     }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Category{" +
+//                "id=" + id +
+//                ", categoryName='" + categoryName + '\'' +
+//                ", products=" + products +
+//                '}';
+//    }
 }

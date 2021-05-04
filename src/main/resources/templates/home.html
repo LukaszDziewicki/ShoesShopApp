@@ -1,21 +1,227 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>GUEST PANEL</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="@{/css/style_2.css}" rel="stylesheet" type="text/css">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
 </head>
 <body>
 <main>
     <div class="pos-center">
-        <div th:include="heading"></div>
 
-        <div id="author">
-            <center><h1>HOME</h1></center>
+        <div th:include="navbar"></div>
 
+
+        <!---------Navigation on site-------------->
+        <nav aria-label="breadcrumb" style="margin: 20px;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
+        <!-----------------End--------------------->
+
+
+        <!------------------------------------------- LEFT BAR------------------------------------------------------>
+        <a data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Filter Shoes</a>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filter Shoes</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body" style .p="font-weight: 500;">
+                <h5>
+                    SORT BY
+                </h5>
+
+                <select class="form-select" aria-label="Default select example" style="background-color: #e9e9e9; font-weight: 500;">
+                    <option value="default" selected>Default</option>
+                    <option value="from_cheapest">From the cheapest</option>
+                    <option value="from_expensive">From the most expensive</option>
+                    <option value="a_z">Alphabetically A-Z</option>
+                    <option value="from_latest">From the latest</option>
+                </select>
+
+                <br>
+                <br>
+                <br>
+                <h5>
+                    FILTER BY
+                </h5>
+
+                <div>
+                    <p>
+                        Color:
+                    </p>
+                    <div>
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: black; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: white; width: 40px; height: 40px;"><!-- czarny check-->
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: red; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: blue; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: lightblue; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: orange; width: 40px; height: 40px;">
+                        <br>
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: green; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: brown; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: purple; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: gray; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: pink; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: tan; width: 40px; height: 40px;">
+                        <br>
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: yellow; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: chocolate; width: 40px; height: 40px;">
+                        <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="..." style="background-color: burlywood; width: 40px; height: 40px;">
+                    </div>
+                </div>
+                <br>
+
+
+                <p>
+                    Size:
+                </p>
+                <div class="row">
+                    <div class="col">
+                        <div th:each="size : ${sizeList}">
+                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="...">
+                            <label class="form-check-label" th:for="inlineRadio2"><span th:text="${size.value}"> </span></label>
+                        </div>
+                        <br>
+                    </div>
+
+
+
+
+                    <p>
+                        Brand:
+                    </p>
+                    <div th:each="category : ${categoryList}">
+                        <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                        <label class="form-check-label" th:for="inlineRadio2"><span th:text="${category.categoryName}"> </span></label>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button type="button" class="btn btn-outline-dark">Show the result</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div th:include="footer"></div>
     </div>
+        <!------------------------------------------- END LEFT BAR------------------------------------------------------>
+
+
+
+        <!------------------------------------------- SHOE CARD------------------------------------------------------>
+<section class="products" style="display: flex; flex-wrap: wrap;">
+    <article th:each="product : ${productList}"  >
+        <div class="card" style="width: 15rem; margin: 30px; font-size:smaller;">
+
+            <!-------Carousel--------->
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/img/but.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/but.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/but.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <!-------End carousel-------->
+
+            <div class="card-body">
+                <h6 th:text="${product.productName}" class="card-title" style="font-size:small;"></h6>
+                <p th:text="${product.category.categoryName}" class="card-text"></p>
+
+                <hr>
+                <div >
+                    <p th:text="${product.colors}" class="card-text">Kolory</p>
+                    <p th:text="${product.sizes}" class="card-text">Rozmiar</p>
+                </div>
+                <p class="card-price">192$</p>
+
+                <a href="#" class="btn btn-primary stretched-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Go somewhere</a>
+
+
+
+
+
+
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </article>
+</section>
+       <!------------------------------------------ END CARD------------------------------------------------------------>
+
+
+
+
+        <footer>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
 </main>
 </body>
 </html>

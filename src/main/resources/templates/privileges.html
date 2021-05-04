@@ -3,20 +3,13 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Privileges</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
 </head>
 <body>
 <main>
+    <div th:include="navbar"></div>
+
     <div class="pos-center">
-        <style type="text/css">
-            .table {
-                margin: 0 auto;
-                width: 50%;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-        </style>
-        <div th:include="heading"></div>
 
         <table class="table table-bordered">
             <thead>
@@ -25,7 +18,7 @@
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
                 <th class="text-center" rowspan="2">Actions</th>
-                <th class="text-center">Blocked</th>
+                <th class="text-center">Edit Panel</th>
             </tr>
             </thead>
             <tbody>
@@ -35,23 +28,23 @@
                 <td th:text="${user.email}">Email</td>
 
                 <td>
-                    <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom">Delete</a>
+                    <a th:href="@{'/deleteUser/' + ${user.id}}" class="btn btn-custom" style="font-weight: bold; color: red;">Delete</a>
                 </td>
 
                 <td>
-                    <a th:href="@{'/editUserStatus/' + ${user.id}}" class="btn btn-custom">Edit</a>
+                    <a th:href="@{'/editUserStatus/' + ${user.id}}" class="btn btn-custom" style="font-weight: 500; color: lightblue;">Edit</a>
                 </td>
 
             </tr>
 
             </tbody>
         </table>
-        <div class="container">
+
+         <div class="container">
             <div class="center">
                 <button type="button" class="btn btn-outline-primary">Save</button>
             </div>
         </div>
-        <div th:include="footer"></div>
     </div>
 </main>
 </body>

@@ -1,18 +1,22 @@
 package webapplication.ShoesShopApp.model.dto;
 
 
+import webapplication.ShoesShopApp.model.Role;
+
+import java.util.Set;
+
 public class EditUserStatusDto {
 
-    private String role;
+    private Set<Role> roles;
     private boolean blocked; //shift ctrl strzałka w górę
 
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public boolean isBlocked() {

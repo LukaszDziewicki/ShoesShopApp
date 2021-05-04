@@ -6,34 +6,61 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long productId;
-    private String name;
+    @Column(name = "product_name")
+    private String productName;
     private int amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany//(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "product_sizes",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id")
+    )
+    private Set<Size> sizes = new HashSet<>();
+
+    @ManyToMany//(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "product_colors",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id")
+    )
+    private Set<Color> colors = new HashSet<>();
+
+    @ManyToOne//(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "category_id"
+    )
     private Category category;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            joinColumns = {@JoinColumn(name = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "attribute_id")}
-    )
-    private Set<Attribute> attributes = new HashSet<>();
+
+    public Set<Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(Set<Color> colors) {
+        this.colors = colors;
+    }
 
     public Product() {
     }
 
-    public Product( String name, int amount, Category category) {
-        this.name = name;
+    public Product(String productName, int amount) {
+        this.productName = productName;
         this.amount = amount;
-        this.category = category;
     }
 
+    public Set<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(Set<Size> sizes) {
+        this.sizes = sizes;
+    }
 
     public Long getProductId() {
         return productId;
@@ -43,12 +70,12 @@ public class Product {
         this.productId = productId;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getAmount() {
@@ -67,22 +94,15 @@ public class Product {
         this.category = category;
     }
 
-    public Set<Attribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Set<Attribute> attributes) {
-        this.attributes = attributes;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", name='" + name + '\'' +
+                ", productName='" + productName + '\'' +
                 ", amount=" + amount +
+                ", sizes=" + sizes +
+                ", colors=" + colors +
                 ", category=" + category +
-                ", attributes=" + attributes +
                 '}';
     }
 }
