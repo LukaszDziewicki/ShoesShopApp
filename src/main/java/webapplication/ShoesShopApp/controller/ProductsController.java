@@ -25,7 +25,6 @@ public class ProductsController {
     @Autowired
     private ProductServiceImpl productService;
 
-
     @Autowired
     private CategoryServiceImpl categoryServiceImpl;
 
@@ -44,33 +43,19 @@ public class ProductsController {
     @Autowired
     private ProductServiceImpl productServiceImpl;
 
-    public ProductsController(ProductServiceImpl productService, CategoryServiceImpl categoryServiceImpl) {
-        this.productService = productService;
-        this.categoryServiceImpl = categoryServiceImpl;
-    }
+    @GetMapping("/")
+    public String home(Model model){
+        List<Category> categoryList = categoryServiceImpl.listAll();
+        model.addAttribute("categoryList",categoryList);
+        List<Color> colorList = colorServiceImpl.listAll();
+        model.addAttribute("colorList",colorList);
+        List<Size> sizeList = sizeServiceImpl.listAll();
+        model.addAttribute("sizeList",sizeList);
 
-//    @RequestMapping("/product")
-//    public String newProduct(Model model) {
-//
-//        List<Size> sizeList = sizeServiceImpl.listAll();
-//        model.addAttribute("sizeList",sizeList);
-//
-////        List<Category> categoryList = categoryServiceImpl.listAll();
-////        model.addAttribute("categoryList",categoryList);
-//
-//        List<Color> colorList = colorServiceImpl.listAll();
-//        model.addAttribute("colorList",colorList);
-//
-//        Product product = new Product();
-//        Attribute attribute = new Attribute();
-//        Category category = new Category();
-//        Size size = new Size();
-//        model.addAttribute("attribute", attribute);
-//        model.addAttribute("product", product);
-//        model.addAttribute("category", category);
-//        model.addAttribute("size", size);
-//        return "product";
-//    }
+        List<Product> productList = productServiceImpl.listAll();
+        model.addAttribute("productList", productList);
+        return "home";
+    }
 
     @RequestMapping("/category")
     public String newCategory(Model model) {
@@ -78,8 +63,6 @@ public class ProductsController {
         model.addAttribute("category", category);
         return "category";
     }
-
-
 
     @GetMapping("/product")
     public String saveProduct(Model model){
@@ -101,17 +84,5 @@ public class ProductsController {
         return "redirect:/";
     }
 
-    @GetMapping("/")
-    public String home(Model model){
-        List<Category> categoryList = categoryServiceImpl.listAll();
-        model.addAttribute("categoryList",categoryList);
-        List<Color> colorList = colorServiceImpl.listAll();
-        model.addAttribute("colorList",colorList);
-        List<Size> sizeList = sizeServiceImpl.listAll();
-        model.addAttribute("sizeList",sizeList);
 
-        List<Product> productList = productServiceImpl.listAll();
-        model.addAttribute("productList", productList);
-        return "home";
-    }
 }

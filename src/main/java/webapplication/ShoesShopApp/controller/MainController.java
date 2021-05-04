@@ -2,6 +2,7 @@ package webapplication.ShoesShopApp.web;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,18 +24,17 @@ import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Autowired
     private UserServiceImpl userServiceImpl;
+
+    @Autowired
     private ProductServiceImpl productServiceImpl;
+
+    @Autowired
     private RoleServiceImpl roleServiceImpl;
 
     private static Logger logger = LogManager.getLogger(MainController.class);
-
-    public MainController(UserServiceImpl userServiceImpl, ProductServiceImpl productService, RoleServiceImpl roleService) {
-        this.userServiceImpl = userServiceImpl;
-        this.productServiceImpl = productService;
-        this.roleServiceImpl = roleService;
-    }
-
 
 
     @RequestMapping("/login")
@@ -73,23 +73,6 @@ public class MainController {
         userServiceImpl.changeUserStatus(id, editUserStatusDto);
         return "privileges";
     }
-
-
-/*
-    @GetMapping("/changeUserStatus/{id}")
-    public String changeUserStatus(
-            @PathVariable(name = "id") long id,
-            @Valid Role role,
-            BindingResult result,
-            Model model){
-        if (result.hasErrors()){
-            role.setId(id);
-            return "privileges";
-        }
-        roleService.save(role);
-        return "privileges";
-    }
-    */
 
 
     @GetMapping("/editUserStatus")

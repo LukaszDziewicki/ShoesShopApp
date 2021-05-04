@@ -91,13 +91,9 @@ public class UserServiceImpl implements UserService, UserDetails {
             User user = userOptional.get();
             user.setBlocked(editUserStatusDto.isBlocked());
 
-
             Role role = roleRepository.findById(id);
             user.setRoles(editUserStatusDto.getRoles());
-//            user.addRole(role);
-//            role.setName(editUserStatusDto.getRole());
         }
-
     }
 
     public User getUserById(Long id) {

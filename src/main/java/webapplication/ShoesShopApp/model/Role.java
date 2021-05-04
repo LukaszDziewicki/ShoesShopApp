@@ -50,19 +50,6 @@ public class Role {
         return roleName;
     }
 
-
-
-   /* public void addUser(User user){
-        this.users.add(user);
-        user.getRoles().add(this);
-    }
-
-    public void removeUser(User user) {
-        this.users.remove(user);
-        user.getRoles().remove(this);
-    }*/
-
-
     @Override
     public String toString() {
        return returnNameOfRole();

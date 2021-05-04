@@ -15,9 +15,6 @@ public class ProductServiceImpl{
     @Autowired
     private ProductRepository productRepository;
 
-    //TODO
-    // private ModelMapper modelMapper;
-
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }

@@ -1,5 +1,6 @@
 package webapplication.ShoesShopApp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private UserEmailRepository userEmailRepository;
 
-
-    public UserRegistrationController(UserService userService, UserEmailRepository userEmailRepository) {
-        super();
-        this.userService = userService;
-        this.userEmailRepository = userEmailRepository;
-    }
 
     @ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {

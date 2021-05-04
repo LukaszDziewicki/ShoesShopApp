@@ -21,10 +21,6 @@ public class UserController {
     @Autowired
     private AddressServiceImpl addressServiceImpl;
 
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
     @GetMapping("/userPanel")
     public String userPanel(Model model, Principal principal) {
         String email = principal.getName();
