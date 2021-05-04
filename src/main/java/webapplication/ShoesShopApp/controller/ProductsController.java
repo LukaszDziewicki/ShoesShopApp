@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import webapplication.ShoesShopApp.model.Category;
@@ -82,6 +83,43 @@ public class ProductsController {
     public String saveProduct(Product product){
         productRepository.save(product);
         return "redirect:/";
+    }
+
+    @GetMapping("/editSpecifycProduct/{id}")
+    public String editUserStatus(@PathVariable(name = "id") long id, Model model){
+
+        Product product = productServiceImpl.getProductById(id);
+        List<Category> categoryList = categoryServiceImpl.listAll();
+        List<Size> sizeList = sizeServiceImpl.listAll();
+        List<Color> colorList = colorServiceImpl.listAll();
+
+        model.addAttribute("product",product);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("sizeList",sizeList);
+        model.addAttribute("colorList",colorList);
+
+        return "editSpecifycProduct";
+    }
+
+    @GetMapping("/dataadminPanel")
+    public String dataadminPanel(Model model){
+
+        List<Category> categoryList = categoryServiceImpl.listAll();
+        List<Color> colorList = colorServiceImpl.listAll();
+        List<Size> sizeList = sizeServiceImpl.listAll();
+        List<Product> productList = productServiceImpl.listAll();
+
+        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("colorList",colorList);
+        model.addAttribute("sizeList",sizeList);
+        model.addAttribute("productList", productList);
+        return "dataadminPanel";
+    }
+
+    @GetMapping("/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable(name = "id") long id){
+        productService.delete(id);
+        return "redirect:/dataadminPanel";
     }
 
 

@@ -28,11 +28,14 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     }
 
 
-
     @Override
     public void run(String... args) throws Exception {
 
+       // start();
 
+    }
+
+    public void start() {
         categoryRepository.save(new Category("Converse"));
         categoryRepository.save(new Category("Nike"));
         categoryRepository.save(new Category("Adidas"));

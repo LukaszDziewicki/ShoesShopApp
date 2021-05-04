@@ -2,6 +2,7 @@ package webapplication.ShoesShopApp.model;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class Product {
     @Column(name = "product_name")
     private String productName;
     private int amount;
+    private BigDecimal price;
 
     @ManyToMany//(cascade = CascadeType.PERSIST)
     @JoinTable(
@@ -49,9 +51,24 @@ public class Product {
     public Product() {
     }
 
+
+    public Product(String productName, int amount, BigDecimal price) {
+        this.productName = productName;
+        this.amount = amount;
+        this.price = price;
+    }
+
     public Product(String productName, int amount) {
         this.productName = productName;
         this.amount = amount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Set<Size> getSizes() {
@@ -100,9 +117,10 @@ public class Product {
                 "productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", amount=" + amount +
-                ", sizes=" + sizes +
-                ", colors=" + colors +
-                ", category=" + category +
+                ", price=" + price +
+                ", sizes=" + sizes.toString() +
+                ", colors=" + colors.toString() +
+                ", category=" + category.toString() +
                 '}';
     }
 }

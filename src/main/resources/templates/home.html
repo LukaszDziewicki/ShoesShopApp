@@ -167,7 +167,7 @@
                     <p th:text="${product.colors}" class="card-text">Kolory</p>
                     <p th:text="${product.sizes}" class="card-text">Rozmiar</p>
                 </div>
-                <p class="card-price">192$</p>
+                <p th:text="${product.price} +'$'" class="card-price"></p>
 
                 <a href="#" class="btn btn-primary stretched-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Go somewhere</a>
 

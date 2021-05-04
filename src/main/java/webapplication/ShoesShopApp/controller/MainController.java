@@ -1,4 +1,4 @@
-package webapplication.ShoesShopApp.web;
+package webapplication.ShoesShopApp.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,8 +28,6 @@ public class MainController {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    @Autowired
-    private ProductServiceImpl productServiceImpl;
 
     @Autowired
     private RoleServiceImpl roleServiceImpl;
@@ -47,10 +45,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/newarticle")
-    public String newArticle(){
-        return "newarticle";
-    }
 
     @GetMapping("/privileges")
     public String privileges(Model model){
@@ -62,7 +56,7 @@ public class MainController {
     @GetMapping("/deleteUser/{id}")
     public String delUser(@PathVariable(name = "id") int id){
         userServiceImpl.delete(id);
-        return "privileges";
+        return "redirect:/privileges";
     }
 
     @GetMapping("/changeUserStatus/{id}")
@@ -71,7 +65,7 @@ public class MainController {
             @Valid @ModelAttribute("userStatus") EditUserStatusDto editUserStatusDto,
             BindingResult result){
         userServiceImpl.changeUserStatus(id, editUserStatusDto);
-        return "privileges";
+        return "redirect:/privileges";
     }
 
 

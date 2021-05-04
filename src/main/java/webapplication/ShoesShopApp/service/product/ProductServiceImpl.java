@@ -10,10 +10,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ProductServiceImpl{
+public class ProductServiceImpl {
 
     @Autowired
     private ProductRepository productRepository;
+
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -23,8 +24,16 @@ public class ProductServiceImpl{
         productRepository.save(product);
     }
 
-    public List<Product> listAll(){
+    public List<Product> listAll() {
         return productRepository.findAll();
+    }
+
+    public void delete(long id) {
+        productRepository.deleteById(id);
+    }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).get();
     }
 
 }

@@ -33,15 +33,15 @@
                         </select>
                     </div>
 
-                            <div class="select">
-                                <label for="exampleFormControlSelect1">Category:</label>
-                                <select th:field="*{category}"  class="form-control" data-live-search="true" id="exampleFormControlSelect2">
-                                    <option th:each="category : ${categoryList}"
-                                            th:value="${category.id}"
-                                            th:text="${category.categoryName}">
-                                    </option>
-                                </select>
-                            </div>
+                    <div class="select">
+                        <label for="exampleFormControlSelect1">Category:</label>
+                        <select th:field="*{category}"  class="form-control" data-live-search="true" id="exampleFormControlSelect2">
+                            <option th:each="category : ${categoryList}"
+                                    th:value="${category.id}"
+                                    th:text="${category.categoryName}">
+                            </option>
+                        </select>
+                    </div>
 
                     <div class="select">
                         <label for="exampleFormControlSelect1">Color:</label>
@@ -57,14 +57,15 @@
                     <div class="select">
                         <label for="exampleFormControlSelect1">Size:</label>
                         <th:block th:each="size : ${sizeList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
-                           <div>
-                            <input type = "checkbox" th:field="*{sizes}"
-                                    th:value="${size.sizeID}"
-                                    th:text="${size.value}"/>
-                           </div>
+                            <div>
+                                <input type = "checkbox" th:field="*{sizes}"
+                                       th:value="${size.sizeID}"
+                                       th:text="${size.value}"/>
+                            </div>
                         </th:block>
                     </div>
-
+                    <label for="exampleFormControlSelect1">Price:</label>
+                    <input type="text" class="form-control"  required autofocus="autofocus"  th:object="${product}" th:field="*{price}" id="exampleFormControlSelect5" >
                     <button class="btn btn-primary" type="submit">Add product</button>
 
                 </form>

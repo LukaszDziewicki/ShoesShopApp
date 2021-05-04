@@ -50,6 +50,6 @@ public class Color {
 
     @Override
     public String toString() {
-        return colorName.replace("[","").replace("]","");
+        return colorName;
     }
 }
