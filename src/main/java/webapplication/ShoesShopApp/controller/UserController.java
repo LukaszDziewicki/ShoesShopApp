@@ -25,7 +25,7 @@ public class UserController {
     public String userPanel(Model model, Principal principal) {
         String email = principal.getName();
         model.addAttribute("user", userService.getByEmail(email));
-        model.addAttribute("address", new Address());
+        model.addAllAttributes(addressServiceImpl.getAddresses());
         return "userPanel";
     }
 
@@ -33,19 +33,31 @@ public class UserController {
     @RequestMapping(value = "/saveUserData", method = RequestMethod.POST)
     public String saveUserData(@ModelAttribute("user") UserRegistrationDto userReg, Principal principal,
                                @RequestParam("oldPassword") String oldPassword,
-                               @RequestParam("newPassword") String newPassword,
-                               @ModelAttribute("address") Address address) {
+                               @RequestParam("newPassword") String newPassword
+            /*@ModelAttribute("address") Address address*/) {
         String email = principal.getName();
         Optional<User> optionalUser = userService.getByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setFirstName(userReg.getFirstName());
             user.setLastName(userReg.getLastName());
-            user.addAddress(address);
-            addressServiceImpl.save(address);
+//            user.addAddress(address);
+//            addressServiceImpl.save(address);
             userService.changeUserPassword(oldPassword, newPassword, principal);
             userService.saveUserData(user);
         }
         return "redirect:/userPanel";
     }
+
+    @RequestMapping(value = "/saveUserAddress", method = RequestMethod.POST)
+    public String saveUserAddress(@ModelAttribute("address") Address address, Principal principal) {
+        String email = principal.getName();
+        Optional<User> optionalUser = userService.getByEmail(email);
+        User user = optionalUser.orElseThrow(() -> new IllegalStateException("User doesn't exist"));
+        user.addAddress(address);
+        addressServiceImpl.save(address);
+
+        return "redirect:/userPanel";
+    }
+
 }

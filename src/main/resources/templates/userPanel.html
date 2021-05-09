@@ -37,7 +37,37 @@
 
         $('#houseNumber').mask("000");
 
+        $(function () {
+            $('#city').keydown(function (e) {
+                if (e.shiftKey || e.ctrlKey || e.altKey) {
+                    e.preventDefault();
+                } else {
+                    var key = e.keyCode;
+                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+                        e.preventDefault();
+                    }
+                }
+            });
+        });
+        $(function () {
+            $('#country').keydown(function (e) {
+                if (e.shiftKey || e.ctrlKey || e.altKey) {
+                    e.preventDefault();
+                } else {
+                    var key = e.keyCode;
+                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+                        e.preventDefault();
+                    }
+                }
+            });
+        });
     </script>
+
+
+
+
+
+
 
 
     <title>Your Account Details</title>
@@ -80,65 +110,19 @@
                     <div class="block">
                         <label>Old Password</label>
                         <input placeholder="Leave blank if you don't want to change password" name="oldPassword"
-                               type="password" class="form-control" minlength="8" maxlength="25">
+                               required autofocus="autofocus"   type="password" class="form-control" minlength="8" maxlength="25">
                     </div>
 
 
                     <div class="block">
                         <label>New Password </label>
-                        <input name="newPassword" type="password" class="form-control" minlength="8" maxlength="25">
+                        <input name="newPassword" required autofocus="autofocus" type="password" class="form-control"    minlength="8" maxlength="25">
                     </div>
 
                     <div class="block">
                         <label>Assigned Roles </label>
                         <input type="text" disabled="disabled" class="form-control" th:field="${user.roles}">
                     </div>
-
-
-                    <div id="accordion">
-                        <h5 class="mb-0">
-                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                                Add Your Shipping Address
-                            </a>
-                        </h5>
-                    </div>
-
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="block1">
-                        <label>Street</label>
-                        <input name="street" type="text" class="form-control" th:object="${address}" th:field="*{street}" maxlength="25">
-                        </div>
-
-
-                        <div class="block2">
-                        <label>House Number </label>
-                        <input name="houseNumber" type="text" class="form-control" th:object="${address}" th:field="*{houseNumber}" maxlength="3">
-                        </div>
-
-                        <div class="m-grid">
-                        <div class="block3">
-                        <label>Postal Code</label>
-                        <input name="postalCode" type="text" class="form-control"  th:object="${address}" th:field="*{postalCode}" >
-                        </div>
-
-                        <div class="block4">
-                        <label>City</label>
-                        <input name="city" type="text" class="form-control" th:object="${address}" th:field="*{city}" maxlength="25">
-                        </div>
-                        </div>
-
-                        <div class="block5">
-                        <label>Country</label>
-                        <input name="country" type="text" class="form-control" th:object="${address}" th:field="*{country}" maxlength="25">
-                        </div>
-
-                    </div>
-
-
-                    <!--                <div>-->
-                    <!--                    <label for="passwordInput">Name</label>-->
-                    <!--                </div>-->
-                    <!--                <input type="password" class="form-control"  th:object="${user}" th:field="*{password}" id="passwordInput">-->
 
                     <div class="buttondiv">
                         <button class="btn btn-primary" type="submit">Save</button>
@@ -148,8 +132,61 @@
                     </div>
                 </form>
             </div>
+                    <div id="accordion">
+                        <h5 class="mb-0">
+                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                Add Your Shipping Address
+                            </a>
+                        </h5>
+                    </div>
+                    <form th:action="@{/saveUserAddress}" th:object="${address}" method="post">
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="block1">
+                        <label>Street</label>
+                        <input name="street" required autofocus="autofocus" type="text" class="form-control" th:object="${address}" th:field="*{street}" maxlength="25">
+                        </div>
+
+
+                        <div class="block2">
+                        <label>House Number </label>
+                        <input name="houseNumber" required autofocus="autofocus" type="text" class="form-control" th:object="${address}" th:field="*{houseNumber}" maxlength="3">
+                        </div>
+
+                        <div class="m-grid">
+                        <div class="block3">
+                        <label>Postal Code</label>
+                        <input name="postalCode"  required autofocus="autofocus" type="text" class="form-control"  th:object="${address}" th:field="*{postalCode}" >
+                        </div>
+
+                        <div class="block4">
+                        <label>City</label>
+                        <input   name="city"  required autofocus="autofocus" type="text" class="form-control" th:object="${address}" th:field="*{city}" maxlength="25">
+                        </div>
+                        </div>
+
+                        <div class="block5">
+                        <label>Country</label>
+                        <input   name="country" required autofocus="autofocus" type="text" class="form-control" th:object="${address}" th:field="*{country}" maxlength="25">
+                        </div>
+
+                        <div class="buttondiv">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                            <a href="/">
+                                <button class="btn btn-primary" type="button">Cancel</button>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!--                <div>-->
+                    <!--                    <label for="passwordInput">Name</label>-->
+                    <!--                </div>-->
+                    <!--                <input type="password" class="form-control"  th:object="${user}" th:field="*{password}" id="passwordInput">-->
+
+
+                    </form>
+            </div>
         </div>
-    </div>
 </main>
 </body>
 </html>

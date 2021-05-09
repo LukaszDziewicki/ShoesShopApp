@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Product {
+public class Product implements Comparable<Product>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -122,5 +122,10 @@ public class Product {
                 ", colors=" + colors.toString() +
                 ", category=" + category.toString() +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return 0;
     }
 }

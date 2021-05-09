@@ -1,5 +1,5 @@
 .card {
-    width: 40rem;;
+    width: 30rem;;
     margin:0 auto;
     margin-top: 100px;
     margin-bottom: 100px;
@@ -10,7 +10,7 @@
 }
 .card .btn-primary{
     margin-top: 30px;
-    width: 15%;
+    width: 19%;
 }
 .buttondiv {
     text-align: center;
@@ -22,6 +22,11 @@
     font-weight: bold;
     text-align: center;
 }
+ .checkoboxesContainer .checkoboxes {
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: row;
+}
 
 .card h5 {
     text-align: center;
@@ -30,7 +35,7 @@
     font-weight: bold;
 }
 .block3 input {
-    width: 110px;
+    width: 145px;
 }
 .block4 input {
     width:250px;
@@ -42,3 +47,7 @@
 .m-grid {
     display: flex;
 }
+
+
+
+

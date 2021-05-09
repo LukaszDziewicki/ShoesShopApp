@@ -2,9 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/style_2.css}" />
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
     <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
-    <title>Products</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script><title>Products</title>
+
+    <script>
+    </script>
+
 </head>
 <body>
 <main>
@@ -12,30 +23,31 @@
 
 
     <div class="card w-60">
-        <div class = "shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
 
-            <div class="card-body" >
+            <div class="card-body">
                 <h5 class="card-title">Add Product</h5>
                 <form action="#" th:action="@{/product/save}" th:object="${product}" method="post">
 
                     <div>
                         <label for="productNameInput">Name:</label>
                     </div>
-                    <input type="text" class="form-control"  required autofocus="autofocus"  th:object="${product}" th:field="*{productName}" id="productNameInput" aria-describedby="emailHelp">
+                    <div class="select">
+                    <input type="text" name="name" class="form-control" required autofocus="autofocus"
+                           th:object="${product}" th:field="*{productName}" id="productNameInput" maxlength="15">
+                    </div>
+
                     <div class="select">
                         <label for="exampleFormControlSelect1">Amount:</label>
-                        <select class="form-control" th:object="${product}" th:field="*{amount}" data-live-search="true" id="exampleFormControlSelect1">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                        <input type="number"
+                               name="amount" th:field="${product.amount}"  class="form-control" required
+                                id="exampleFormControlSelect1"/>
                     </div>
 
                     <div class="select">
                         <label for="exampleFormControlSelect1">Category:</label>
-                        <select th:field="*{category}"  class="form-control" data-live-search="true" id="exampleFormControlSelect2">
+                        <select th:field="*{category}" class="form-control" data-live-search="true"
+                                id="exampleFormControlSelect2">
                             <option th:each="category : ${categoryList}"
                                     th:value="${category.id}"
                                     th:text="${category.categoryName}">
@@ -45,9 +57,10 @@
 
                     <div class="select">
                         <label for="exampleFormControlSelect1">Color:</label>
-                        <th:block th:each="color : ${colorList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
+                        <th:block th:each="color : ${colorList}" class="form-control" data-live-search="true"
+                                  id="exampleFormControlSelect4">
                             <div>
-                                <input type = "checkbox" th:field="*{colors}"
+                                <input type="checkbox" th:field="*{colors}"
                                        th:value="${color.colorID}"
                                        th:text="${color.colorName}">
                             </div>
@@ -56,18 +69,21 @@
 
                     <div class="select">
                         <label for="exampleFormControlSelect1">Size:</label>
-                        <th:block th:each="size : ${sizeList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
+                        <th:block th:each="size : ${sizeList}" class="form-control" data-live-search="true"
+                                  id="exampleFormControlSelect4">
                             <div>
-                                <input type = "checkbox" th:field="*{sizes}"
+                                <input type="checkbox" th:field="*{sizes}"
                                        th:value="${size.sizeID}"
                                        th:text="${size.value}"/>
                             </div>
                         </th:block>
                     </div>
+                    <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
-                    <input type="text" class="form-control"  required autofocus="autofocus"  th:object="${product}" th:field="*{price}" id="exampleFormControlSelect5" >
+                    <input name="productPrice" type="number" class="form-control" required autofocus="autofocus"
+                        min="1" step=".01"   th:object="${product}" th:field="*{price}" id="exampleFormControlSelect5">
                     <button class="btn btn-primary" type="submit">Add product</button>
-
+                    </div>
                 </form>
             </div>
         </div>

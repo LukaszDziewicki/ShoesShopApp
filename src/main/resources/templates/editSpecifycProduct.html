@@ -22,7 +22,9 @@
                         <label for="productNameInput">Name:</label>
                     </div>
 
+                    <div class="select">
                     <input th:field="${product.productName}" type="text" class="form-control"  required autofocus="autofocus"   id="productNameInput" aria-describedby="emailHelp"/>
+                    </div>
 
                     <div class="select">
                         <label for="exampleFormControlSelect1">Amount:</label>
@@ -63,9 +65,10 @@
                         </th:block>
                     </div>
 
+                    <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
                     <input th:field="${product.price}" type="text" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect5"/>
-
+                    </div>
 
                     <button class="btn btn-primary" type="submit">Add product</button>
 

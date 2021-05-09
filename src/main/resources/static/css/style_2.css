@@ -100,4 +100,15 @@ section.products{
     flex-wrap: wrap;
 }
 
+.select {
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: row;
+}
+
+.select input {
+    text-align: center;
+    margin: 4px;
+}
+
 

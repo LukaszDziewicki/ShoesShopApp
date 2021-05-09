@@ -122,5 +122,26 @@ public class ProductsController {
         return "redirect:/dataadminPanel";
     }
 
+    @GetMapping("/asc")
+    public String asc(Model model) {
+        List<Product> productList = productServiceImpl.getAscList();
+        model.addAttribute("productList", productList);
+        return "home";
+    }
+
+    @GetMapping("/desc")
+    public String desc(Model model) {
+        List<Product> productList = productServiceImpl.getDescList();
+        model.addAttribute("productList", productList);
+        return "home";
+    }
+    @GetMapping("/alphabetically")
+    public String alphabetically(Model model) {
+        List<Product> productList = productServiceImpl.getAlphabeticallySortedList();
+        model.addAttribute("productList", productList);
+        return "home";
+    }
+
+
 
 }
