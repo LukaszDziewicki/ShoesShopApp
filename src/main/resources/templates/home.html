@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -59,6 +60,7 @@
                     FILTER BY
                 </h5>
 
+                <form action="#" th:action="@{/filterProducts}" th:object="${product}" method="get" style="text-align: center">
                 <div class="checkoboxesContainer">
                     <p>
                         Color:
@@ -91,7 +93,7 @@
                 </p>
                 <div class="row">
                     <div class="col">
-                        <div th:each="size : ${sizeList}">
+                        <div th:each="size : ${sizeList}" style="display: flex; flex-wrap: wrap;" >
                             <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" value="" aria-label="...">
                             <label class="form-check-label" th:for="inlineRadio2"><span th:text="${size.value}"> </span></label>
                         </div>
@@ -104,7 +106,7 @@
                     <p>
                         Brand:
                     </p>
-                    <div th:each="category : ${categoryList}">
+                    <div th:each="category : ${categoryList}" style="display: flex; flex-wrap: wrap;" >
                         <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
                         <label class="form-check-label" th:for="inlineRadio2"><span th:text="${category.categoryName}"> </span></label>
                     </div>
@@ -113,8 +115,11 @@
 
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="button" class="btn btn-outline-dark">Show the result</button>
+                        <a th:href="@{/filterProducts}" class="btn btn-custom" style="font-weight: bold; color: red;">Filter</a>
                     </div>
                 </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -173,6 +178,7 @@
                     <p th:text="${product.sizes}" class="card-text">Rozmiar</p>
                 </div>
                 <p th:text="${product.amount} " class="card-price"></p>
+                <p th:text="${product.price} " class="card-price"></p>
 
                 <a href="#" class="btn btn-primary stretched-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Go somewhere</a>
 

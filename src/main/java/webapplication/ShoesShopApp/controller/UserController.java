@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import webapplication.ShoesShopApp.model.Address;
-import webapplication.ShoesShopApp.model.User;
+import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.UserRegistrationDto;
 import webapplication.ShoesShopApp.service.address.AddressServiceImpl;
+import webapplication.ShoesShopApp.service.category.CategoryServiceImpl;
+import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
+import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
+import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 import webapplication.ShoesShopApp.service.user.UserServiceImpl;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,6 +24,14 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private AddressServiceImpl addressServiceImpl;
+    @Autowired
+    private CategoryServiceImpl categoryServiceImpl;
+    @Autowired
+    private ColorServiceImpl colorServiceImpl;
+    @Autowired
+    private SizeServiceImpl sizeServiceImpl;
+    @Autowired
+    private ProductServiceImpl productServiceImpl;
 
     @GetMapping("/userPanel")
     public String userPanel(Model model, Principal principal) {
@@ -27,6 +39,21 @@ public class UserController {
         model.addAttribute("user", userService.getByEmail(email));
         model.addAllAttributes(addressServiceImpl.getAddresses());
         return "userPanel";
+    }
+
+    @GetMapping("/dataadminPanel")
+    public String dataadminPanel(Model model) {
+
+        List<Category> categoryList = categoryServiceImpl.listAll();
+        List<Color> colorList = colorServiceImpl.listAll();
+        List<Size> sizeList = sizeServiceImpl.listAll();
+        List<Product> productList = productServiceImpl.listAll();
+
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("productList", productList);
+        return "dataadminPanel";
     }
 
 

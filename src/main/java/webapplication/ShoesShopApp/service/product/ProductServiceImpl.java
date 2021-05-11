@@ -68,6 +68,17 @@ public class ProductServiceImpl {
 
     }
 
+    public List<Product> getFilteredByCategory(String categoryName){
+        List<Product> productList = productRepository.filterByCategory(categoryName);
+        return productList;
+    }
+
+    public List<Product> getFilteredBySize(Size size){
+        List<Product> productList = productRepository.filterBySize(size);
+        return productList;
+    }
+
+
    /* public boolean checkIfProductExist(int i, List<Product> productList) {
 
 
