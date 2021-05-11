@@ -123,9 +123,13 @@
 
 
         <!------------------------------------------- SHOE CARD------------------------------------------------------>
-<section class="products" style="display: flex; flex-wrap: wrap;">
+    <div class="sectionContainer">
+<section class="products" style="display: flex; flex-wrap: wrap;  margin-top: 3%; background-color: #e9e9e9">
+
+
     <article th:each="product : ${productList}"  >
-        <div class="card" style="width: 15rem; margin: 30px; font-size:smaller;">
+        <div class="card" style="width: 13rem; margin: 35px; font-size:smaller;">
+
 
             <!-------Carousel--------->
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -156,6 +160,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+
             <!-------End carousel-------->
 
             <div class="card-body">
@@ -167,7 +172,7 @@
                     <p th:text="${product.colors}" class="card-text">Kolory</p>
                     <p th:text="${product.sizes}" class="card-text">Rozmiar</p>
                 </div>
-                <p th:text="${product.price} +'$'" class="card-price"></p>
+                <p th:text="${product.amount} " class="card-price"></p>
 
                 <a href="#" class="btn btn-primary stretched-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Go somewhere</a>
 
@@ -222,6 +227,7 @@
                 </ul>
             </nav>
         </footer>
+    </div>
 </main>
 </body>
 </html>

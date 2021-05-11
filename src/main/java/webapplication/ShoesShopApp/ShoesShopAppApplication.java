@@ -31,7 +31,7 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-       // start();
+       start();
 
     }
 
