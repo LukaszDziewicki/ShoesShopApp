@@ -32,7 +32,6 @@ public class MainController {
     @Autowired
     private RoleServiceImpl roleServiceImpl;
 
-    private static Logger logger = LogManager.getLogger(MainController.class);
 
 
     @RequestMapping("/login")
@@ -84,6 +83,11 @@ public class MainController {
         modelAndView.addObject("user",user);
         model.addAttribute("roles", roles);
         return modelAndView;
+    }
+
+    @GetMapping("/returnsAndExchanges")
+    public String returnsEndExchanges() {
+        return "returnsAndExchanges";
     }
 
 

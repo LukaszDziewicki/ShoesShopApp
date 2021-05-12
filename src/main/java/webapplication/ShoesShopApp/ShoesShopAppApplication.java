@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.repository.*;
 
+import java.math.BigDecimal;
+import java.util.Set;
+
 @SpringBootApplication
 public class ShoesShopAppApplication implements CommandLineRunner {
 
@@ -31,11 +34,13 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-       start();
+//       start();
 
     }
 
     public void start() {
+
+
         categoryRepository.save(new Category("Converse"));
         categoryRepository.save(new Category("Nike"));
         categoryRepository.save(new Category("Adidas"));
@@ -84,6 +89,9 @@ public class ShoesShopAppApplication implements CommandLineRunner {
         colorRepository.save(new Color("Tan"));
         colorRepository.save(new Color("Chocolate"));
         colorRepository.save(new Color("Burlywood"));
+
+
+
 
         roleRepository.save(new Role("ROLE_ADMIN"));
         roleRepository.save(new Role("ROLE_USER"));

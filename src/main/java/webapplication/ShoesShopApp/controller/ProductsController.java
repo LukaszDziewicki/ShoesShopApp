@@ -20,7 +20,6 @@ import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -57,13 +56,13 @@ public class ProductsController {
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Category> categoryList = categoryServiceImpl.listAll();
 
-        model.addAttribute("sizeList", sizeList );
-        model.addAttribute("categoryList", categoryList );
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("categoryList", categoryList);
 
 
         List<Product> productList = productServiceImpl.listAll();
 
-       // productServiceImpl.addAmountAndSetSizes(productList);
+        // productServiceImpl.addAmountAndSetSizes(productList);
         for (int i = 0; i < productList.size(); i++) {
 
             for (int j = i + 1; j < productList.size(); j++) {
@@ -78,21 +77,20 @@ public class ProductsController {
                     productList.remove(j);
                     j--;
 
-                }
-                    else if(productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
+                } else if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
                         productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
                         productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
                         productList.get(i).getColors().equals(productList.get(j).getColors()) &&
-                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))){
-                        Set<Size> sizes = productList.get(i).getSizes();
-                        sizes.addAll(productList.get(j).getSizes());
-                        int suma = productList.get(i).getAmount() + productList.get(j).getAmount();
-                        productList.get(i).setAmount(suma);
+                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
+                    Set<Size> sizes = productList.get(i).getSizes();
+                    sizes.addAll(productList.get(j).getSizes());
+                    int suma = productList.get(i).getAmount() + productList.get(j).getAmount();
+                    productList.get(i).setAmount(suma);
                     productList.get(i).setSizes(sizes);
                     productList.remove(j);
                     j--;
 
-                    }
+                }
 
             }
 
@@ -111,7 +109,7 @@ public class ProductsController {
     }
 
     @PostMapping("/saveCategory")
-    public String saveCategory(Category category){
+    public String saveCategory(Category category) {
         categoryRepository.save(category);
         return "redirect:/dataadminPanel/category";
     }
@@ -154,7 +152,6 @@ public class ProductsController {
     }
 
 
-
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable(name = "id") long id) {
         productService.delete(id);
@@ -168,20 +165,21 @@ public class ProductsController {
         List<Category> categoryList = categoryServiceImpl.listAll();
 
         model.addAttribute("productList", productList);
-        model.addAttribute("sizeList", sizeList );
-        model.addAttribute("categoryList", categoryList );
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("categoryList", categoryList);
         return "home";
     }
 
     @GetMapping("/desc")
     public String desc(Model model) {
-        List<Product> productList = productServiceImpl.getDescList();;
+        List<Product> productList = productServiceImpl.getDescList();
+        ;
         List<Category> categoryList = categoryServiceImpl.listAll();
         List<Size> sizeList = sizeServiceImpl.listAll();
 
         model.addAttribute("productList", productList);
-        model.addAttribute("sizeList", sizeList );
-        model.addAttribute("categoryList", categoryList );
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("categoryList", categoryList);
         return "home";
     }
 
@@ -191,23 +189,23 @@ public class ProductsController {
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Category> categoryList = categoryServiceImpl.listAll();
 
-        model.addAttribute("sizeList", sizeList );
-        model.addAttribute("categoryList", categoryList );
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("productList", productList);
         return "home";
     }
 
     @GetMapping("/filterProducts")
-    public String filterProducts(Model model){
+    public String filterProducts(Model model) {
 
-       // List<Product> productList = productRepository.filterByCategory("New Balance");
+        // List<Product> productList = productRepository.filterByCategory("New Balance");
         Size size = new Size("36");
         sizeServiceImpl.save(size);
 
         List<Product> productList = productRepository.filterBySize(size);
 
         model.addAttribute("productList", productList);
-        return"home";
+        return "home";
     }
 
 
