@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
+  <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script><title>Products</title>
+
+  <script>
+  </script>
+  <title>Edit category </title>
+</head>
+<body>
+<main>
+  <div th:include="navbar"></div>
+
+  <div class="pos-center">
+
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th class="text-center">Category Name</th>
+        <th class="text-center">Availability</th>
+        <th class="text-center" rowspan="2">Actions</th>
+        <th class="text-center">Edit Category</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="category : ${categoryList}">
+
+        <th th:text="${category.categoryName}"  class="text-center">Product Name</th>
+        <th th:text="${category.available}" class="text-center">Availability</th>
+
+
+
+        <td>
+          <a th:href="@{'/blockCategory/' + ${category.id}}" class="btn btn-custom" style="font-weight: bold; color: red;">Block</a>
+          <span>/</span>
+          <a th:href="@{'/unblockCategory/' + ${category.id}}" class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</a>
+        </td>
+
+        <td>
+         <!-- <a th:href="@{'/editSpecifycProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: 500; color: lightblue;">Edit</a>-->
+        </td>
+
+      </tr>
+
+      </tbody>
+    </table>
+
+    <div class="container">
+      <div class="center">
+        <button type="button" class="btn btn-outline-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

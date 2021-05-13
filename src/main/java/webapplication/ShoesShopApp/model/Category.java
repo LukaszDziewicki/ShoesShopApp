@@ -13,6 +13,9 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
+    @Column(name = "available")
+    private Boolean available = true;
+
     @OneToMany( mappedBy = "category",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
@@ -21,6 +24,11 @@ public class Category {
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Category(String categoryName, boolean available) {
+        this.categoryName = categoryName;
+        this.available = available;
     }
 
     public Long getId() {
@@ -45,6 +53,14 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override

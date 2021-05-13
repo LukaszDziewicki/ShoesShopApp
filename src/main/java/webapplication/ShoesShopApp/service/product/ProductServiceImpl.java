@@ -10,10 +10,7 @@ import webapplication.ShoesShopApp.repository.ProductRepository;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -68,15 +65,31 @@ public class ProductServiceImpl {
 
     }
 
-    public List<Product> getFilteredByCategory(String categoryName){
-        List<Product> productList = productRepository.filterByCategory(categoryName);
+    public List<Product> getFilteredByCategory(Collection<String> listOfCategoryName){
+        List<Product> productList = productRepository.findByCategoryCategoryNameIn(listOfCategoryName);
         return productList;
     }
 
-    public List<Product> getFilteredBySize(Size size){
-        List<Product> productList = productRepository.filterBySize(size);
+    public List<Product> getFilteredBySize(Collection<String> listOfSizesValue){
+        List<Product> productList = productRepository.findBySizesValueIn(listOfSizesValue);
         return productList;
     }
+
+    public List<Product> getFilteredByColor(Collection<String> listOfColorName){
+        List<Product> productList = productRepository.findByColorsColorNameIn(listOfColorName);
+        return productList;
+    }
+
+    public  List<Product> getFilteredBySizesAndCategoryAndColors(Collection<String> listOfSizesValue,
+                                                                 Collection<String> listOfCategoryName,
+                                                                 Collection<String> listOfColorName){
+        List<Product> productList = productRepository
+                .findBySizesValueInAndCategoryCategoryNameInAndColorsColorNameIn(
+                        listOfSizesValue,
+                        listOfCategoryName,
+                        listOfColorName);
+        return productList;
+}
 
 
    /* public boolean checkIfProductExist(int i, List<Product> productList) {

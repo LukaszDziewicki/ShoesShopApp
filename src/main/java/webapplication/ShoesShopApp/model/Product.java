@@ -17,7 +17,7 @@ public class Product implements Comparable<Product>{
     private int amount;
     private BigDecimal price;
 
-    @ManyToMany//(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "product_sizes",
             joinColumns = @JoinColumn(name = "product_id"),
