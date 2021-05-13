@@ -1,0 +1,54 @@
+
+
+.title {
+    text-align: center;
+    margin-top: 90px;
+}
+
+.title label {
+    text-transform: uppercase;
+    color: #222222;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.main_informations{
+    width: 50%;
+    margin: 0 auto;
+}
+.main_informations label{
+     color: red;
+     font-weight: bold;
+     font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+ }
+.main_informations p{
+    color: #222222;
+    font-weight: bold;
+    font-size: 17px;
+
+}
+.main_informations label, p{
+    margin-top: 5px;
+
+}
+
+.info_block {
+    background-color: #E6EEEE;
+    border-radius: 14px;
+
+}
+
+.ques_text :hover{
+    background-color:#D6D8D7;
+}
+.ques_text .kg-question-arrow {
+    width: 10%;
+    float: right;
+    text-align: right;
+    font-size: 1rem;
+}
+.kg-question-arrow :after, :before {
+    box-sizing: border-box;
+}
