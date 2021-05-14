@@ -3,8 +3,10 @@ package webapplication.ShoesShopApp.service.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webapplication.ShoesShopApp.model.Category;
+import webapplication.ShoesShopApp.model.Color;
 import webapplication.ShoesShopApp.model.Product;
 import webapplication.ShoesShopApp.model.Size;
+import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 import webapplication.ShoesShopApp.repository.ProductRepository;
 
@@ -21,8 +23,7 @@ public class ProductServiceImpl {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private ProductServiceImpl productService;
+
 
 
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -157,6 +158,18 @@ public class ProductServiceImpl {
             }
         }
     }*/
+
+   public void editSpecificProduct(long id, ProductDto productDto){
+       Product product = getProductById(id);
+       product.setProductName(productDto.getProductName());
+       product.setAmount(productDto.getAmount());
+       product.setPrice(productDto.getPrice());
+       product.setCategory(productDto.getCategory());
+       product.setSizes(productDto.getSizes());
+       product.setColors(productDto.getColors());
+       productRepository.save(product);
+
+   }
 }
 
 

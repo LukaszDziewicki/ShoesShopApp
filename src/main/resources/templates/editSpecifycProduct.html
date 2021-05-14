@@ -14,13 +14,17 @@
         <div class = "shadow-lg p-3 mb-5 bg-white rounded">
 
             <div class="card-body" >
-                <h5 class="card-title">Add Product</h5>
+                <h5 class="card-title">Update Product</h5>
 
-                <form action="#"  th:action="@{'/editSpecifycProduct/' + ${product.productId}}" th:object="${product}" method="post">
+                <form action="#"  th:action="@{/update/{id}(id=${product.productId})}" th:object="${product}" method="post">
+
+
+
 
                     <div>
                         <label for="productNameInput">Name:</label>
                     </div>
+
 
                     <div class="select">
                     <input th:field="${product.productName}" type="text" class="form-control"  required autofocus="autofocus"   id="productNameInput" aria-describedby="emailHelp"/>
@@ -68,17 +72,17 @@
                     <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
                     <input th:field="${product.price}" type="text" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect5"/>
-                    </div>
 
-                    <button class="btn btn-primary" type="submit">Add product</button>
 
+                    <button class="btn btn-primary" type="submit">Update product</button>
+            </div>
                 </form>
 
             </div>
         </div>
     </div>
-    </div>
 </main>
+<div th:include="footer"></div>
 </body>
 </html>
 

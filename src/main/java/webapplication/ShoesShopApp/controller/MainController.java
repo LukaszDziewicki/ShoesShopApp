@@ -90,5 +90,30 @@ public class MainController {
         return "returnsAndExchanges";
     }
 
+    @GetMapping("/privacy")
+    public String privacy() {
+        return "privacy";
+    }
+
+    @GetMapping("/dataProtection")
+    public String dataProtection() {
+        return "dataProtection";
+    }
+
+    @GetMapping("/terms")
+    public String terms() { return "terms";
+    }
+
+    @GetMapping("/about")
+    public String about() { return "about";
+    }
+
+    @GetMapping("/history")
+    public String history() { return "history";
+    }
+
+    @GetMapping("/department")
+    public String department() { return "markDepartment";
+    }
 
 }

@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import webapplication.ShoesShopApp.model.Category;
 import webapplication.ShoesShopApp.model.Color;
 import webapplication.ShoesShopApp.model.Product;
 import webapplication.ShoesShopApp.model.Size;
+import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 import webapplication.ShoesShopApp.repository.ProductRepository;
 import webapplication.ShoesShopApp.service.category.CategoryServiceImpl;
@@ -18,10 +20,8 @@ import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.validation.Valid;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -74,8 +74,8 @@ public class ProductsController {
                         productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
                         productList.get(i).getColors().equals(productList.get(j).getColors()) &&
                         productList.get(i).getSizes().equals(productList.get(j).getSizes())) {
-                    int suma = productList.get(i).getAmount() + productList.get(j).getAmount();
-                    productList.get(i).setAmount(suma);
+                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
+                    productList.get(i).setAmount(sum);
                     productList.remove(j);
                     j--;
 
@@ -86,8 +86,8 @@ public class ProductsController {
                         !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
                     Set<Size> sizes = productList.get(i).getSizes();
                     sizes.addAll(productList.get(j).getSizes());
-                    int suma = productList.get(i).getAmount() + productList.get(j).getAmount();
-                    productList.get(i).setAmount(suma);
+                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
+                    productList.get(i).setAmount(sum);
                     productList.get(i).setSizes(sizes);
                     productList.remove(j);
                     j--;
@@ -105,9 +105,18 @@ public class ProductsController {
 
     @RequestMapping("dataadminPanel/category")
     public String newCategory(Model model) {
+        List<Category> categoryList = categoryServiceImpl.listAll();
+        List<Color> colorList = colorServiceImpl.listAll();
+        List<Size> sizeList = sizeServiceImpl.listAll();
+        List<Product> productList = productServiceImpl.listAll();
         Category category = new Category();
+
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("productList", productList);
         model.addAttribute("category", category);
-        return "category";
+        return "dataadminPanel";
     }
 
     @PostMapping("/saveCategory")
@@ -257,6 +266,13 @@ public class ProductsController {
 
         return "editCategory";
     }
+    @GetMapping("/editProduct")
+    public String editProduct(Model model) {
+        List<Product> productList = productServiceImpl.listAll();
+        model.addAttribute(productList);
+
+        return "editProduct";
+    }
 
     @Transactional
     @GetMapping("/blockCategory/{id}")
@@ -272,6 +288,13 @@ public class ProductsController {
         categoryRepository.unblockCategory(id);
 
         return "redirect:/editCategory";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateProduct(@ModelAttribute("product") ProductDto productDto, @PathVariable("id") Long id
+                              ) {
+        productServiceImpl.editSpecificProduct(id,productDto);
+        return "redirect:/dataadminPanel";
     }
 
 }

@@ -3,6 +3,7 @@
 .title {
     text-align: center;
     margin-top: 90px;
+    margin-bottom: 20px;
 }
 
 .title label {
@@ -15,6 +16,7 @@
 .main_informations{
     width: 50%;
     margin: 0 auto;
+    text-align: justify;
 }
 .main_informations label{
      color: red;

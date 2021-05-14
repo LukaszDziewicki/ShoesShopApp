@@ -61,15 +61,14 @@ public class UserController {
     public String saveUserData(@ModelAttribute("user") UserRegistrationDto userReg, Principal principal,
                                @RequestParam("oldPassword") String oldPassword,
                                @RequestParam("newPassword") String newPassword
-            /*@ModelAttribute("address") Address address*/) {
+          ) {
         String email = principal.getName();
         Optional<User> optionalUser = userService.getByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setFirstName(userReg.getFirstName());
             user.setLastName(userReg.getLastName());
-//            user.addAddress(address);
-//            addressServiceImpl.save(address);
+
             userService.changeUserPassword(oldPassword, newPassword, principal);
             userService.saveUserData(user);
         }
