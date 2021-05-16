@@ -56,12 +56,58 @@
             </tbody>
         </table>
 
-        <div class="container">
-            <div class="center">
-                <button type="button" class="btn btn-outline-primary">Save</button>
+<div class="container">
+    <div class="container-left" style="margin-left: -200px">
+        <h1 class="my-4"></h1>
+        <div class="row">
+            <div class="col-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#list-add-product"
+                       role="tab" aria-controls="add-product">Add Product</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-add-category"
+                       role="tab" aria-controls="add-category">Add Category</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-edit-products"
+                       role="tab" aria-controls="edit-product">Edit products</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-edit-category"
+                       role="tab" aria-controls="edit-category">Edit category</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-settings"
+                       role="tab" aria-controls="settings">Settings</a>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent" style="margin-top: -30px">
+
+                    <div class="tab-pane fade show active" id="list-add-product" role="tabpanel"
+                         aria-labelledby="list-home-list">
+                        <div class="product">
+                        <div th:include="product"></div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="list-add-category" role="tabpanel"
+                         aria-labelledby="list-profile-list">
+                        <div th:include="category"></div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="list-edit-products" role="tabpanel"
+                         aria-labelledby="list-profile-list">
+                        <div th:include="editProducts"></div>
+
+                    </div>
+                    <div class="tab-pane fade" id="list-edit-category" role="tabpanel"
+                         aria-labelledby="list-messages-list">EDIT CATEGORY
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        .67867856785678..
+                    </div>
+
+
+                </div>
             </div>
         </div>
     </div>
-</main>
+</div>
+<div th:include="footer"></div>
 </body>
 </html>

@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Edit Product</title>
+    <title>Update Product</title>
     <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
+
 </head>
 <body>
 <main>
@@ -11,7 +12,6 @@
 
 
     <div class="card w-60">
-        <div class = "shadow-lg p-3 mb-5 bg-white rounded">
 
             <div class="card-body" >
                 <h5 class="card-title">Update Product</h5>
@@ -33,7 +33,7 @@
                     <div class="select">
                         <label for="exampleFormControlSelect1">Amount:</label>
 
-                            <input th:field="${product.amount}" type="text" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect1"/>
+                            <input th:field="${product.amount}" type="number" min="1" max="99" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect1"/>
 
                     </div>
 
@@ -47,8 +47,9 @@
                         </select>
                     </div>
 
+                    <label for="exampleFormControlSelect1">Color:</label>
                     <div class="select">
-                        <label for="exampleFormControlSelect1">Color:</label>
+
                         <th:block th:each="color : ${colorList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
                             <div>
                                 <input type = "checkbox" th:field="${product.colors}"
@@ -58,8 +59,9 @@
                         </th:block>
                     </div>
 
+                    <label for="exampleFormControlSelect1">Size:</label>
                     <div class="select">
-                        <label for="exampleFormControlSelect1">Size:</label>
+
                         <th:block th:each="size : ${sizeList}" class="form-control"  data-live-search="true" id="exampleFormControlSelect4" >
                             <div>
                                 <input type = "checkbox" th:field="${product.sizes}"
@@ -71,7 +73,7 @@
 
                     <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
-                    <input th:field="${product.price}" type="text" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect5"/>
+                    <input th:field="${product.price}"  type="number"  min="1" max="999" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect5"/>
 
 
                     <button class="btn btn-primary" type="submit">Update product</button>
@@ -80,7 +82,7 @@
 
             </div>
         </div>
-    </div>
+
 </main>
 <div th:include="footer"></div>
 </body>

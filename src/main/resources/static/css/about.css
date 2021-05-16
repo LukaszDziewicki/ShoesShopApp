@@ -1,0 +1,30 @@
+.title {
+    text-align: center;
+    margin-top: 90px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #222222;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.info_about {
+    width: 50%;
+    margin: 0 auto;
+    text-align: justify;
+
+}
+
+.info_about p {
+    color: #222222;
+    font-size: 17px;
+    margin-top: 5px;
+}
+
+.foot h2 {
+   text-align: start;
+}
+
+
+
+

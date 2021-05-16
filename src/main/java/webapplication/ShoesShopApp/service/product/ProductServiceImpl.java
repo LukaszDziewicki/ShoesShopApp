@@ -66,6 +66,10 @@ public class ProductServiceImpl {
 
     }
 
+    public List<Product> findByCategory(String category){
+        return productRepository.filterByCategory(category);
+    }
+
     public List<Product> getFilteredByCategory(Collection<String> listOfCategoryName){
         List<Product> productList = productRepository.findByCategoryCategoryNameIn(listOfCategoryName);
         return productList;

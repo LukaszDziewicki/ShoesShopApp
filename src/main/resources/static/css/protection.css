@@ -1,0 +1,32 @@
+.title {
+    text-align: center;
+    margin-top: 90px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #222222;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.info_protection{
+    width: 50%;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+.info_protection p{
+    color: #222222;
+    font-size: 17px;
+    margin-top: 5px;
+}
+
+.info_protection label{
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+}
+.foot h2 {
+    text-align: start;
+}

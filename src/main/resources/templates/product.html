@@ -13,8 +13,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script><title>Products</title>
 
-    <script>
-    </script>
+   <script>
+
+   </script>
 
 </head>
 <body>
@@ -27,7 +28,7 @@
 
             <div class="card-body">
                 <h5 class="card-title">Add Product</h5>
-                <form action="#" th:action="@{/product/save}" th:object="${product}" method="post">
+                <form action="#" th:action="@{/product/save}" th:object="${product}" method="post" id="frm">
 
                     <div>
                         <label for="productNameInput">Name:</label>
@@ -39,8 +40,8 @@
 
                     <div class="select">
                         <label for="exampleFormControlSelect1">Amount:</label>
-                        <input type="number"
-                               name="amount" th:field="${product.amount}"  class="form-control" required
+                        <input type="number" min="1" max="99"
+                               name="amount"  th:field="${product.amount}"  class="form-control" required
                                 id="exampleFormControlSelect1"/>
                     </div>
 
@@ -55,20 +56,23 @@
                         </select>
                     </div>
 
+
+                    <label for="exampleFormControlSelect1">Color:</label>
                     <div class="select">
-                        <label for="exampleFormControlSelect1">Color:</label>
                         <th:block th:each="color : ${colorList}" class="form-control" data-live-search="true"
                                   id="exampleFormControlSelect4">
-                            <div>
+                            <div class="check_box">
                                 <input type="checkbox" th:field="*{colors}"
                                        th:value="${color.colorID}"
-                                       th:text="${color.colorName}">
+                                       th:text="${color.colorName}" id="c">
                             </div>
                         </th:block>
                     </div>
 
+
+                    <label for="exampleFormControlSelect1">Size:</label>
                     <div class="select">
-                        <label for="exampleFormControlSelect1">Size:</label>
+
                         <th:block th:each="size : ${sizeList}" class="form-control" data-live-search="true"
                                   id="exampleFormControlSelect4">
                             <div>
@@ -80,8 +84,8 @@
                     </div>
                     <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
-                    <input name="productPrice" type="number" class="form-control" required autofocus="autofocus"
-                        min="1" step=".01"   th:object="${product}" th:field="*{price}" id="exampleFormControlSelect5">
+                    <input name="productPrice" type="number"  min="1" max="999" class="form-control" required autofocus="autofocus"
+                         th:object="${product}" th:field="*{price}" id="exampleFormControlSelect5">
                     <button class="btn btn-primary" type="submit">Add product</button>
                     </div>
                 </form>
@@ -90,6 +94,5 @@
     </div>
     </div>
 </main>
-<div th:include="footer"></div>
 </body>
 </html>

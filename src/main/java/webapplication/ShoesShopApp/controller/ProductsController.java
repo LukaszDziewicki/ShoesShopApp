@@ -1,12 +1,9 @@
 package webapplication.ShoesShopApp.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import webapplication.ShoesShopApp.model.Category;
 import webapplication.ShoesShopApp.model.Color;
@@ -20,15 +17,14 @@ import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
-import javax.validation.Valid;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
 public class ProductsController {
-
-    private static Logger logger = LogManager.getLogger(ProductsController.class);
 
     @Autowired
     private ProductServiceImpl productService;
@@ -52,7 +48,7 @@ public class ProductsController {
     private CategoryRepository categoryRepository;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, String category) {
 
 
         List<Size> sizeList = sizeServiceImpl.listAll();
@@ -94,6 +90,9 @@ public class ProductsController {
 
                 }
 
+            }
+            if (category != null) {
+                model.addAttribute("productList", productServiceImpl.findByCategory(category));
             }
 
         }
@@ -207,11 +206,11 @@ public class ProductsController {
     }
 
     @GetMapping("/filterProducts")
-    public String filterProducts(Model model, Product product) {
+    public String filterProducts(Model model, String category) {
 
 //single filter
         //filter by category
-        List<Product> filteredByCategoryList = productServiceImpl.getFilteredByCategory(Arrays.asList("New Balance", "Converse"));
+        List<Product> filteredByCategoryList = productServiceImpl.findByCategory(category);
 
         //filter by size
         List<Product> filteredBySizeList = productServiceImpl.getFilteredBySize(Arrays.asList("39", "42", "45"));
@@ -219,7 +218,6 @@ public class ProductsController {
 
         //filter by color
         List<Product> filteredByColorList = productServiceImpl.getFilteredByColor(Arrays.asList("White"));
-
 
 
 //or triple filter - to najlepsza opcja filtrowania
@@ -232,7 +230,7 @@ public class ProductsController {
 
 
 //or manual filter
-        Set<String> setOfSizes = Stream.of("42","45", "44").collect(Collectors.toSet());
+        Set<String> setOfSizes = Stream.of("42", "45", "44").collect(Collectors.toSet());
         Set<String> setOfColors = Stream.of("White").collect(Collectors.toSet());
 
         filteredByCategoryList
@@ -255,7 +253,7 @@ public class ProductsController {
         //                );
         // model.addAttribute("productList", list);
 
-        model.addAttribute("productList", list);
+        model.addAttribute("productList", categoryRepository.findAll().stream().filter(x -> x.getCategoryName().equals(category)));
         return "home";
     }
 
@@ -266,6 +264,7 @@ public class ProductsController {
 
         return "editCategory";
     }
+
     @GetMapping("/editProduct")
     public String editProduct(Model model) {
         List<Product> productList = productServiceImpl.listAll();
@@ -292,8 +291,8 @@ public class ProductsController {
 
     @PostMapping("/update/{id}")
     public String updateProduct(@ModelAttribute("product") ProductDto productDto, @PathVariable("id") Long id
-                              ) {
-        productServiceImpl.editSpecificProduct(id,productDto);
+    ) {
+        productServiceImpl.editSpecificProduct(id, productDto);
         return "redirect:/dataadminPanel";
     }
 

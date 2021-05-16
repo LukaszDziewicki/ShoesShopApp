@@ -54,3 +54,6 @@
 .kg-question-arrow :after, :before {
     box-sizing: border-box;
 }
+.foot h2 {
+    text-align: start;
+}

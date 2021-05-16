@@ -94,11 +94,12 @@
                 <div class="row">
                     <div class="col">
                         <div th:each="size : ${sizeList}" style="display: flex; flex-wrap: wrap;" >
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="${sizes}" th:name="sizeList" aria-label="...">
+                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="${sizes}" th:name="sizeList" aria-label="..." name=""category>
                             <label class="form-check-label" th:for="inlineRadio2"><span th:text="${size.value}"> </span></label>
                         </div>
                         <br>
                     </div>
+
 
 
 
@@ -114,11 +115,12 @@
                     <br>
 
                     <div class="d-grid gap-2 col-6 mx-auto">
-                        <button type="button" class="btn btn-outline-dark">Show the result</button>
+                        <button type="submit" class="btn btn-outline-dark">Show the result</button>
+
                         <a th:href="@{/filterProducts}" class="btn btn-custom" style="font-weight: bold; color: red;">Filter</a>
                     </div>
                 </div>
-                </form>
+        </form>
 
             </div>
         </div>
