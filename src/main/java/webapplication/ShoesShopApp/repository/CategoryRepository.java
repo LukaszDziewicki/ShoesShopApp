@@ -21,6 +21,8 @@ public interface CategoryRepository  extends JpaRepository<Category, Long> {
     @Query("update Category r set r.available = true where r.id = :id")
     void unblockCategory(@Param("id") long id);
 
+    void findByCategoryName(String name);
+
     @Override
     List<Category> findAll();
 }

@@ -19,6 +19,11 @@
 </head>
 <body>
 
+<div th:if="${param.categoryFiled}">
+    <br>
+    <div class="alert alert-danger">Category already exist!</div>
+</div>
+
     <div class="card w-60">
             <h5 class="card-title">Add New Category</h5>
             <div class="card-body">

@@ -28,6 +28,9 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    ProductRepository productRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ShoesShopAppApplication.class, args);
@@ -37,9 +40,11 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//   start();
+//  start();
 
     }
+
+
 
     public void start() {
 

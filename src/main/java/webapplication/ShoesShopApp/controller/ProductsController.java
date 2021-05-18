@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
@@ -43,6 +46,7 @@ public class ProductsController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
 
     @GetMapping("/")
     public String home(Model model) {
@@ -96,7 +100,7 @@ public class ProductsController {
         return "home";
     }
 
-
+/*
     @PostMapping
     public String filterData(Model model, FilterDTO filterDTO) {
         List<Product> productList = productServiceImpl
@@ -108,7 +112,7 @@ public class ProductsController {
 
         model.addAttribute("productList", productList);
         return "home";
-    }
+    }*/
 
    /* @RequestMapping("dataadminPanel/category")
     public String newCategory(Model model) {
@@ -286,7 +290,7 @@ public class ProductsController {
     public String blockCategory(@PathVariable(name = "id") long id) {
         categoryRepository.blockCategory(id);
 
-        return "editCategory";
+        return "redirect:/dataadminPanel";
     }
 
     @Transactional
