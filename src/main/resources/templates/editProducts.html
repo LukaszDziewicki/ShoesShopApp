@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script><title>Products</title>
+
+    <script>
+    </script>
+
+</head>
+<body>
+<main>
+
+    <div class="pos-center">
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Product Name</th>
+                <th class="text-center">Ammount</th>
+                <th class="text-center">Size</th>
+                <th class="text-center">Color</th>
+                <th class="text-center">Category</th>
+                <th class="text-center" rowspan="2">Actions</th>
+                <th class="text-center">Edit Panel</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${productList}">
+                <th th:text="${product.productName}" class="text-center">Product Name</th>
+                <th th:text="${product.amount}" class="text-center">Ammount</th>
+                <th th:text="${product.sizes}" class="text-center">Size</th>
+                <th th:text="${product.colors}" class="text-center">Color</th>
+                <th th:text="${product.category}" class="text-center">Category</th>
+
+                <td>
+                    <a th:href="@{'/deleteProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: bold; color: red;">Delete</a>
+                </td>
+
+                <td>
+                    <a th:href="@{'/editSpecifycProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: 500; color: lightblue;">Edit</a>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <div class="container">
+        </div>
+    </div>
+</main>
+</body>
+</html>

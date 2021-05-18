@@ -49,11 +49,14 @@ public class UserController {
         List<Color> colorList = colorServiceImpl.listAll();
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Product> productList = productServiceImpl.listAll();
+        Category category = new Category();
 
+        model.addAttribute("category", category);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("colorList", colorList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("productList", productList);
+        model.addAttribute("product", new Product());
         return "dataadminPanel";
     }
 
