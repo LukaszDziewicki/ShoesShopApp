@@ -19,6 +19,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select r from Product r where r.category.categoryName = :category")
     List<Product> filterByCategory(@Param("category") String category);
 
+    @Query("SELECT c FROM Color c WHERE c.colorName IN :colors")
+    List<Product> findByColor(@Param("colors") List<String> colors);
+
     List<Product> findByCategoryCategoryNameIn(Collection<String> listOfCategoryName);
 
     List<Product> findBySizesValueIn(Collection<String> listOfSizesValue);

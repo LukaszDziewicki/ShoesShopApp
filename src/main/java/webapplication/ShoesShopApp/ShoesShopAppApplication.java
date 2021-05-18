@@ -25,6 +25,9 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    AddressRepository addressRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ShoesShopAppApplication.class, args);
@@ -34,7 +37,7 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//      start();
+//   start();
 
     }
 
@@ -91,6 +94,7 @@ public class ShoesShopAppApplication implements CommandLineRunner {
         colorRepository.save(new Color("Burlywood"));
 
 
+        addressRepository.save(new Address("Lublin","25","24-340","Poland","Konstantynów"));
 
 
         roleRepository.save(new Role("ROLE_ADMIN"));

@@ -20,17 +20,16 @@
 </head>
 <body>
 <main>
-  <div th:include="navbar"></div>
+
 
   <div class="pos-center">
 
-    <table class="table table-bordered">
-      <thead>
+    <table class="table table-bordered" style="width:600px; margin-left: 100px">
+      <thead class="thead-dark">
       <tr>
         <th class="text-center">Category Name</th>
         <th class="text-center">Availability</th>
         <th class="text-center" rowspan="2">Actions</th>
-        <th class="text-center">Edit Category</th>
       </tr>
       </thead>
       <tbody>
@@ -47,22 +46,15 @@
           <a th:href="@{'/unblockCategory/' + ${category.id}}" class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</a>
         </td>
 
-        <td>
-         <!-- <a th:href="@{'/editSpecifycProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: 500; color: lightblue;">Edit</a>-->
-        </td>
-
       </tr>
 
       </tbody>
     </table>
 
     <div class="container">
-      <div class="center">
-        <button type="button" class="btn btn-outline-primary">Save</button>
-      </div>
+
     </div>
   </div>
 </main>
-<div th:include="footer"></div>
 </body>
 </html>

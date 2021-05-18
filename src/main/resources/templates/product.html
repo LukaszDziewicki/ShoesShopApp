@@ -12,10 +12,71 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script><title>Products</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
-   <script>
+    <script type="text/javascript">
 
-   </script>
+        $(document).ready(function () {
+            $('#primaryImage').change(function () {
+                showImageThumbnail(this)
+            });
+        });
+
+        $("input[name='extraImage']").each(function (index) {
+            $(this).change(function () {
+                showExtraImageThumbnail(this,index)
+
+            });
+        });
+
+        function showImageThumbnail(fileInput){
+            file = fileInput.files[0];
+            reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#thumbnail').attr('src',e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showExtraImageThumbnail(fileInput, index){
+            file = fileInput.files[0];
+            reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#thumbnail' + index).attr('src',e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+
+        $(function(){
+            var requiredCheckboxes = $('.check_box :checkbox[required]');
+            requiredCheckboxes.change(function(){
+                if(requiredCheckboxes.is(':checked')) {
+                    requiredCheckboxes.removeAttr('required');
+                }
+                else {
+                    requiredCheckboxes.attr('required', 'required');
+                }
+            });
+        });
+
+        $(function(){
+            var requiredCheckboxes = $('.check_box2 :checkbox[required]');
+            requiredCheckboxes.change(function(){
+                if(requiredCheckboxes.is(':checked')) {
+                    requiredCheckboxes.removeAttr('required');
+                }
+                else {
+                    requiredCheckboxes.attr('required', 'required');
+                }
+            });
+        });
+
+    </script>
 
 </head>
 <body>
@@ -28,7 +89,8 @@
 
             <div class="card-body">
                 <h5 class="card-title">Add Product</h5>
-                <form action="#" th:action="@{/product/save}" th:object="${product}" method="post" id="frm">
+                <form action="#" th:action="@{/product/save}" th:object="${product}" method="post" id="frm"
+                enctype="multipart/form-data">
 
                     <div>
                         <label for="productNameInput">Name:</label>
@@ -59,12 +121,12 @@
 
                     <label for="exampleFormControlSelect1">Color:</label>
                     <div class="select">
-                        <th:block th:each="color : ${colorList}" class="form-control" data-live-search="true"
+                        <th:block th:each="color : ${colorList}"  class="form-control" data-live-search="true"
                                   id="exampleFormControlSelect4">
                             <div class="check_box">
-                                <input type="checkbox" th:field="*{colors}"
+                                <input type="checkbox" th:field="*{colors}" required
                                        th:value="${color.colorID}"
-                                       th:text="${color.colorName}" id="c">
+                                       th:text="${color.colorName}" >
                             </div>
                         </th:block>
                     </div>
@@ -76,12 +138,63 @@
                         <th:block th:each="size : ${sizeList}" class="form-control" data-live-search="true"
                                   id="exampleFormControlSelect4">
                             <div>
-                                <input type="checkbox" th:field="*{sizes}"
+                                <div class="check_box2">
+                                <input type="checkbox" th:field="*{sizes}" required
                                        th:value="${size.sizeID}"
                                        th:text="${size.value}"/>
+                                </div>
                             </div>
                         </th:block>
                     </div>
+
+
+                    <div id="accordion" style="margin-top: 25px">
+                        <h5 class="mb-0">
+                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                Add Photos
+                            </a>
+                        </h5>
+                    </div>
+
+                   <!-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="block1">
+                            <p>
+                                <img alt="First photo" id="thumbnail" width="100px" height="100px"/>
+                            </p>
+                            <label>Photo 1</label>
+                            <input type="file" name="primaryImage" required autofocus="autofocus" class="form-control" id="primaryImage" accept="{image/png, image/jpeg, image/jpg}"
+                                    th:field="*{mainImage}">
+                        </div>
+
+
+                        <div class="block2">
+                            <p>
+                                <img alt="First photo" id="thumbnail0" width="100px" height="100px"/>
+                            </p>
+                            <label>Photo 2</label>
+                            <input type="file" name="extraImage" required autofocus="autofocus"  class="form-control"  accept="{image/png, image/jpeg,  image/jpg}"
+                                   th:field="*{extraImage1}">
+                        </div>
+
+                            <div class="block3">
+                                <p>
+                                    <img alt="First photo" id="thumbnail1" width="100px" height="100px"/>
+                                </p>
+                                <label>Photo 3</label>
+                                <input type="file" name="extraImage" required autofocus="autofocus"  class="form-control" accept="{image/png, image/jpeg,  image/jpg}"
+                                       th:field="*{extraImage2}">
+                            </div>
+
+                            <div class="block4">
+                                <p>
+                                    <img alt="First photo" id="thumbnail2" width="100px" height="100px"/>
+                                </p>
+                                <label>Photo 4</label>
+                                <input type="file" name="extraImage" required autofocus="autofocus" class="form-control" accept="{image/png, image/jpeg,  image/jpg}"
+                                       th:field="*{extraImage3}">
+                            </div>
+                    </div>-->
+
                     <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
                     <input name="productPrice" type="number"  min="1" max="999" class="form-control" required autofocus="autofocus"

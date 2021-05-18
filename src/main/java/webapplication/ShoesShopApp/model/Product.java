@@ -4,6 +4,7 @@ package webapplication.ShoesShopApp.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Product implements Comparable<Product>{
     )
     private Set<Size> sizes = new HashSet<>();
 
-    @ManyToMany//(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "product_colors",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -33,12 +34,20 @@ public class Product implements Comparable<Product>{
     )
     private Set<Color> colors = new HashSet<>();
 
-    @ManyToOne//(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(
             name = "category_id"
     )
     private Category category;
 
+    @Column(name = "main_image")
+    private String mainImage;
+    @Column(name = "extra_image1")
+    private String extraImage1;
+    @Column(name = "extra_image2")
+    private String extraImage2;
+    @Column(name = "extra_image3")
+    private String extraImage3;
 
     public Set<Color> getColors() {
         return colors;
@@ -109,6 +118,39 @@ public class Product implements Comparable<Product>{
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public String getExtraImage1() {
+        return extraImage1;
+    }
+
+    public void setExtraImage1(String extraImage1) {
+        this.extraImage1 = extraImage1;
+    }
+
+    public String getExtraImage2() {
+        return extraImage2;
+    }
+
+    public void setExtraImage2(String extraImage2) {
+        this.extraImage2 = extraImage2;
+    }
+
+    public String getExtraImage3() {
+        return extraImage3;
+    }
+
+    public void setExtraImage3(String extraImage3) {
+        this.extraImage3 = extraImage3;
     }
 
     @Override

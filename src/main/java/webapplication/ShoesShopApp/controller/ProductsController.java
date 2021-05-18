@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import webapplication.ShoesShopApp.model.Category;
-import webapplication.ShoesShopApp.model.Color;
-import webapplication.ShoesShopApp.model.Product;
-import webapplication.ShoesShopApp.model.Size;
+import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 import webapplication.ShoesShopApp.repository.ProductRepository;
@@ -48,7 +45,7 @@ public class ProductsController {
     private CategoryRepository categoryRepository;
 
     @GetMapping("/")
-    public String home(Model model, String category) {
+    public String home(Model model) {
 
 
         List<Size> sizeList = sizeServiceImpl.listAll();
@@ -91,9 +88,7 @@ public class ProductsController {
                 }
 
             }
-            if (category != null) {
-                model.addAttribute("productList", productServiceImpl.findByCategory(category));
-            }
+
 
         }
         model.addAttribute("productList", productList);
@@ -102,7 +97,21 @@ public class ProductsController {
         return "home";
     }
 
-    @RequestMapping("dataadminPanel/category")
+
+    @PostMapping
+    public String filterDate(Model model, FilterDTO filterDTO) {
+        List<Product> productList = productServiceImpl
+                .getFilteredBySizesAndCategoryAndColors(
+                        filterDTO.getSizes(),
+                        filterDTO.getCategories(),
+                        filterDTO.getColors()
+                );
+
+        model.addAttribute("productList", productList);
+        return "home";
+    }
+
+   /* @RequestMapping("dataadminPanel/category")
     public String newCategory(Model model) {
         List<Category> categoryList = categoryServiceImpl.listAll();
         List<Color> colorList = colorServiceImpl.listAll();
@@ -116,12 +125,12 @@ public class ProductsController {
         model.addAttribute("productList", productList);
         model.addAttribute("category", category);
         return "dataadminPanel";
-    }
+    }*/
 
     @PostMapping("/saveCategory")
     public String saveCategory(Category category) {
         categoryRepository.save(category);
-        return "redirect:/dataadminPanel/category";
+        return "redirect:/dataadminPanel";
     }
 
     @GetMapping("/product")
@@ -206,11 +215,11 @@ public class ProductsController {
     }
 
     @GetMapping("/filterProducts")
-    public String filterProducts(Model model, String category) {
+    public String filterProducts(@ModelAttribute FilterDTO filterDTO, Model model) {
 
 //single filter
         //filter by category
-        List<Product> filteredByCategoryList = productServiceImpl.findByCategory(category);
+        List<Product> filteredByCategoryList = productServiceImpl.getFilteredByCategory(Arrays.asList("Converse"));
 
         //filter by size
         List<Product> filteredBySizeList = productServiceImpl.getFilteredBySize(Arrays.asList("39", "42", "45"));
@@ -253,7 +262,7 @@ public class ProductsController {
         //                );
         // model.addAttribute("productList", list);
 
-        model.addAttribute("productList", categoryRepository.findAll().stream().filter(x -> x.getCategoryName().equals(category)));
+        model.addAttribute("productList", productRepository.findByColor(filterDTO.getColors()));
         return "home";
     }
 
@@ -262,7 +271,7 @@ public class ProductsController {
         List<Category> categoryList = categoryServiceImpl.listAll();
         model.addAttribute(categoryList);
 
-        return "editCategory";
+        return "redirect:/dataadminPanel/editCategory";
     }
 
     @GetMapping("/editProduct")
@@ -278,7 +287,7 @@ public class ProductsController {
     public String blockCategory(@PathVariable(name = "id") long id) {
         categoryRepository.blockCategory(id);
 
-        return "redirect:/editCategory";
+        return "editCategory";
     }
 
     @Transactional
@@ -286,7 +295,7 @@ public class ProductsController {
     public String unblockCategory(@PathVariable(name = "id") long id) {
         categoryRepository.unblockCategory(id);
 
-        return "redirect:/editCategory";
+        return "editCategory";
     }
 
     @PostMapping("/update/{id}")
