@@ -116,9 +116,9 @@
                     <p>
                         Brand:
                     </p>
-                    <form th:action="@{/filterData}"  th:object="${filterDTO}" method="post">
+
                     <div th:each="category : ${categoryList}" style="display: flex; flex-wrap: wrap;" >
-                        <input class="form-check-input" type="checkbox"  id="checkboxNoLabel" name="category" th:value="${category.categoryName}" aria-label="...">
+                        <input class="form-check-input" type="checkbox"  id="checkboxNoLabel" name="category" th:value="${categoryList}" aria-label="...">
                         <label class="form-check-label" th:for="inlineRadio2"><span th:text="${category.categoryName}"> </span></label>
                     </div>
                     <br>
@@ -128,7 +128,6 @@
                         <button type="submit" class="btn btn-outline-dark">Show the result</button>
 <!--                        <a th:href="@{/filterProducts}" class="btn btn-custom" style="font-weight: bold; color: red;">Filter</a>-->
                     </div>
-                    </form>
                 </div>
 
             </div>

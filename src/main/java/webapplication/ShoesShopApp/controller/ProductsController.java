@@ -47,7 +47,6 @@ public class ProductsController {
     @GetMapping("/")
     public String home(Model model) {
 
-
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Category> categoryList = categoryServiceImpl.listAll();
 
@@ -99,12 +98,12 @@ public class ProductsController {
 
 
     @PostMapping
-    public String filterDate(Model model, FilterDTO filterDTO) {
+    public String filterData(Model model, FilterDTO filterDTO) {
         List<Product> productList = productServiceImpl
                 .getFilteredBySizesAndCategoryAndColors(
-                        filterDTO.getSizes(),
-                        filterDTO.getCategories(),
-                        filterDTO.getColors()
+                        filterDTO.getSizeList(),
+                        filterDTO.getCategoryList(),
+                        filterDTO.getColorList()
                 );
 
         model.addAttribute("productList", productList);
@@ -262,7 +261,7 @@ public class ProductsController {
         //                );
         // model.addAttribute("productList", list);
 
-        model.addAttribute("productList", productRepository.findByColor(filterDTO.getColors()));
+        model.addAttribute("productList", productRepository.findByColor(filterDTO.getColorList()));
         return "home";
     }
 
