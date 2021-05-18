@@ -33,6 +33,7 @@ public class UserController {
     @Autowired
     private ProductServiceImpl productServiceImpl;
 
+
     @GetMapping("/userPanel")
     public String userPanel(Model model, Principal principal) {
         String email = principal.getName();
@@ -73,6 +74,8 @@ public class UserController {
             userService.saveUserData(user);
         }
         return "redirect:/userPanel";
+
+
     }
 
     @RequestMapping(value = "/saveUserAddress", method = RequestMethod.POST)
