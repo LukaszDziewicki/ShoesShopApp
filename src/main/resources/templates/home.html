@@ -42,6 +42,7 @@
 
 
         <!------------------------------------------- LEFT BAR------------------------------------------------------>
+        <form action="#" th:action="@{/filterData}" th:object="${product}"  method="post" id="frm" >
         <a data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Filter Shoes</a>
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -74,24 +75,25 @@
                         Color:
                     </p>
                     <div class="checkoboxes">
-
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="black" aria-label="..." style="background-color: black; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="white" aria-label="..." style="background-color: white; width: 40px; height: 40px;"><!-- czarny check-->
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="red" aria-label="..." style="background-color: red; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="blue" aria-label="..." style="background-color: blue; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="lightblue" aria-label="..." style="background-color: lightblue; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="orange" aria-label="..." style="background-color: orange; width: 40px; height: 40px;">
+                            <th:block th:each="color : ${colorList}" >
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="${color}" aria-label="..." style="background-color: black; width: 40px; height: 40px;">
+                            </th:block>
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="white" aria-label="..." style="background-color: white; width: 40px; height: 40px;"><!-- czarny check-->
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="red" aria-label="..." style="background-color: red; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="blue" aria-label="..." style="background-color: blue; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="lightblue" aria-label="..." style="background-color: lightblue; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="orange" aria-label="..." style="background-color: orange; width: 40px; height: 40px;">
                             <br>
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="green" aria-label="..." style="background-color: green; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="brown" aria-label="..." style="background-color: brown; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="purple" aria-label="..." style="background-color: purple; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="gray" aria-label="..." style="background-color: gray; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="pink" aria-label="..." style="background-color: pink; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="tan" aria-label="..." style="background-color: tan; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="green" aria-label="..." style="background-color: green; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="brown" aria-label="..." style="background-color: brown; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="purple" aria-label="..." style="background-color: purple; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="gray" aria-label="..." style="background-color: gray; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="pink" aria-label="..." style="background-color: pink; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="tan" aria-label="..." style="background-color: tan; width: 40px; height: 40px;">
                             <br>
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="yellow" aria-label="..." style="background-color: yellow; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="chocolate" aria-label="..." style="background-color: chocolate; width: 40px; height: 40px;">
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="burlywood" aria-label="..." style="background-color: burlywood; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="yellow" aria-label="..." style="background-color: yellow; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="chocolate" aria-label="..." style="background-color: chocolate; width: 40px; height: 40px;">
+                            <input name = "color" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="burlywood" aria-label="..." style="background-color: burlywood; width: 40px; height: 40px;">
 
 
                 </div>
@@ -104,7 +106,7 @@
                 <div class="row">
                     <div class="col">
                         <div th:each="size : ${sizeList}" style="display: flex; flex-wrap: wrap;" >
-                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="${sizes}" th:name="sizeList" aria-label="...">
+                            <input class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="${size}" th:name="size" aria-label="...">
                             <label class="form-check-label" th:for="inlineRadio2"><span th:text="${size.value}"> </span></label>
                         </div>
                         <br>
@@ -117,22 +119,25 @@
                         Brand:
                     </p>
 
-                    <div th:each="category : ${categoryList}" style="display: flex; flex-wrap: wrap;" >
-                        <input class="form-check-input" type="checkbox"  id="checkboxNoLabel" name="category" th:value="${categoryList}" aria-label="...">
-                        <label class="form-check-label" th:for="inlineRadio2"><span th:text="${category.categoryName}"> </span></label>
+                    <div th:each="category : ${categoryList}"  style="display: flex; flex-wrap: wrap;" >
+                        <input   class="form-check-input" type="checkbox"  id="checkboxNoLabel" name="category" th:value="${category}" aria-label="...">
+                        <label   class="form-check-label" th:for="inlineRadio2"><span th:text="${category.categoryName}"> </span></label>
                     </div>
                     <br>
                     <br>
 
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="submit" class="btn btn-outline-dark">Show the result</button>
-<!--                        <a th:href="@{/filterProducts}" class="btn btn-custom" style="font-weight: bold; color: red;">Filter</a>-->
+
+<!--                        <a th:href="@{/filterData}" class="btn btn-custom" style="font-weight: bold; color: red;" >Filter</a>-->
                     </div>
+
                 </div>
 
             </div>
         </div>
     </div>
+        </form>
     <!------------
     ------------------------------- END LEFT BAR------------------------------------------------------>
 
@@ -153,17 +158,21 @@
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                         </div>
 
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="/img/but.jpg" class="d-block w-100" alt="...">
+                                <img th:src="@{'/img/' + ${product.primaryImage}}" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="/img/but.jpg" class="d-block w-100" alt="...">
+                                <img th:src="@{'/img/' + ${product.secondImage}}" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="/img/but.jpg" class="d-block w-100" alt="...">
+                                <img th:src="@{'/img/' + ${product.thirdImage}}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img th:src="@{'/img/' + ${product.fourthImage}}" class="d-block w-100" alt="...">
                             </div>
                         </div>
 

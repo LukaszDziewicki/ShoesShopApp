@@ -17,6 +17,14 @@ public class Product implements Comparable<Product>{
     private String productName;
     private int amount;
     private BigDecimal price;
+    @Column
+    private String primaryImage;
+    @Column
+    private String secondImage;
+    @Column
+    private String thirdImage;
+    @Column
+    private String fourthImage;
 
     @ManyToMany
     @JoinTable(
@@ -72,6 +80,52 @@ public class Product implements Comparable<Product>{
         this.sizes = sizes;
         this.colors = colors;
         this.category = category;
+    }
+
+    public Product(Long productId, String productName, int amount, BigDecimal price, String primaryImage, String secondImage, String thirdImage, String fourthImage, Set<Size> sizes, Set<Color> colors, Category category) {
+        this.productId = productId;
+        this.productName = productName;
+        this.amount = amount;
+        this.price = price;
+        this.primaryImage = primaryImage;
+        this.secondImage = secondImage;
+        this.thirdImage = thirdImage;
+        this.fourthImage = fourthImage;
+        this.sizes = sizes;
+        this.colors = colors;
+        this.category = category;
+    }
+
+    public String getPrimaryImage() {
+        return primaryImage;
+    }
+
+    public void setPrimaryImage(String primaryImage) {
+        this.primaryImage = primaryImage;
+    }
+
+    public String getSecondImage() {
+        return secondImage;
+    }
+
+    public void setSecondImage(String secondImage) {
+        this.secondImage = secondImage;
+    }
+
+    public String getThirdImage() {
+        return thirdImage;
+    }
+
+    public void setThirdImage(String thirdImage) {
+        this.thirdImage = thirdImage;
+    }
+
+    public String getFourthImage() {
+        return fourthImage;
+    }
+
+    public void setFourthImage(String fourthImage) {
+        this.fourthImage = fourthImage;
     }
 
     public BigDecimal getPrice() {

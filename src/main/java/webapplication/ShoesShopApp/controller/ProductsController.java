@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
@@ -17,7 +15,9 @@ import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
+import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,12 +51,14 @@ public class ProductsController {
     @GetMapping("/")
     public String home(Model model) {
 
+
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Category> categoryList = categoryServiceImpl.listAll();
+        List<Color> colorList = colorServiceImpl.listAll();
 
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("categoryList", categoryList);
-
+        model.addAttribute("colorList",colorList.get(0));
 
         List<Product> productList = productServiceImpl.listAll();
 
@@ -100,19 +102,28 @@ public class ProductsController {
         return "home";
     }
 
-/*
-    @PostMapping
-    public String filterData(Model model, FilterDTO filterDTO) {
-        List<Product> productList = productServiceImpl
-                .getFilteredBySizesAndCategoryAndColors(
-                        filterDTO.getSizeList(),
-                        filterDTO.getCategoryList(),
-                        filterDTO.getColorList()
-                );
 
+    @PostMapping("/filterData")
+    public String filterData(Model model,
+                             @RequestParam("category") List<String> category,
+                             @RequestParam("size") List<String> size,
+                             @RequestParam("color") List<String> color
+                             ) {
+
+//        List<Product> productList = productServiceImpl.getFilteredByCategory(category);
+//        List<Product> productList1 = productServiceImpl.getFilteredByCategory(size);
+ //       List<Product> productList2 = productServiceImpl.getFilteredByColor(color);
+        List<Product> productList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
+                size,
+                category,
+                color
+                );
+//category
+//        model.addAttribute("productList", productList);
+//        model.addAttribute("productList1", productList1);
         model.addAttribute("productList", productList);
         return "home";
-    }*/
+    }
 
    /* @RequestMapping("dataadminPanel/category")
     public String newCategory(Model model) {
@@ -152,8 +163,12 @@ public class ProductsController {
     }
 
     @PostMapping("/product/save")
-    public String saveProduct(Product product) {
-        productRepository.save(product);
+    public String saveProduct(@Valid Product product,
+                              @RequestParam("files") MultipartFile[] primaryImage
+    )
+    {
+
+        productServiceImpl.save(product,primaryImage);
         return "redirect:/";
     }
 

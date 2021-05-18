@@ -2,6 +2,7 @@ package webapplication.ShoesShopApp.service.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import webapplication.ShoesShopApp.model.Category;
 import webapplication.ShoesShopApp.model.Color;
 import webapplication.ShoesShopApp.model.Product;
@@ -30,8 +31,27 @@ public class ProductServiceImpl {
         this.productRepository = productRepository;
     }
 
-    public void save(Product product) {
+    public void save(Product product, MultipartFile[] file) {
+        int count = 0;
+        for (MultipartFile images: file
+        ) {
+            if(count == 0){
+                product.setPrimaryImage(images.getOriginalFilename());
+            }
+            if(count == 1){
+                product.setSecondImage(images.getOriginalFilename());
+            }
+            if(count == 2){
+                product.setThirdImage(images.getOriginalFilename());
+            }
+            if(count == 3){
+                product.setFourthImage(images.getOriginalFilename());
+            }
+            count++;
+        }
+
         productRepository.save(product);
+
     }
 
     public List<Product> listAll() {
