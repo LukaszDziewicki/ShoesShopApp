@@ -31,8 +31,34 @@
         <div th:include="navbar"></div>
 
 
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/img/carousel_1.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/img/carousel_2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/img/carousel_3.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="color: black">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" style="color: black">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+
+
         <!---------Navigation on site-------------->
-        <nav aria-label="breadcrumb" style="margin: 20px;">
+        <div class="filtering" style="background: #e9e9e9; padding: 20px;">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page"></li>
@@ -42,8 +68,10 @@
 
 
         <!------------------------------------------- LEFT BAR------------------------------------------------------>
+
         <form action="#" th:action="@{/filterData}" th:object="${product}"  method="post" id="frm" >
-        <a data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Filter Shoes</a>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="offcanvas" href="#offcanvasExample" style="margin: 5px">Filter Shoes</button>
+        <!--<a data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Filter Shoes</a>-->
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
@@ -138,94 +166,48 @@
         </div>
     </div>
         </form>
+        </div>
     <!------------
     ------------------------------- END LEFT BAR------------------------------------------------------>
 
 
 
     <!------------------------------------------- SHOE CARD------------------------------------------------------>
-    <div class="sectionContainer">
-        <section class="products" style="display: flex; flex-wrap: wrap;  margin-top: 3%; background-color: #e9e9e9">
+    <div class="sectionContainer" style="">
+        <section class="products"
+                 style="display: flex;
+                  flex-wrap: wrap;
+                  /*margin-top: 20px;*/
+                  align-content: space-around;
+                  justify-content: flex-start;
+                  padding-left: 20px;
+                  padding-right: 0px;
+                  align-items: baseline;
+                  background-color: white">
 
 
             <article th:each="product : ${productList}"  >
-                <div class="card" style="width: 13rem; margin: 35px; font-size:smaller;">
+                <div class="card" style="width: 15rem; margin: 35px; font-size:smaller">
 
-
-                    <!-------Carousel--------->
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        </div>
-
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img th:src="@{'/img/' + ${product.primaryImage}}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img th:src="@{'/img/' + ${product.secondImage}}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img th:src="@{'/img/' + ${product.thirdImage}}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img th:src="@{'/img/' + ${product.fourthImage}}" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <!-------End carousel-------->
+                    <img class="card-img-top" th:src="@{'/img/' + ${product.primaryImage}}" alt="Card image cap">
 
                     <div class="card-body" style="align-items: center">
                         <h6 th:text="${product.productName}" class="card-title" style="font-size:small;"></h6>
-                        <p th:text="${product.category.categoryName}" class="card-text"></p>
+                        <p th:text="${product.category.categoryName}" class="card-text" style="color: black"></p>
 
                         <hr>
-                        <div >
-                            <p th:text="${product.colors}" class="card-text">Kolory</p>
-                            <p th:text="${product.sizes}" class="card-text">Rozmiar</p>
+                        <div>
+                            <p th:text="${product.colors}" class="card-text" style="color: black">Kolory </p>
+                            <p th:text="${product.sizes}" class="card-text" style="color: black">Rozmiar</p>
                         </div>
-                        <p th:text="${product.amount} " class="card-price"></p>
-                        <p th:text="${product.price} " class="card-price"></p>
+                        <p th:text="${product.amount} " class="card-price" style="color: black"></p>
+                        <p th:text="${product.price} + ' $'" class="card-price" style="color: black"></p>
 
                         <form action="#" th:action="@{/details/{id}(id=${product.productId})}" th:object="${product}" method="get" style="text-align: center" >
                         <!--<a href="/cart" class="btn btn-primary stretched-link" type="submit">Check</a>-->
                             <button class="btn btn-primary" type="submit">Update product</button>
                         </form>
 
-
-
-
-
-                        <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Understood</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
 
                     </div>
                 </div>
@@ -237,8 +219,8 @@
     </div>
     </div>
 </body>
-<!--<div>
+<div>
     <div th:include="footer"></div>
-</div>-->
+</div>
 </main>
 </html>

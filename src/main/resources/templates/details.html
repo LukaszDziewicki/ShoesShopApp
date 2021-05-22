@@ -58,7 +58,7 @@
                 <span>4.7(21)</span>
             </div>
 
-            <p class = "new-price">Price:  <span th:text="${product.price}">$257.00</span></p><br>
+            <p class = "new-price">Price:  <span th:text="${product.price} + ' $'">$257.00</span></p><br>
             <label>Sizes</label><br>
             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
             <label class="btn btn-primary" for="btn-check"><span th:text="${product.sizes.value}"></span></label>
