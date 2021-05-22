@@ -116,4 +116,11 @@ public class MainController {
     public String department() { return "markDepartment";
     }
 
+    @GetMapping("/cart")
+    public String shoppingCart() {
+        return "shoppingCart";
+    }
+
+
+
 }

@@ -188,7 +188,7 @@
 
                     <!-------End carousel-------->
 
-                    <div class="card-body">
+                    <div class="card-body" style="align-items: center">
                         <h6 th:text="${product.productName}" class="card-title" style="font-size:small;"></h6>
                         <p th:text="${product.category.categoryName}" class="card-text"></p>
 
@@ -200,14 +200,16 @@
                         <p th:text="${product.amount} " class="card-price"></p>
                         <p th:text="${product.price} " class="card-price"></p>
 
-                        <a href="#" class="btn btn-primary stretched-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add to cart</a>
+                        <form action="#" th:action="@{/details/{id}(id=${product.productId})}" th:object="${product}" method="get" style="text-align: center" >
+                        <!--<a href="/cart" class="btn btn-primary stretched-link" type="submit">Check</a>-->
+                            <button class="btn btn-primary" type="submit">Update product</button>
+                        </form>
 
 
 
 
 
-
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -223,7 +225,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
@@ -322,5 +323,14 @@ public class ProductsController {
         productServiceImpl.editSpecificProduct(id, productDto);
         return "redirect:/dataadminPanel";
     }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable(name = "id") long id, Model model) {
+        Product product = productServiceImpl.getProductById(id);
+        model.addAttribute("product",product);
+        return "details";
+    }
+
+
 
 }
