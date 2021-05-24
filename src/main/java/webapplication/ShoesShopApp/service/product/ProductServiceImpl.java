@@ -188,9 +188,14 @@ public class ProductServiceImpl {
        product.setProductName(productDto.getProductName());
        product.setAmount(productDto.getAmount());
        product.setPrice(productDto.getPrice());
+       product.setPrimaryImage(productDto.getPrimaryImage());
+       product.setSecondImage(productDto.getSecondImage());
+       product.setThirdImage(productDto.getThirdImage());
+       product.setFourthImage(productDto.getFourthImage());
        product.setCategory(productDto.getCategory());
        product.setSizes(productDto.getSizes());
        product.setColors(productDto.getColors());
+
        productRepository.save(product);
 
    }

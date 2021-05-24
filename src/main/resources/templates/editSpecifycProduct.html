@@ -109,7 +109,49 @@
                             </div>
                         </th:block>
                     </div>
+                    <div id="accordion" style="margin-top: 25px">
+                        <h5 class="mb-0">
+                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                Add Photos
+                            </a>
+                        </h5>
+                    </div>
 
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="block1">
+                            <p>
+                                <img alt="First photo" id="thumbnail" width="100px" height="100px"/>
+                            </p>
+                            <label>Photo 1</label>
+                            <input th:field="${product.primaryImage}" type="file" name="files"  autofocus="autofocus" class="form-control"  accept="{image/png, image/jpeg, image/jpg}">
+
+                        </div>
+
+
+                        <div class="block2">
+                            <p>
+                                <img alt="First photo" id="thumbnail0" width="100px" height="100px"/>
+                            </p>
+                            <label>Photo 2</label>
+                            <input th:field="${product.secondImage}"  th:object="${product}" type="file" name="files"  autofocus="autofocus"  class="form-control"  accept="{image/png, image/jpeg,  image/jpg}">
+                        </div>
+
+                        <div class="block3">
+                            <p>
+                                <img alt="First photo" id="thumbnail1" width="100px" height="100px"/>
+                            </p>
+                            <label>Photo 3</label>
+                            <input th:field="${product.thirdImage}" th:object="${product}" type="file" name="files"  autofocus="autofocus"  class="form-control" accept="{image/png, image/jpeg,  image/jpg}">
+                        </div>
+
+                        <div class="block4">
+                            <p>
+                                <img alt="First photo" id="thumbnail2" width="100px" height="100px"/>
+                            </p>
+                            <label>Photo 4</label>
+                            <input th:field="${product.fourthImage}"  th:object="${product}" type="file" name="files"  autofocus="autofocus" class="form-control" accept="{image/png, image/jpeg,  image/jpg}">
+                        </div>
+                    </div>
                     <div class="select">
                     <label for="exampleFormControlSelect1">Price:</label>
                     <input th:field="${product.price}"  type="number"  min="1" max="999" class="form-control"  required autofocus="autofocus" id="exampleFormControlSelect5"/>

@@ -47,7 +47,7 @@
         </div>
         <!-- card right -->
         <div class = "product-content">
-            <h2 class = "product-title"><span th:text="${product.category}"></span> <span th:text="${product.productName}">$257.00</span></h2>
+            <h2 class = "product-title"><span th:text="${product.category.categoryName}"></span> <span th:text="${product.productName}">$257.00</span></h2>
             <a href = "#" class = "product-link">ShoesShop</a>
             <div class = "product-rating">
                 <i class = "fas fa-star"></i>
@@ -74,7 +74,7 @@
                 <ul>
                     <li>Color: <span th:text="${product.colors}"></span></li>
                     <li>Available:<span th:text="${product.category.available}"></span></li>
-                    <li>Category: <span th:text="${product.category}"></span></li>
+                    <li>Category: <span th:text="${product.category.categoryName}"></span></li>
                     <li>Shipping Area: <span>All over the world</span></li>
                     <li>Shipping Fee: <span>Free</span></li>
                 </ul>

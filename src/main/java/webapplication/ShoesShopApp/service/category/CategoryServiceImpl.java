@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import webapplication.ShoesShopApp.model.Category;
-import webapplication.ShoesShopApp.model.Size;
+import webapplication.ShoesShopApp.model.dto.CategoryDTO;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 
 import java.util.List;
 
 @Service
 @Transactional
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -25,7 +25,20 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.save(category);
     }
 
-    public List<Category> listAll(){
+    public List<Category> listAll() {
         return categoryRepository.findAll();
     }
+
+
+    public Category getCategoryById(Long id) {
+        return categoryRepository.findById(id).get();
+    }
+
+    public void editSpecificCategory(Long id, CategoryDTO categoryDTO) {
+
+        Category category = getCategoryById(id);
+        category.setCategoryName(categoryDTO.getCategoryName());
+        categoryRepository.save(category);
+    }
+
 }

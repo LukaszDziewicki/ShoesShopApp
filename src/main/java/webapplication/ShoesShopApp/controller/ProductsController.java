@@ -1,13 +1,12 @@
 package webapplication.ShoesShopApp.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import webapplication.ShoesShopApp.model.*;
+import webapplication.ShoesShopApp.model.dto.CategoryDTO;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 import webapplication.ShoesShopApp.repository.ProductRepository;
@@ -18,7 +17,6 @@ import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,7 +57,7 @@ public class ProductsController {
 
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("colorList",colorList.get(0));
+        model.addAttribute("colorList", colorList.get(0));
 
         List<Product> productList = productServiceImpl.listAll();
 
@@ -109,16 +107,16 @@ public class ProductsController {
                              @RequestParam("category") List<String> category,
                              @RequestParam("size") List<String> size,
                              @RequestParam("color") List<String> color
-                             ) {
+    ) {
 
 //        List<Product> productList = productServiceImpl.getFilteredByCategory(category);
 //        List<Product> productList1 = productServiceImpl.getFilteredByCategory(size);
- //       List<Product> productList2 = productServiceImpl.getFilteredByColor(color);
+        //       List<Product> productList2 = productServiceImpl.getFilteredByColor(color);
         List<Product> productList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
                 size,
                 category,
                 color
-                );
+        );
 //category
 //        model.addAttribute("productList", productList);
 //        model.addAttribute("productList1", productList1);
@@ -166,10 +164,9 @@ public class ProductsController {
     @PostMapping("/product/save")
     public String saveProduct(@Valid Product product,
                               @RequestParam("files") MultipartFile[] primaryImage
-    )
-    {
+    ) {
 
-        productServiceImpl.save(product,primaryImage);
+        productServiceImpl.save(product, primaryImage);
         return "redirect:/";
     }
 
@@ -327,10 +324,23 @@ public class ProductsController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable(name = "id") long id, Model model) {
         Product product = productServiceImpl.getProductById(id);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return "details";
     }
 
+    @GetMapping("/editSpecificCategory/{id}")
+    public String editSpecificCategory(@PathVariable(name = "id") long id, Model model) {
+        Category category = categoryServiceImpl.getCategoryById(id);
+        model.addAttribute("category", category);
+        return "editSpecificCategory";
+    }
+
+    @PostMapping("/updateCategory/{id}")
+    public String updateCategory(@ModelAttribute("category") CategoryDTO categoryDTO, @PathVariable("id") Long id
+    ) {
+        categoryServiceImpl.editSpecificCategory(id, categoryDTO);
+        return "redirect:/dataadminPanel";
+    }
 
 
 }

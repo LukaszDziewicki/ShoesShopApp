@@ -30,6 +30,7 @@
         <th class="text-center">Category Name</th>
         <th class="text-center">Availability</th>
         <th class="text-center" rowspan="2">Actions</th>
+        <th class="text-center">Edit</th>
       </tr>
       </thead>
       <tbody>
@@ -44,6 +45,10 @@
           <a th:href="@{'/blockCategory/' + ${category.id}}" class="btn btn-custom" style="font-weight: bold; color: red;">Block</a>
           <span>/</span>
           <a th:href="@{'/unblockCategory/' + ${category.id}}" class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</a>
+        </td>
+
+        <td>
+          <a th:href="@{'/editSpecificCategory/' + ${category.id}}" class="btn btn-custom" style="font-weight: 500; color: lightblue;">Edit</a>
         </td>
 
       </tr>

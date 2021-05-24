@@ -38,7 +38,7 @@
                 <th th:text="${product.amount}" class="text-center">Ammount</th>
                 <th th:text="${product.sizes}" class="text-center">Size</th>
                 <th th:text="${product.colors}" class="text-center">Color</th>
-                <th th:text="${product.category}" class="text-center">Category</th>
+                <th th:text="${product.category.categoryName}" class="text-center">Category</th>
 
                 <td>
                     <a th:href="@{'/deleteProduct/' + ${product.productId}}" class="btn btn-custom" style="font-weight: bold; color: red;">Delete</a>

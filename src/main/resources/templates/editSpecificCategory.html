@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style_2.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script><title>Products</title>
+
+    <script>
+    </script>
+    <title>Update category</title>
+</head>
+<body>
+<div th:include="navbar"></div>
+<div th:if="${param.categoryFiled}">
+    <br>
+    <div class="alert alert-danger">Category already exist!</div>
+</div>
+
+<div class="card w-60">
+    <h5 class="card-title" >Update category</h5>
+    <div class="card-body">
+
+        <form action="#" th:action="@{/updateCategory/{id}(id=${category.id})}" th:object="${category}" method="post">
+
+            <div class="cat_label">
+                <label>Name of Category:</label>
+
+            </div>
+            <div class="select">
+                <input type="text" required name="name" class="form-control" min="1" max="15"  autofocus="autofocus" th:field="${category.categoryName}" id="productNameInput" maxlength="15">
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="width: 49%">Update category</button>
+
+        </form>
+    </div>
+
+</div>
+<div th:include="footer"></div>
+</body>
+</html>
