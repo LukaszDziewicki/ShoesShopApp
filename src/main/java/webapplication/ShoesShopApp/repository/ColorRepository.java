@@ -6,4 +6,5 @@ import webapplication.ShoesShopApp.model.Color;
 
 @Repository
 public interface ColorRepository extends JpaRepository<Color, Long> {
+    Boolean existsSizeByColorName(String color);
 }

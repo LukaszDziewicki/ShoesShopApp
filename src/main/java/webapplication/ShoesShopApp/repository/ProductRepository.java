@@ -32,4 +32,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Collection<String> listOfSizesValue,
             Collection<String> listOfCategoryName,
             Collection<String> listOfColorName);
+
+    List<Product> findBySizesValueInAndCategoryCategoryNameIn(
+            Collection<String> listOfSizesValue,
+            Collection<String> listOfCategoryName);
+
+    List<Product> findBySizesValueInAndColorsColorNameIn(
+            Collection<String> listOfSizesValue,
+            Collection<String> listOfColorName);
+
+    List<Product> findByCategoryCategoryNameInAndColorsColorNameIn(
+            Collection<String> listOfCategoryName,
+            Collection<String> listOfColorName);
 }

@@ -105,6 +105,31 @@ public class ProductServiceImpl {
         return productList;
     }
 
+    public  List<Product> getFilteredBySizesAndCategory(Collection<String> listOfSizesValue,
+                                                                 Collection<String> listOfCategoryName){
+        List<Product> productList = productRepository
+                .findBySizesValueInAndCategoryCategoryNameIn(
+                        listOfSizesValue,
+                        listOfCategoryName);
+        return productList;
+}
+    public  List<Product> getFilteredBySizesAndColors(Collection<String> listOfSizesValue,
+                                                                 Collection<String> listOfColorName){
+        List<Product> productList = productRepository
+                .findBySizesValueInAndColorsColorNameIn(
+                        listOfSizesValue,
+                        listOfColorName);
+        return productList;
+    }
+    public  List<Product> getFilteredByCategoryAndColors(
+                                                                 Collection<String> listOfCategoryName,
+                                                                 Collection<String> listOfColorName){
+        List<Product> productList = productRepository
+                .findByCategoryCategoryNameInAndColorsColorNameIn(
+                        listOfCategoryName,
+                        listOfColorName);
+        return productList;
+    }
     public  List<Product> getFilteredBySizesAndCategoryAndColors(Collection<String> listOfSizesValue,
                                                                  Collection<String> listOfCategoryName,
                                                                  Collection<String> listOfColorName){
@@ -114,8 +139,7 @@ public class ProductServiceImpl {
                         listOfCategoryName,
                         listOfColorName);
         return productList;
-}
-
+    }
 
    /* public boolean checkIfProductExist(int i, List<Product> productList) {
 

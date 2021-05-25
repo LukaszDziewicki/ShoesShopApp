@@ -16,6 +16,7 @@ import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +62,6 @@ public class ProductsController {
 
         List<Product> productList = productServiceImpl.listAll();
 
-        // productServiceImpl.addAmountAndSetSizes(productList);
         for (int i = 0; i < productList.size(); i++) {
 
             for (int j = i + 1; j < productList.size(); j++) {
@@ -104,41 +104,58 @@ public class ProductsController {
 
     @PostMapping("/filterData")
     public String filterData(Model model,
-                             @RequestParam("category") List<String> category,
-                             @RequestParam("size") List<String> size,
-                             @RequestParam("color") List<String> color
-    ) {
+                             @RequestParam("filterElements") List<String> filterElements
 
-//        List<Product> productList = productServiceImpl.getFilteredByCategory(category);
-//        List<Product> productList1 = productServiceImpl.getFilteredByCategory(size);
-        //       List<Product> productList2 = productServiceImpl.getFilteredByColor(color);
-        List<Product> productList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
-                size,
-                category,
-                color
-        );
-//category
-//        model.addAttribute("productList", productList);
-//        model.addAttribute("productList1", productList1);
+    ) {
+        List<String> sizeList = new ArrayList<>();
+        List<String> colorList = new ArrayList<>();
+        List<String> categoryList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
+
+        for (String poz : filterElements
+             ) {
+            if(categoryServiceImpl.isEqualCategory(poz)){
+                categoryList.add(poz);
+            }
+            if(sizeServiceImpl.isEqualSize(poz)){
+                sizeList.add(poz);
+            }
+            if(colorServiceImpl.isEqualColor(poz)){
+                colorList.add(poz);
+            }
+        }
+        if(!(categoryList.isEmpty() && sizeList.isEmpty() && colorList.isEmpty())){
+            productList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
+                    sizeList,
+                    categoryList,
+                    colorList
+            );
+        }
+        if(categoryList.isEmpty()){
+            productList = productServiceImpl.getFilteredBySizesAndColors(sizeList, colorList);
+        }
+        if(sizeList.isEmpty()){
+            productList = productServiceImpl.getFilteredByCategoryAndColors(categoryList,colorList);
+        }
+         if(colorList.isEmpty()){
+            productList = productServiceImpl.getFilteredBySizesAndCategory(sizeList, categoryList);
+        }
+         if(categoryList.isEmpty() && colorList.isEmpty()){
+            productList = productServiceImpl.getFilteredBySize(sizeList);
+        }
+         if(colorList.isEmpty() && sizeList.isEmpty()){
+            productList = productServiceImpl.getFilteredByCategory(categoryList);
+        }
+        if (categoryList.isEmpty() && sizeList.isEmpty()){
+            productList = productServiceImpl.getFilteredByColor(colorList);
+        }
+
+
+
+
         model.addAttribute("productList", productList);
         return "home";
     }
-
-   /* @RequestMapping("dataadminPanel/category")
-    public String newCategory(Model model) {
-        List<Category> categoryList = categoryServiceImpl.listAll();
-        List<Color> colorList = colorServiceImpl.listAll();
-        List<Size> sizeList = sizeServiceImpl.listAll();
-        List<Product> productList = productServiceImpl.listAll();
-        Category category = new Category();
-
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("colorList", colorList);
-        model.addAttribute("sizeList", sizeList);
-        model.addAttribute("productList", productList);
-        model.addAttribute("category", category);
-        return "dataadminPanel";
-    }*/
 
     @PostMapping("/saveCategory")
     public String saveCategory(Category category) {
@@ -227,58 +244,6 @@ public class ProductsController {
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productList", productList);
-        return "home";
-    }
-
-    @GetMapping("/filterProducts")
-    public String filterProducts(@ModelAttribute FilterDTO filterDTO, Model model) {
-
-//single filter
-        //filter by category
-        List<Product> filteredByCategoryList = productServiceImpl.getFilteredByCategory(Arrays.asList("Converse"));
-
-        //filter by size
-        List<Product> filteredBySizeList = productServiceImpl.getFilteredBySize(Arrays.asList("39", "42", "45"));
-
-
-        //filter by color
-        List<Product> filteredByColorList = productServiceImpl.getFilteredByColor(Arrays.asList("White"));
-
-
-//or triple filter - to najlepsza opcja filtrowania
-        List<Product> list = productServiceImpl
-                .getFilteredBySizesAndCategoryAndColors(
-                        Arrays.asList("44", "42", "45"),
-                        Arrays.asList("New Balance", "Converse"),
-                        Arrays.asList("White")
-                );
-
-
-//or manual filter
-        Set<String> setOfSizes = Stream.of("42", "45", "44").collect(Collectors.toSet());
-        Set<String> setOfColors = Stream.of("White").collect(Collectors.toSet());
-
-        filteredByCategoryList
-                .stream()
-                .filter(s -> s
-                        .getSizes()
-                        .equals(setOfSizes))
-                .filter(x -> x
-                        .getColors()
-                        .equals(setOfColors));
-
-
-        // Z thymleafa generować 3 listy: rozmiarów, colorów i category
-
-        //List<Product> list = productServiceImpl
-        //                .getFilteredBySizesAndCategoryAndColors(
-        //                        listaRozmiarów,
-        //                        listaCategori,
-        //                        listaKolorów
-        //                );
-        // model.addAttribute("productList", list);
-
-        model.addAttribute("productList", productRepository.findByColor(filterDTO.getColorList()));
         return "home";
     }
 

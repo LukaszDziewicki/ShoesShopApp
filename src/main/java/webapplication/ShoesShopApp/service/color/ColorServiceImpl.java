@@ -26,4 +26,8 @@ public class ColorServiceImpl {
     public List<Color> listAll(){
         return colorRepository.findAll();
     }
+
+    public boolean isEqualColor(String color){
+        return colorRepository.existsSizeByColorName(color);
+    }
 }

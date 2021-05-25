@@ -25,4 +25,6 @@ public interface CategoryRepository  extends JpaRepository<Category, Long> {
 
     @Override
     List<Category> findAll();
+
+    Boolean existsSizeByCategoryName(String categoryName);
 }

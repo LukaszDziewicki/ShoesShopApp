@@ -27,4 +27,7 @@ public class SizeServiceImpl {
     public List<Size> listAll(){
         return sizeRepository.findAll();
     }
+    public boolean isEqualSize(String value){
+        return sizeRepository.existsSizeByValue(value);
+    }
 }

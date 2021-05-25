@@ -41,4 +41,8 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
     }
 
+    public boolean isEqualCategory(String category){
+        return categoryRepository.existsSizeByCategoryName(category);
+    }
+
 }
