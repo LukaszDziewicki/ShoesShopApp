@@ -1,11 +1,15 @@
 package webapplication.ShoesShopApp.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import webapplication.ShoesShopApp.model.*;
+import webapplication.ShoesShopApp.model.Category;
+import webapplication.ShoesShopApp.model.Color;
+import webapplication.ShoesShopApp.model.Product;
+import webapplication.ShoesShopApp.model.Size;
 import webapplication.ShoesShopApp.model.dto.CategoryDTO;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
@@ -17,11 +21,8 @@ import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class ProductsController {
@@ -113,44 +114,42 @@ public class ProductsController {
         List<Product> productList = new ArrayList<>();
 
         for (String poz : filterElements
-             ) {
-            if(categoryServiceImpl.isEqualCategory(poz)){
+        ) {
+            if (categoryServiceImpl.isEqualCategory(poz)) {
                 categoryList.add(poz);
             }
-            if(sizeServiceImpl.isEqualSize(poz)){
+            if (sizeServiceImpl.isEqualSize(poz)) {
                 sizeList.add(poz);
             }
-            if(colorServiceImpl.isEqualColor(poz)){
+            if (colorServiceImpl.isEqualColor(poz)) {
                 colorList.add(poz);
             }
         }
-        if(!(categoryList.isEmpty() && sizeList.isEmpty() && colorList.isEmpty())){
+        if (!(categoryList.isEmpty() && sizeList.isEmpty() && colorList.isEmpty())) {
             productList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
                     sizeList,
                     categoryList,
                     colorList
             );
         }
-        if(categoryList.isEmpty()){
+        if (categoryList.isEmpty()) {
             productList = productServiceImpl.getFilteredBySizesAndColors(sizeList, colorList);
         }
-        if(sizeList.isEmpty()){
-            productList = productServiceImpl.getFilteredByCategoryAndColors(categoryList,colorList);
+        if (sizeList.isEmpty()) {
+            productList = productServiceImpl.getFilteredByCategoryAndColors(categoryList, colorList);
         }
-         if(colorList.isEmpty()){
+        if (colorList.isEmpty()) {
             productList = productServiceImpl.getFilteredBySizesAndCategory(sizeList, categoryList);
         }
-         if(categoryList.isEmpty() && colorList.isEmpty()){
+        if (categoryList.isEmpty() && colorList.isEmpty()) {
             productList = productServiceImpl.getFilteredBySize(sizeList);
         }
-         if(colorList.isEmpty() && sizeList.isEmpty()){
+        if (colorList.isEmpty() && sizeList.isEmpty()) {
             productList = productServiceImpl.getFilteredByCategory(categoryList);
         }
-        if (categoryList.isEmpty() && sizeList.isEmpty()){
+        if (categoryList.isEmpty() && sizeList.isEmpty()) {
             productList = productServiceImpl.getFilteredByColor(colorList);
         }
-
-
 
 
         model.addAttribute("productList", productList);
