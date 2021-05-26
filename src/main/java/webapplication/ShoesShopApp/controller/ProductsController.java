@@ -63,39 +63,39 @@ public class ProductsController {
 
         List<Product> productList = productServiceImpl.listAll();
 
-        for (int i = 0; i < productList.size(); i++) {
-
-            for (int j = i + 1; j < productList.size(); j++) {
-
-                if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
-                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
-                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
-                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
-                        productList.get(i).getSizes().equals(productList.get(j).getSizes())) {
-                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
-                    productList.get(i).setAmount(sum);
-                    productList.remove(j);
-                    j--;
-
-                } else if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
-                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
-                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
-                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
-                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
-                    Set<Size> sizes = productList.get(i).getSizes();
-                    sizes.addAll(productList.get(j).getSizes());
-                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
-                    productList.get(i).setAmount(sum);
-                    productList.get(i).setSizes(sizes);
-                    productList.remove(j);
-                    j--;
-
-                }
-
-            }
-
-
-        }
+//        for (int i = 0; i < productList.size(); i++) {
+//
+//            for (int j = i + 1; j < productList.size(); j++) {
+//
+//                if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
+//                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
+//                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
+//                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
+//                        productList.get(i).getSizes().equals(productList.get(j).getSizes())) {
+//                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
+//                    productList.get(i).setAmount(sum);
+//                    productList.remove(j);
+//                    j--;
+//
+//                } else if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
+//                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
+//                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
+//                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
+//                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
+//                    Set<Size> sizes = productList.get(i).getSizes();
+//                    sizes.addAll(productList.get(j).getSizes());
+//                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
+//                    productList.get(i).setAmount(sum);
+//                    productList.get(i).setSizes(sizes);
+//                    productList.remove(j);
+//                    j--;
+//
+//                }
+//
+//            }
+//
+//
+//        }
         model.addAttribute("productList", productList);
 
 
@@ -182,7 +182,31 @@ public class ProductsController {
                               @RequestParam("files") MultipartFile[] primaryImage
     ) {
 
-        productServiceImpl.save(product, primaryImage);
+        List<Product> productList = productServiceImpl.listAll();
+        if(productList.isEmpty()){
+            productServiceImpl.save(product, primaryImage);
+        }
+
+        boolean productExists = false;
+
+        for (int i = 0; i < productList.size(); i++) {
+
+            if (productList.get(i).getProductName().equals(product.getProductName()) &&
+                    productList.get(i).getCategory().equals(product.getCategory()) &&
+                    productList.get(i).getPrice().equals(product.getPrice()) &&  // porównuje bigdecimal z integerem, trzeba zamienić integer na bigdecimal // sizes
+                    productList.get(i).getColors().equals(product.getColors()) &&
+                    productList.get(i).getSizes().equals(product.getSizes())) {
+
+                productExists = true;
+                int sum = productList.get(i).getAmount() + product.getAmount();
+                productList.get(i).setAmount(sum);
+                productServiceImpl.save(productList.get(i), primaryImage);
+            }
+        }
+        if(!productExists){
+            productServiceImpl.save(product, primaryImage);
+        }
+
         return "redirect:/";
     }
 

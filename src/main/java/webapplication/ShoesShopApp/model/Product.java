@@ -26,7 +26,7 @@ public class Product implements Comparable<Product>{
     @Column
     private String fourthImage;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "product_sizes",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -34,7 +34,7 @@ public class Product implements Comparable<Product>{
     )
     private Set<Size> sizes = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "product_colors",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -42,7 +42,7 @@ public class Product implements Comparable<Product>{
     )
     private Set<Color> colors = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REFRESH)
     @JoinColumn(
             name = "category_id"
     )
