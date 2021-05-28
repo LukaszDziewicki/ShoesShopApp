@@ -47,7 +47,7 @@
         </div>
         <!-- card right -->
         <div class = "product-content">
-            <h2 class = "product-title"><span th:text="${product.category.categoryName}"></span> <span th:text="${product.productName}">$257.00</span></h2>
+            <h2 class = "product-title"><span th:text="${product.category.categoryName}"></span> <span th:text="${product.productName}"></span></h2>
             <a href = "#" class = "product-link">ShoesShop</a>
             <div class = "product-rating">
                 <i class = "fas fa-star"></i>
@@ -58,14 +58,31 @@
                 <span>4.7(21)</span>
             </div>
 
-            <p class = "new-price">Price:  <span th:text="${product.price} + ' $'">$257.00</span></p><br>
+            <p class = "new-price">Price:  <span th:text="${product.price} + ' $'"></span></p><br>
+<!--            <form action="#" th:action="@{/details/save}" th:object="${shoppingCart}" method="post">-->
             <label>Sizes</label><br>
-            <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
-            <label class="btn btn-primary" for="btn-check"><span th:text="${product.sizes.value}"></span></label>
+
+                <th:block th:each="productC : ${productToCart}">
+                    <form action="#" th:action="@{/details/{id}(id=${productC.productId})}" th:object="${product}" method="get">
+                    <input th:each="size : ${productSizes}" th:if="${size} == ${productC.sizes}" type="hidden" th:value="${productC.productId}"  >
+                        <button type = "sumbit" th:text="${productC.sizes}" class = "btn" STYLE="font: 8pt Arial;color=black; font-style: italic; font-weight: bold;  background:blue; width:100px; height:50px;"></button>
+                    </form>
+                </th:block>
+                <form action="#" th:action="@{/details/save}" th:object="${shoppingCart}" method="post">
+                    <!--            <select name="userItem" class="form-control" data-live-search="true">-->
+<!--                <th:block  th:each="size : ${productSizes}">-->
+<!--                <option   th:each="productC : ${productToCart}" th:if="${size} == ${productC.sizes}"-->
+<!--                        th:value="${productC.productId}"-->
+
+<!--                        th:text="${size.value}">-->
+<!--                </option>-->
+<!--                </th:block>-->
+<!--            </select>-->
+
                 <div class = "product-price">
             </div>
 
-
+                    <input hidden th:value="${product.productId}" name = "userItem" >
 
             <div class = "product-detail">
                 <h2>about this item: </h2>
@@ -81,12 +98,13 @@
             </div>
 
             <div class = "purchase-info">
-                <input type = "number" min = "1" value = "1">
-                <button type = "button" class = "btn">
+                <input type = "number" min = "1" th:max="${product.amount}" th:field="*{quantity}">
+                <button type = "sumbit" class = "btn">
                     Add to Cart <i class = "fas fa-shopping-cart"></i>
                 </button>
             </div>
 
+        </form>
         </div>
     </div>
 </div>

@@ -129,17 +129,13 @@
 
                     <label for="exampleFormControlSelect1">Size:</label>
                     <div class="select">
-
-                        <th:block th:each="size : ${sizeList}" class="form-control" data-live-search="true"
-                                  id="exampleFormControlSelect4">
-                            <div>
-                                <div class="check_box2">
-                                <input type="checkbox" th:field="*{sizes}" required
-                                       th:value="${size.sizeID}"
-                                       th:text="${size.value}"/>
-                                </div>
-                            </div>
-                        </th:block>
+                        <select th:field="*{sizes}" class="form-control" data-live-search="true"
+                                id="exampleFormControlSelect4">
+                            <option th:each="size : ${sizeList}"
+                                    th:value="${size.sizeID}"
+                                    th:text="${size.value}">
+                            </option>
+                        </select>
                     </div>
 
                     <div id="accordion" style="margin-top: 25px">

@@ -8,6 +8,7 @@ import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.repository.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -31,6 +32,11 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     @Autowired
     ProductRepository productRepository;
 
+  @Autowired
+  UserRepository userRepository;
+  @Autowired
+  ShoppingCartRepository shoppingCartRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ShoesShopAppApplication.class, args);
@@ -41,7 +47,13 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
  //start();
-
+//        List<Product> list = productRepository.findAll();
+//        List<User> listu = userRepository.findAll();
+// ShoppingCart shoppingCart = new ShoppingCart();
+// shoppingCart.setProduct(list.get(0));
+// shoppingCart.setUser(listu.get(0));
+// shoppingCart.setQuantity(2);
+// shoppingCartRepository.save(shoppingCart);
     }
 
 

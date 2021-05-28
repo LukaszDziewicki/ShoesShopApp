@@ -103,7 +103,7 @@
                         Color:
                     </p>
                     <div class="checkoboxes">
-                            <th:block th:each="color : ${colorList}" >
+<!--                            <th:block th:each="color : ${colorList}" >-->
                             <input name = "filterElements" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="Black" aria-label="..." style="background-color: black; width: 40px; height: 40px;">
                             <input name = "filterElements" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="White" aria-label="..." style="background-color: white; width: 40px; height: 40px;"><!-- czarny check-->
                             <input name = "filterElements" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="Red" aria-label="..." style="background-color: red; width: 40px; height: 40px;">
@@ -121,7 +121,7 @@
                             <input name = "filterElements" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="Yellow" aria-label="..." style="background-color: yellow; width: 40px; height: 40px;">
                             <input name = "filterElements" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="Chocolate" aria-label="..." style="background-color: chocolate; width: 40px; height: 40px;">
                             <input name = "filterElements" class="form-check-input" type="checkbox" th:id="checkboxNoLabel" th:value="Burlywood" aria-label="..." style="background-color: burlywood; width: 40px; height: 40px;">
-                            </th:block>
+<!--                            </th:block>-->
 
                 </div>
                 <br>
@@ -191,16 +191,16 @@
                     <img class="card-img-top" th:src="@{'/img/' + ${product.primaryImage}}" alt="Card image cap">
 
                     <div class="card-body" style="align-items: center">
-                        <h6 th:text="${product.productName}" class="card-title" style="font-size:small;"></h6>
-                        <p th:text="${product.category.categoryName}" class="card-text" style="color: black"></p>
+                        <h6 th:text="'Name: ' + ${product.productName}" class="card-title" style="font-size:small;"></h6>
+                        <p th:text="'Category: ' + ${product.category.categoryName}" class="card-text" style="color: black"></p>
 
                         <hr>
-                        <div>
-                            <p th:text="${product.colors}" class="card-text" style="color: black">Kolory </p>
-                            <p th:text="${product.sizes}" class="card-text" style="color: black">Rozmiar</p>
-                        </div>
-                        <p th:text="${product.amount} " class="card-price" style="color: black"></p>
-                        <p th:text="${product.price} + ' $'" class="card-price" style="color: black"></p>
+<!--                        <div>-->
+<!--                            <p th:text="${product.colors}" class="card-text" style="color: black">Kolory </p>-->
+<!--                            <p th:text="${product.sizes}" class="card-text" style="color: black">Rozmiar</p>-->
+<!--                        </div>-->
+<!--                        <p th:text="${product.amount} " class="card-price" style="color: black"></p>-->
+                        <p th:text="'Price: ' + ${product.price} + ' $'" class="card-price" style="color: black"></p>
 
                         <form action="#" th:action="@{/details/{id}(id=${product.productId})}" th:object="${product}" method="get" style="text-align: center" >
                         <!--<a href="/cart" class="btn btn-primary stretched-link" type="submit">Check</a>-->

@@ -7,32 +7,32 @@ const decreaseNumber = (incdec, itemprice) => {
     var itemprice = document.getElementById(itemprice);
     console.log( itemprice.innerHTML);
 // console.log(itemval.value);
-    if(itemval.value <= 0){
-        itemval.value = 0;
-        alert('Negative quantity not allowed');
+    if(itemval.value <= 1){
+        itemval.value = 1;
+        alert('Negative or 0 quantity not allowed');
     }else{
         itemval.value = parseInt(itemval.value) - 1;
         itemval.style.background = '#fff';
         itemval.style.color = '#000';
-        itemprice.innerHTML  = parseInt(itemprice.innerHTML) - 15;
-        product_total_amt.innerHTML  = parseInt(product_total_amt.innerHTML) - 15;
-        total_cart_amt.innerHTML  = parseInt(product_total_amt.innerHTML) + parseInt(shipping_charge.innerHTML);
+       // itemprice.innerHTML  = parseInt(itemprice.innerHTML) - 15;
+       // product_total_amt.innerHTML  = parseInt(product_total_amt.innerHTML) - 15;
+       // total_cart_amt.innerHTML  = parseInt(product_total_amt.innerHTML) + parseInt(shipping_charge.innerHTML);
     }
 }
 const increaseNumber = (incdec, itemprice) => {
     var itemval = document.getElementById(incdec);
     var itemprice = document.getElementById(itemprice);
-// console.log(itemval.value);
-    if(itemval.value >= 5){
-        itemval.value = 5;
-        alert('max 5 allowed');
-        itemval.style.background = 'red';
-        itemval.style.color = '#fff';
+ console.log(itemval.value);
+    if(itemval.value){
+        itemval.value = parseInt(itemval.value) + 1;
+     //   alert('max 5 allowed');
+     //   itemval.style.background = 'red';
+     //   itemval.style.color = '#fff';
     }else{
         itemval.value = parseInt(itemval.value) + 1;
-        itemprice.innerHTML  = parseInt(itemprice.innerHTML ) + 15;
-        product_total_amt.innerHTML  = parseInt(product_total_amt.innerHTML) + 15;
-        total_cart_amt.innerHTML  = parseInt(product_total_amt.innerHTML) + parseInt(shipping_charge.innerHTML);
+       // itemprice.innerHTML  = parseInt(itemprice.innerHTML ) + 15;
+        //product_total_amt.innerHTML  = parseInt(product_total_amt.innerHTML) + 15;
+        //total_cart_amt.innerHTML  = parseInt(product_total_amt.innerHTML) + parseInt(shipping_charge.innerHTML);
     }
 }
 

@@ -1,27 +1,31 @@
 package webapplication.ShoesShopApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import webapplication.ShoesShopApp.model.Category;
-import webapplication.ShoesShopApp.model.Color;
-import webapplication.ShoesShopApp.model.Product;
-import webapplication.ShoesShopApp.model.Size;
+import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.CategoryDTO;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 import webapplication.ShoesShopApp.repository.ProductRepository;
+import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
+import webapplication.ShoesShopApp.repository.UserRepository;
 import webapplication.ShoesShopApp.service.category.CategoryServiceImpl;
 import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -48,6 +52,12 @@ public class ProductsController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
 
     @GetMapping("/")
     public String home(Model model) {
@@ -59,7 +69,7 @@ public class ProductsController {
 
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("colorList", colorList.get(0));
+        model.addAttribute("colorList", colorList);
 
         List<Product> productList = productServiceImpl.listAll();
 
@@ -70,13 +80,12 @@ public class ProductsController {
 //                if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
 //                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
 //                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
-//                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
-//                        productList.get(i).getSizes().equals(productList.get(j).getSizes())) {
+//                        productList.get(i).getColors().equals(productList.get(j).getColors())) {
 //                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
 //                    productList.get(i).setAmount(sum);
 //                    productList.remove(j);
 //                    j--;
-//
+//                }
 //                } else if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
 //                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
 //                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
@@ -90,12 +99,12 @@ public class ProductsController {
 //                    productList.remove(j);
 //                    j--;
 //
-//                }
-//
-//            }
-//
-//
-//        }
+        //               }
+
+        // }
+
+
+        //   }
         model.addAttribute("productList", productList);
 
 
@@ -183,7 +192,7 @@ public class ProductsController {
     ) {
 
         List<Product> productList = productServiceImpl.listAll();
-        if(productList.isEmpty()){
+        if (productList.isEmpty()) {
             productServiceImpl.save(product, primaryImage);
         }
 
@@ -193,7 +202,7 @@ public class ProductsController {
 
             if (productList.get(i).getProductName().equals(product.getProductName()) &&
                     productList.get(i).getCategory().equals(product.getCategory()) &&
-                    productList.get(i).getPrice().equals(product.getPrice()) &&  // porównuje bigdecimal z integerem, trzeba zamienić integer na bigdecimal // sizes
+                    productList.get(i).getPrice().equals(product.getPrice()) &&  // porównuje bigdecimal z integerem, trzeba zamienić integer na bigdecimal
                     productList.get(i).getColors().equals(product.getColors()) &&
                     productList.get(i).getSizes().equals(product.getSizes())) {
 
@@ -203,7 +212,7 @@ public class ProductsController {
                 productServiceImpl.save(productList.get(i), primaryImage);
             }
         }
-        if(!productExists){
+        if (!productExists) {
             productServiceImpl.save(product, primaryImage);
         }
 
@@ -232,6 +241,7 @@ public class ProductsController {
         productService.delete(id);
         return "redirect:/dataadminPanel";
     }
+
 
     @GetMapping("/asc")
     public String asc(Model model) {
@@ -312,8 +322,60 @@ public class ProductsController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable(name = "id") long id, Model model) {
         Product product = productServiceImpl.getProductById(id);
+        List<Product> productList = productServiceImpl.listAll();
+        ArrayList<Set<Size>> productSizes = new ArrayList<>();
+        List<Product> productToCart = new ArrayList<>();
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getProductName().equals(product.getProductName()) &&
+                    productList.get(i).getCategory().toString().equals(product.getCategory().toString()) &&
+                    productList.get(i).getPrice().equals(product.getPrice()) &&
+                    productList.get(i).getColors().equals(product.getColors())) {
+                productSizes.add(productList.get(i).getSizes());
+                productToCart.add(productList.get(i));
+            }
+
+        }
+        //  productSizes.add(product.getSizes());
+        model.addAttribute("shoppingCart", new ShoppingCart());
+        model.addAttribute("productToCart", productToCart);
         model.addAttribute("product", product);
+        model.addAttribute("productSizes", productSizes);
         return "details";
+    }
+
+    @PostMapping("/details/save")
+    public String details(ShoppingCart shoppingCart, @AuthenticationPrincipal UserDetails currentUser, @RequestParam("userItem") String item
+    ) {
+        List<Product> productList = productServiceImpl.listAll();
+
+        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        User user = (User) userRepository.findByEmail(currentUser.getUsername());
+        shoppingCart.setUser(user);
+        shoppingCart.setProduct(productList.get(Integer.parseInt(item)-1));
+
+        if (shoppingCartList.isEmpty()) {
+            shoppingCartRepository.save(shoppingCart);
+        } else {
+
+            boolean productExists = false;
+
+            for (int i = 0; i < shoppingCartList.size(); i++) {
+
+                if (shoppingCartList.get(i).getProduct().equals(shoppingCart.getProduct()) &&
+                        shoppingCartList.get(i).getUser().equals(user)) {
+
+                    productExists = true;
+                    int sum = shoppingCartList.get(i).getQuantity() + shoppingCart.getQuantity();
+                    shoppingCartList.get(i).setQuantity(sum);
+                    shoppingCartRepository.save(shoppingCartList.get(i));
+                }
+            }
+
+            if (!productExists) {
+                shoppingCartRepository.save(shoppingCart);
+            }
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/editSpecificCategory/{id}")
@@ -328,6 +390,51 @@ public class ProductsController {
     ) {
         categoryServiceImpl.editSpecificCategory(id, categoryDTO);
         return "redirect:/dataadminPanel";
+    }
+
+    @GetMapping("/shoppingCart")
+    public String shoppingCart(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        List<Product> productList = productServiceImpl.listAll();
+        List<ShoppingCart> itemList = shoppingCartRepository.findAll();
+        User user = (User) userRepository.findByEmail(currentUser.getUsername());
+        double finalPrice = 0d;
+        List<ShoppingCart> userProductCartToDelete = new ArrayList<>();
+        List<Product> userProductList = new ArrayList<>();
+
+
+        for (ShoppingCart item : itemList) {
+            if (item.getUser().getId().equals(user.getId())) {
+                userProductCartToDelete.add(item);
+                //Product product = productList.get(Integer.parseInt(item.getProduct().getProductId().toString())-1);
+                Product product = new Product();
+                product.setProductId(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getProductId());
+                product.setProductName(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getProductName());
+                product.setAmount(item.getQuantity());
+                product.setColors(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getColors());
+                product.setSizes(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getSizes());
+                product.setPrice(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getPrice());
+                product.setCategory(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getCategory());
+                product.setPrimaryImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getPrimaryImage());
+                product.setSecondImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getSecondImage());
+                product.setThirdImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getThirdImage());
+                product.setFourthImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getFourthImage());
+               // userProductList.add(productList.get(Integer.parseInt(item.getProduct().getProductId().toString())-1));
+                userProductList.add(product);
+                finalPrice += Double.parseDouble(product.getPrice().toString()) * product.getAmount();
+            }
+        }
+
+        model.addAttribute("productList",productList);
+        model.addAttribute("userProductCartToDelete",userProductCartToDelete);
+        model.addAttribute("finalPrice",finalPrice);
+        model.addAttribute("userProductList", userProductList);
+
+        return "shoppingCart";
+    }
+    @GetMapping("/deleteUserItem/{id}")
+    public String deleteUserItem(@PathVariable(name = "id") int id) {
+        shoppingCartRepository.deleteById(id);
+        return "redirect:/shoppingCart";
     }
 
 
