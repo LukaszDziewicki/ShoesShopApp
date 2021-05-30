@@ -1,4 +1,4 @@
-package webapplication.ShoesShopApp.model;
+package webapplication.ShoesShopApp.model.dto;
 
 import org.springframework.stereotype.Component;
 

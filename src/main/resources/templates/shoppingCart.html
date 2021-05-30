@@ -98,27 +98,15 @@
                         </div>
                         </th:block>
                         <hr />
+                        <form action="payment" method="get">
                         <div class="total-amt d-flex justify-content-between font-weight-bold">
                             <p>The total amount of (including VAT)</p>
                             <p>$<span id="total_cart_amt" th:text="${finalPrice}"></span></p>
                         </div>
                         <button class="btn btn-primary text-uppercase">Checkout</button>
+                        </form>
                     </div>
-                    <!-- discount code part -->
-<!--                    <div class="discount_code mt-3 shadow">-->
-<!--                        <div class="card">-->
-<!--                            <div class="card-body">-->
-<!--                                <a class="d-flex justify-content-between" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
-<!--                                    Add a discount code (optional)-->
-<!--                                    <span><i class="fas fa-chevron-down pt-1"></i></span>-->
-<!--                                </a>-->
-<!--                                <div class="collapse" id="collapseExample">-->
-<!--                                    <div class="mt-3">-->
-<!--                                        <input type="text" name="" id="discount_code1" class="form-control font-weight-bold" placeholder="Enter the discount code">-->
-<!--                                        <small id="error_trw" class="text-dark mt-3">code is thapa</small>-->
-<!--                                    </div>-->
-<!--                                    <button class="btn btn-primary btn-sm mt-3" onclick="discount_code()">Apply</button>-->
-<!--                                </div>-->
+
                             </div>
                         </div>
                     </div>
@@ -128,8 +116,7 @@
         </div>
     </div>
 </div>
-<!-- Optional JavaScript -->
-<!-- Popper.js first, then Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 

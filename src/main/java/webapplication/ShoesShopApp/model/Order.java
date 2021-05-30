@@ -1,104 +1,73 @@
 package webapplication.ShoesShopApp.model;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
-@Entity
-@Table(name = "\"order\"")
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long orderId;
-    private boolean status;
-    private BigDecimal price;
-    @Column(name = "order_date")
-    private LocalDateTime orderDate;
+    private double price;
+    private String currency;
+    private String method;
+    private String intent;
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name =
-            "user_id")
-    private User user;
 
-    @ManyToOne
-    @JoinColumn(name =
-            "address_id")
-    private Address address;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<OrderRow> orderRows = new HashSet<>();
+    public Order(double price, String currency, String method, String intent, String description) {
+        this.price = price;
+        this.currency = currency;
+        this.method = method;
+        this.intent = intent;
+        this.description = description;
+    }
 
     public Order() {
     }
 
-    public Order(Long orderId, boolean status, BigDecimal price, LocalDateTime orderDate, User user, Address address) {
-        this.orderId = orderId;
-        this.status = status;
-        this.price = price;
-        this.orderDate = orderDate;
-        this.user = user;
-        this.address = address;
-    }
+	public double getPrice() {
+		return price;
+	}
 
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
+	public String getCurrency() {
+		return currency;
+	}
 
-    public Long getOrderId() {
-        return orderId;
-    }
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
+	public String getMethod() {
+		return method;
+	}
 
-    public boolean isStatus() {
-        return status;
-    }
+	public void setMethod(String method) {
+		this.method = method;
+	}
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+	public String getIntent() {
+		return intent;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public void setIntent(String intent) {
+		this.intent = intent;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setOrderRows(Set<OrderRow> orderRows) {
-        this.orderRows = orderRows;
-    }
-
-    public Set<OrderRow> getOrderRows() {
-        return orderRows;
+	@Override
+    public String toString() {
+        return "Order{" +
+                "price=" + price +
+                ", currency='" + currency + '\'' +
+                ", method='" + method + '\'' +
+                ", intent='" + intent + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

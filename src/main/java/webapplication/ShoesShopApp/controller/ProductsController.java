@@ -18,6 +18,7 @@ import webapplication.ShoesShopApp.repository.UserRepository;
 import webapplication.ShoesShopApp.service.category.CategoryServiceImpl;
 import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
+import webapplication.ShoesShopApp.service.shoppingcart.ShoppingCartService;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
 
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ public class ProductsController {
     private ColorServiceImpl colorServiceImpl;
 
     @Autowired
-    private ProductRepository productRepository;
+    private ShoppingCartService shoppingCartService;
 
     @Autowired
     private ProductServiceImpl productServiceImpl;
@@ -325,13 +326,13 @@ public class ProductsController {
         List<Product> productList = productServiceImpl.listAll();
         ArrayList<Set<Size>> productSizes = new ArrayList<>();
         List<Product> productToCart = new ArrayList<>();
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getProductName().equals(product.getProductName()) &&
-                    productList.get(i).getCategory().toString().equals(product.getCategory().toString()) &&
-                    productList.get(i).getPrice().equals(product.getPrice()) &&
-                    productList.get(i).getColors().equals(product.getColors())) {
-                productSizes.add(productList.get(i).getSizes());
-                productToCart.add(productList.get(i));
+        for (Product value : productList) {
+            if (value.getProductName().equals(product.getProductName()) &&
+                    value.getCategory().toString().equals(product.getCategory().toString()) &&
+                    value.getPrice().equals(product.getPrice()) &&
+                    value.getColors().equals(product.getColors())) {
+                productSizes.add(value.getSizes());
+                productToCart.add(value);
             }
 
         }
@@ -397,7 +398,7 @@ public class ProductsController {
         List<Product> productList = productServiceImpl.listAll();
         List<ShoppingCart> itemList = shoppingCartRepository.findAll();
         User user = (User) userRepository.findByEmail(currentUser.getUsername());
-        double finalPrice = 0d;
+        BigDecimal finalPrice = BigDecimal.ZERO;
         List<ShoppingCart> userProductCartToDelete = new ArrayList<>();
         List<Product> userProductList = new ArrayList<>();
 
@@ -405,7 +406,6 @@ public class ProductsController {
         for (ShoppingCart item : itemList) {
             if (item.getUser().getId().equals(user.getId())) {
                 userProductCartToDelete.add(item);
-                //Product product = productList.get(Integer.parseInt(item.getProduct().getProductId().toString())-1);
                 Product product = new Product();
                 product.setProductId(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getProductId());
                 product.setProductName(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getProductName());
@@ -418,11 +418,10 @@ public class ProductsController {
                 product.setSecondImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getSecondImage());
                 product.setThirdImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getThirdImage());
                 product.setFourthImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getFourthImage());
-               // userProductList.add(productList.get(Integer.parseInt(item.getProduct().getProductId().toString())-1));
                 userProductList.add(product);
-                finalPrice += Double.parseDouble(product.getPrice().toString()) * product.getAmount();
             }
         }
+        finalPrice = shoppingCartService.getTotalPriceOfProduct();
 
         model.addAttribute("productList",productList);
         model.addAttribute("userProductCartToDelete",userProductCartToDelete);
@@ -436,6 +435,8 @@ public class ProductsController {
         shoppingCartRepository.deleteById(id);
         return "redirect:/shoppingCart";
     }
+
+
 
 
 }

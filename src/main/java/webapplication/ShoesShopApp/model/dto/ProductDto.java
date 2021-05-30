@@ -34,6 +34,11 @@ public class ProductDto {
         this.category = category;
     }
 
+    public ProductDto(String productName, int amount) {
+        this.productName = productName;
+        this.amount = amount;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -73,6 +78,7 @@ public class ProductDto {
     public String getFourthImage() {
         return fourthImage;
     }
+
 
 }
 

@@ -1,9 +1,11 @@
 package webapplication.ShoesShopApp.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class ShoppingCart {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +58,7 @@ public class ShoppingCart {
     public int getQuantity() {
         return quantity;
     }
+
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
