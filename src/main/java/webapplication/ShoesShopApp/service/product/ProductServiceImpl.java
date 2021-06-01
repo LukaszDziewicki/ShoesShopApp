@@ -3,16 +3,17 @@ package webapplication.ShoesShopApp.service.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import webapplication.ShoesShopApp.model.Category;
-import webapplication.ShoesShopApp.model.Color;
-import webapplication.ShoesShopApp.model.Product;
-import webapplication.ShoesShopApp.model.Size;
+import webapplication.ShoesShopApp.model.*;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.CategoryRepository;
 import webapplication.ShoesShopApp.repository.ProductRepository;
+import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
+import webapplication.ShoesShopApp.repository.UserRepository;
+import webapplication.ShoesShopApp.service.user.UserServiceImpl;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -23,6 +24,12 @@ public class ProductServiceImpl {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
+    private UserServiceImpl userService;
 
 
 
@@ -223,6 +230,8 @@ public class ProductServiceImpl {
        productRepository.save(product);
 
    }
+
+
 }
 
 

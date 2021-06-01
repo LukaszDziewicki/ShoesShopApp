@@ -178,6 +178,50 @@ img{
     border-color: transparent;
     color: #fff;
 }
+.sizes{
+    display: flex;
+    flex-wrap: wrap;
+}
+button:hover{
+    display: block;
+    background: black;
+    color: white;
+}
+/*button:active{
+    display: block;
+    background: black;
+    color: white;
+}
+button:focus{
+    background: black;
+    color: white;
+    display: block;
+}
+button:visited  {
+    display: block;
+    background: black;
+    color: white;
+}
+button:checked  {
+    display: block;
+    background: black;
+    color: white;
+}*/
+button {
+    min-width: 42px;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 2px;
+    color: #232323;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 8px 8px 0;
+    font-style: normal;
+}
 
 @media screen and (min-width: 992px) {
     .card {

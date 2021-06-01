@@ -37,6 +37,10 @@ public class ShoppingCartService {
         shoppingCartRepository.updateQuantity(quantity,shoppingCartId);
     }
 
+    public void save(ShoppingCart shoppingCart){
+        shoppingCartRepository.save(shoppingCart);
+    }
+
 
 
 }

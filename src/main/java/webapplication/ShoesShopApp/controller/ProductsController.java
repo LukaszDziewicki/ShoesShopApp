@@ -20,10 +20,12 @@ import webapplication.ShoesShopApp.service.color.ColorServiceImpl;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.shoppingcart.ShoppingCartService;
 import webapplication.ShoesShopApp.service.size.SizeServiceImpl;
+import webapplication.ShoesShopApp.service.user.UserServiceImpl;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +59,10 @@ public class ProductsController {
     private ShoppingCartRepository shoppingCartRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserServiceImpl userService;
 
 
     @GetMapping("/")
@@ -67,18 +72,36 @@ public class ProductsController {
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Category> categoryList = categoryServiceImpl.listAll();
         List<Color> colorList = colorServiceImpl.listAll();
+        List<Product> productList = productServiceImpl.listAll();
+        for (int i = 0; i < productList.size(); i++) {
+
+            for (int j = i + 1; j < productList.size(); j++) {
+
+                if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
+                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
+                        productList.get(i).getPrice().equals(productList.get(j).getPrice().setScale(2)) &&
+                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
+                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
+                    Set<Size> sizes = productList.get(i).getSizes();
+                    sizes.addAll(productList.get(j).getSizes());
+                    productList.get(i).setSizes(sizes);
+                    productList.remove(j);
+                    j--;
+                }
+
+            }
+
+
+        }
+
 
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("colorList", colorList);
-
-        List<Product> productList = productServiceImpl.listAll();
-
         model.addAttribute("productList", productList);
-
-
         return "home";
     }
+
 
 
     @PostMapping("/filterData")
@@ -329,16 +352,21 @@ public class ProductsController {
             boolean productExists = false;
 
             for (int i = 0; i < shoppingCartList.size(); i++) {
-
                 if (shoppingCartList.get(i).getProduct().equals(shoppingCart.getProduct()) &&
                         shoppingCartList.get(i).getUser().equals(user)) {
-
-                    productExists = true;
                     int sum = shoppingCartList.get(i).getQuantity() + shoppingCart.getQuantity();
-                    shoppingCartList.get(i).setQuantity(sum);
-                    shoppingCartRepository.save(shoppingCartList.get(i));
+                    if(sum >= shoppingCartList.get(i).getProduct().getAmount()){
+                        shoppingCartList.get(i).setQuantity(productList.get(Integer.parseInt(item)-1).getAmount());
+                        shoppingCartRepository.save(shoppingCartList.get(i));
+                        productExists = true;
+                    } else {
+                        productExists = true;
+                        shoppingCartList.get(i).setQuantity(sum);
+                        shoppingCartRepository.save(shoppingCartList.get(i));
+                    }
                 }
             }
+
 
             if (!productExists) {
                 shoppingCartRepository.save(shoppingCart);
@@ -367,13 +395,8 @@ public class ProductsController {
         return "redirect:/shoppingCart";
     }
 
-   /* @GetMapping("/changeVal/{id}")
-    public String changeVal(@PathVariable(name = "id") long id, Model model) {
-        int value = 0;
-        model.addAttribute("changedValue", value);
 
-        return "redirect:/shoppingCart";
-    }*/
+
 
 
     @GetMapping("/shoppingCart")

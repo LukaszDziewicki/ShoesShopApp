@@ -14,9 +14,6 @@ import java.util.List;
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart,Integer> {
 
-
-    Integer countShoppingCartByQuantityAndProductPrice(int quantity, BigDecimal price);
-
     @Modifying
     @Query("update ShoppingCart s set s.quantity = :quantity where s.id = :id")
     void updateQuantity(@Param("quantity") int quantity, @Param("id") int shoppingCartId);
