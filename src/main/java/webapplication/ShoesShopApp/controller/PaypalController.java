@@ -5,13 +5,18 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import webapplication.ShoesShopApp.model.Order;
+import webapplication.ShoesShopApp.model.Product;
 import webapplication.ShoesShopApp.model.ShoppingCart;
+import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
+import webapplication.ShoesShopApp.repository.UserRepository;
 import webapplication.ShoesShopApp.service.paypal.PaypalService;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.shoppingcart.ShoppingCartService;
@@ -32,12 +37,22 @@ public class PaypalController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
+
+    @Autowired
+    private ProductServiceImpl productServiceImpl;
+
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/payment")
     public String payment(Model model) {
 
         List<ShoppingCart> userProductList = shoppingCartService.shoppingCartList();
         BigDecimal totalPrice = shoppingCartService.getTotalPriceOfProduct();
-
+        //return ifShouldExistChangeValue(currentUser);
 
         model.addAttribute("userProductList", userProductList);
         model.addAttribute("totalPrice",totalPrice);
@@ -81,7 +96,35 @@ public class PaypalController {
         }
         return "redirect:/payment";
     }
-
+//    public String ifShouldExistChangeValue(@AuthenticationPrincipal UserDetails currentUser) {
+//        User user = (User) userRepository.findByEmail(currentUser.getUsername());
+//        List<ShoppingCart> itemUserList = shoppingCartService.findUserItemList(user.getId());
+//        List<Product> productList = productServiceImpl.listAll();
+//
+//        String cos = "redirect:/shoppingCart";
+//        for (ShoppingCart userItem : itemUserList
+//        ) {
+//            if(userItem.getProduct().equals(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)))){
+//
+//                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() >= userItem.getQuantity()){
+//                    userItem.setQuantity(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount());
+//                    shoppingCartService.save(userItem);
+//                    cos = "redirect:/shoppingCart";
+//                }
+//                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() == 0){
+//                    shoppingCartRepository.delete(userItem);
+//                    cos = "redirect:/shoppingCart";
+//                }
+//                if((userItem.getQuantity())<=productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount()){
+//                    cos = "payment";
+//                }
+//
+//            }
+//
+//        }
+//        return cos;
+//
+//    }
 
 
 }

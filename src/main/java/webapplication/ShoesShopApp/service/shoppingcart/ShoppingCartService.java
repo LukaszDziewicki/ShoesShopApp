@@ -41,6 +41,9 @@ public class ShoppingCartService {
         shoppingCartRepository.save(shoppingCart);
     }
 
+    public void delete(ShoppingCart shoppingCart){
+        shoppingCartRepository.delete(shoppingCart);
+    }
 
 
 }
