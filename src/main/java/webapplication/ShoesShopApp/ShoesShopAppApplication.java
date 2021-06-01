@@ -47,9 +47,10 @@ public class ShoesShopAppApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
  //start();
-//        List<Product> list = productRepository.findAll();
+
+//           List<Product> list = productRepository.findAll();
 //        List<User> listu = userRepository.findAll();
-// ShoppingCart shoppingCart = new ShoppingCart();
+//      ShoppingCart shoppingCart = new ShoppingCart();
 // shoppingCart.setProduct(list.get(0));
 // shoppingCart.setUser(listu.get(0));
 // shoppingCart.setQuantity(2);

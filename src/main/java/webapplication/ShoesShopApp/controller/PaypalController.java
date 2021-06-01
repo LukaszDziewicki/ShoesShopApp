@@ -61,7 +61,7 @@ public class PaypalController {
 
             e.printStackTrace();
         }
-        return "redirect:/";
+        return "redirect:/payment";
     }
 
     @GetMapping(value = CANCEL_URL)

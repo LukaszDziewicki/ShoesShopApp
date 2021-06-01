@@ -116,7 +116,7 @@ span.price {
 <div class="row">
     <div class="col-75">
         <div class="container">
-            <form method="post"  th:action="@{/pay}">
+            <form method="post"  th:action="@{/pay}" th:object="${totalPrice}">
                 <div class="col-50">
                     <h3>Payment</h3>
                     <label>Accepted Cards</label>
@@ -126,14 +126,10 @@ span.price {
                         <i class="fa fa-cc-mastercard" style="color:red;"></i>
                         <i class="fa fa-cc-discover" style="color:orange;"></i>
                     </div>
-                    <label for="price" >Total</label>
-                    <input type="text" id="price" name="price" th:value="${totalPrice}" disabled="disabled">
+                    <label for="price">Total</label>
+                    <input type="text" id="price" name="price" th:value="${totalPrice}" readonly="readonly">
                     <label for="currency">Currency</label>
-                    <select id="currency" class="form-control" data-live-search="true">
-                        <option>PLN</option>
-                        <option>USD</option>
-
-                    </select>
+                    <input type="text" id="currency" name="currency" placeholder="Enter Currency">
                     <label for="method">Payment Method</label>
                     <input type="text" id="method" name="method" placeholder="Payment Method">
                     <label for="intent">Intent</label>
