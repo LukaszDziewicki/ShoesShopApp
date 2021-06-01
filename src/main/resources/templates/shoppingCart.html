@@ -52,7 +52,7 @@
                                         <div class = "purchase-info">
                                             <th:block th:each="maxValue : ${productList}" th:if="${product.productId} == ${maxValue.productId}">
                                                 <form action="#" th:action="@{'/changeVal/' + ${shoppingCart.id}}" th:object="${shoppingCart}" method="get">
-                                            <input type = "number" min = "1" th:max="${maxValue.amount}" th:text="${shoppingCart.quantity}" name="changedValue">
+                                            <input type = "number" min = "1" th:max="${maxValue.amount}" th:value="${shoppingCart.quantity}" name="changedValue">
                                                 <button  class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</button>
                                                 </form>
                                             </th:block>
