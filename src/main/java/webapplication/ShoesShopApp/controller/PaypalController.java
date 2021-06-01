@@ -96,35 +96,35 @@ public class PaypalController {
         }
         return "redirect:/payment";
     }
-//    public String ifShouldExistChangeValue(@AuthenticationPrincipal UserDetails currentUser) {
-//        User user = (User) userRepository.findByEmail(currentUser.getUsername());
-//        List<ShoppingCart> itemUserList = shoppingCartService.findUserItemList(user.getId());
-//        List<Product> productList = productServiceImpl.listAll();
-//
-//        String cos = "redirect:/shoppingCart";
-//        for (ShoppingCart userItem : itemUserList
-//        ) {
-//            if(userItem.getProduct().equals(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)))){
-//
-//                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() >= userItem.getQuantity()){
-//                    userItem.setQuantity(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount());
-//                    shoppingCartService.save(userItem);
-//                    cos = "redirect:/shoppingCart";
-//                }
-//                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() == 0){
-//                    shoppingCartRepository.delete(userItem);
-//                    cos = "redirect:/shoppingCart";
-//                }
-//                if((userItem.getQuantity())<=productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount()){
-//                    cos = "payment";
-//                }
-//
-//            }
-//
-//        }
-//        return cos;
-//
-//    }
+    public String ifShouldExistChangeValue(@AuthenticationPrincipal UserDetails currentUser) {
+        User user = (User) userRepository.findByEmail(currentUser.getUsername());
+        List<ShoppingCart> itemUserList = shoppingCartService.findUserItemList(user.getId());
+        List<Product> productList = productServiceImpl.listAll();
+
+        String cos = "redirect:/shoppingCart";
+        for (ShoppingCart userItem : itemUserList
+        ) {
+            if(userItem.getProduct().equals(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)))){
+
+                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() >= userItem.getQuantity()){
+                    userItem.setQuantity(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount());
+                    shoppingCartService.save(userItem);
+                    cos = "redirect:/shoppingCart";
+                }
+                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() == 0){
+                    shoppingCartRepository.delete(userItem);
+                    cos = "redirect:/shoppingCart";
+                }
+                if((userItem.getQuantity())<=productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount()){
+                    cos = "payment";
+                }
+
+            }
+
+        }
+        return cos;
+
+    }
 
 
 }

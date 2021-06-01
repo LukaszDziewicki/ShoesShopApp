@@ -32,6 +32,9 @@ public class ShoppingCartService {
 
         return totalPrice;
     }
+    public List<ShoppingCart> findUserItemList(long userID){
+        return shoppingCartRepository.getShoppingCartByUserId(userID);
+    }
 
     public void updateQuantity(int quantity, int shoppingCartId){
         shoppingCartRepository.updateQuantity(quantity,shoppingCartId);
