@@ -231,7 +231,24 @@ public class ProductServiceImpl {
 
    }
 
+    public void substractAmountOfProduct(int amount, long id) {
+       productRepository.substractAmountOfProduct(amount,id);
+    }
 
+    public List<ShoppingCart> getShoppingByUserId (long id) {
+       return shoppingCartRepository.getShoppingCartByUserId(id);
+    }
+
+    public void changeAmountOfProduct(int amount, long id) {
+        List<ShoppingCart> shoppingByUserId = getShoppingByUserId(id);
+        List<Product> userProductList = new ArrayList<>();
+
+        for (ShoppingCart shoppingCart : shoppingByUserId) {
+            userProductList.add(shoppingCart.getProduct());
+            
+        }
+
+    }
 }
 
 

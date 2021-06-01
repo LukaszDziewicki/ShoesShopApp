@@ -47,4 +47,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Collection<String> listOfColorName);
 
 
+    @Modifying
+    @Query("update Product p set p.amount = :amount where p.productId = :id")
+    void substractAmountOfProduct(@Param("amount") int amount, @Param("id") long id);
+
+
 }

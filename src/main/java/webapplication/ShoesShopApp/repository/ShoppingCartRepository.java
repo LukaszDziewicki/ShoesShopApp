@@ -18,6 +18,6 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart,Integ
     @Query("update ShoppingCart s set s.quantity = :quantity where s.id = :id")
     void updateQuantity(@Param("quantity") int quantity, @Param("id") int shoppingCartId);
 
-    List<ShoppingCart> getShoppingCartByUserId(long userid);
+    List<ShoppingCart> getShoppingCartByUserId(long userId);
 }
 
