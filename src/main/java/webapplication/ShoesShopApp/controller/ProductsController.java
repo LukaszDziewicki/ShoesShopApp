@@ -393,7 +393,7 @@ public class ProductsController {
         return "redirect:/dataadminPanel";
     }
 
-    @PostMapping("/changeVal/{id}")
+    @GetMapping("/changeVal/{id}")
     public String changeVal(@RequestParam("changedValue") int changedValue, @PathVariable("id") int id) {
         shoppingCartService.updateQuantity(changedValue, id);
         return "redirect:/shoppingCart";

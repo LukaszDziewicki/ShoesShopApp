@@ -51,12 +51,15 @@
                                     <th:block th:each="shoppingCart : ${userProductCartToDelete}" th:if="${shoppingCart.product.productId} == ${product.productId}">
                                         <div class = "purchase-info">
                                             <th:block th:each="maxValue : ${productList}" th:if="${product.productId} == ${maxValue.productId}">
+                                                <form action="#" th:action="@{'/changeVal/' + ${shoppingCart.id}}" th:object="${shoppingCart}" method="get">
                                             <input type = "number" min = "1" th:max="${maxValue.amount}" th:text="${shoppingCart.quantity}" name="changedValue">
-                                                <a th:href="@{'/changeVal/' + ${shoppingCart.id}}" class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</a>
+                                                <button  class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</button>
+                                                </form>
                                             </th:block>
-                                            <button type = "sumbit" class = "btn" >
-                                                Change value <i class = "fas fa-shopping-cart"></i>
-                                            </button>
+
+<!--                                            <button type = "sumbit" class = "btn" >-->
+<!--                                                Change value <i class = "fas fa-shopping-cart"></i>-->
+<!--                                            </button>-->
 
                                         </div>
                                     </th:block>

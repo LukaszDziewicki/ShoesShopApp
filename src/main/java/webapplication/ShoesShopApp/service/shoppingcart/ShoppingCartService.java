@@ -2,13 +2,16 @@ package webapplication.ShoesShopApp.service.shoppingcart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import webapplication.ShoesShopApp.model.ShoppingCart;
 import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+
 @Service
+@Transactional
 public class ShoppingCartService {
 
     @Autowired
