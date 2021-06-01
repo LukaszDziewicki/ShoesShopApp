@@ -74,38 +74,6 @@ public class ProductsController {
 
         List<Product> productList = productServiceImpl.listAll();
 
-//        for (int i = 0; i < productList.size(); i++) {
-//
-//            for (int j = i + 1; j < productList.size(); j++) {
-//
-//                if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
-//                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
-//                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
-//                        productList.get(i).getColors().equals(productList.get(j).getColors())) {
-//                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
-//                    productList.get(i).setAmount(sum);
-//                    productList.remove(j);
-//                    j--;
-//                }
-//                } else if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
-//                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
-//                        productList.get(i).getPrice().equals(productList.get(j).getPrice()) &&
-//                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
-//                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
-//                    Set<Size> sizes = productList.get(i).getSizes();
-//                    sizes.addAll(productList.get(j).getSizes());
-//                    int sum = productList.get(i).getAmount() + productList.get(j).getAmount();
-//                    productList.get(i).setAmount(sum);
-//                    productList.get(i).setSizes(sizes);
-//                    productList.remove(j);
-//                    j--;
-//
-        //               }
-
-        // }
-
-
-        //   }
         model.addAttribute("productList", productList);
 
 
@@ -203,7 +171,7 @@ public class ProductsController {
 
             if (productList.get(i).getProductName().equals(product.getProductName()) &&
                     productList.get(i).getCategory().equals(product.getCategory()) &&
-                    productList.get(i).getPrice().equals(product.getPrice()) &&  // porównuje bigdecimal z integerem, trzeba zamienić integer na bigdecimal
+                    productList.get(i).getPrice().equals(product.getPrice().setScale(2)) &&
                     productList.get(i).getColors().equals(product.getColors()) &&
                     productList.get(i).getSizes().equals(product.getSizes())) {
 
@@ -329,7 +297,7 @@ public class ProductsController {
         for (Product value : productList) {
             if (value.getProductName().equals(product.getProductName()) &&
                     value.getCategory().toString().equals(product.getCategory().toString()) &&
-                    value.getPrice().equals(product.getPrice()) &&
+                    value.getPrice().equals(product.getPrice().setScale(2)) &&
                     value.getColors().equals(product.getColors())) {
                 productSizes.add(value.getSizes());
                 productToCart.add(value);
