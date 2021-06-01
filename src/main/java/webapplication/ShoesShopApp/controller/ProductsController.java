@@ -393,6 +393,21 @@ public class ProductsController {
         return "redirect:/dataadminPanel";
     }
 
+    @PostMapping("/changeVal/{id}")
+    public String changeVal(@RequestParam("changedValue") int changedValue, @PathVariable("id") int id) {
+        shoppingCartService.updateQuantity(changedValue, id);
+        return "redirect:/shoppingCart";
+    }
+
+   /* @GetMapping("/changeVal/{id}")
+    public String changeVal(@PathVariable(name = "id") long id, Model model) {
+        int value = 0;
+        model.addAttribute("changedValue", value);
+
+        return "redirect:/shoppingCart";
+    }*/
+
+
     @GetMapping("/shoppingCart")
     public String shoppingCart(Model model, @AuthenticationPrincipal UserDetails currentUser) {
         List<Product> productList = productServiceImpl.listAll();
@@ -401,6 +416,9 @@ public class ProductsController {
         BigDecimal finalPrice = BigDecimal.ZERO;
         List<ShoppingCart> userProductCartToDelete = new ArrayList<>();
         List<Product> userProductList = new ArrayList<>();
+
+        int value = 0;
+        model.addAttribute("changedValue", value);
 
 
         for (ShoppingCart item : itemList) {
@@ -422,6 +440,7 @@ public class ProductsController {
             }
         }
         finalPrice = shoppingCartService.getTotalPriceOfProduct();
+
 
         model.addAttribute("productList",productList);
         model.addAttribute("userProductCartToDelete",userProductCartToDelete);

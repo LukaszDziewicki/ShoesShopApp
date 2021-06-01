@@ -7,18 +7,17 @@ import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import webapplication.ShoesShopApp.model.Order;
 import webapplication.ShoesShopApp.model.ShoppingCart;
+import webapplication.ShoesShopApp.model.dto.ProductDto;
 import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
 import webapplication.ShoesShopApp.service.paypal.PaypalService;
 import webapplication.ShoesShopApp.service.product.ProductServiceImpl;
 import webapplication.ShoesShopApp.service.shoppingcart.ShoppingCartService;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -82,5 +81,7 @@ public class PaypalController {
         }
         return "redirect:/payment";
     }
+
+
 
 }

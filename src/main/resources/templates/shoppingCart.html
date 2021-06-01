@@ -46,16 +46,24 @@
                                         <p class="mb-3" th:text="${product.sizes}"></p>
                                     </div>
                                     <!-- quantity inc dec -->
+
+
                                     <th:block th:each="shoppingCart : ${userProductCartToDelete}" th:if="${shoppingCart.product.productId} == ${product.productId}">
                                         <div class = "purchase-info">
                                             <th:block th:each="maxValue : ${productList}" th:if="${product.productId} == ${maxValue.productId}">
-                                            <input type = "number" min = "1" th:max="${maxValue.amount}" th:text="${shoppingCart.quantity}">
+                                            <input type = "number" min = "1" th:max="${maxValue.amount}" th:text="${shoppingCart.quantity}" name="changedValue">
+                                                <a th:href="@{'/changeVal/' + ${shoppingCart.id}}" class="btn btn-custom" style="font-weight: bold; color: green;">Unblock</a>
                                             </th:block>
-                                            <button type = "sumbit" class = "btn">
+                                            <button type = "sumbit" class = "btn" >
                                                 Change value <i class = "fas fa-shopping-cart"></i>
                                             </button>
+
                                         </div>
                                     </th:block>
+
+
+
+
 <!--                                    <div class="col-6">-->
 <!--                                        <ul class="pagination justify-content-end set_quantity">-->
 <!--                                            <form>-->

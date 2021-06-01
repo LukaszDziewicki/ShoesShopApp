@@ -30,4 +30,10 @@ public class ShoppingCartService {
         return totalPrice;
     }
 
+    public void updateQuantity(int quantity, int shoppingCartId){
+        shoppingCartRepository.updateQuantity(quantity,shoppingCartId);
+    }
+
+
+
 }
