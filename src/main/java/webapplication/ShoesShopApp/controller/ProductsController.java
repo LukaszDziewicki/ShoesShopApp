@@ -72,13 +72,47 @@ public class ProductsController {
         List<Size> sizeList = sizeServiceImpl.listAll();
         List<Category> categoryList = categoryServiceImpl.listAll();
         List<Color> colorList = colorServiceImpl.listAll();
-        List<Product> productList = productServiceImpl.listAll();
+        List<Product> listToFilterProductList = productServiceImpl.listAll();
+        List<Product> productList ;
+        productList = groupingProductList(listToFilterProductList);
+
+
+//        for (int i = 0; i < productList.size(); i++) {
+//
+//            for (int j = i + 1; j < productList.size(); j++) {
+//
+//                if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
+//                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
+//                        productList.get(i).getPrice().equals(productList.get(j).getPrice().setScale(2)) &&
+//                        productList.get(i).getColors().equals(productList.get(j).getColors()) &&
+//                        !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
+//                    Set<Size> sizes = productList.get(i).getSizes();
+//                    sizes.addAll(productList.get(j).getSizes());
+//                    productList.get(i).setSizes(sizes);
+//                    productList.remove(j);
+//                    j--;
+//                }
+//
+//            }
+//
+//
+//        }
+
+
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("productList", productList);
+        return "home";
+    }
+
+    public List<Product>  groupingProductList(List<Product> productList){
         for (int i = 0; i < productList.size(); i++) {
 
             for (int j = i + 1; j < productList.size(); j++) {
 
                 if (productList.get(i).getProductName().equals(productList.get(j).getProductName()) &&
-                        productList.get(i).getCategory().equals(productList.get(j).getCategory()) &&
+                        productList.get(i).getCategory().toString().equals(productList.get(j).getCategory().toString())&&
                         productList.get(i).getPrice().equals(productList.get(j).getPrice().setScale(2)) &&
                         productList.get(i).getColors().equals(productList.get(j).getColors()) &&
                         !(productList.get(i).getSizes().equals(productList.get(j).getSizes()))) {
@@ -93,15 +127,8 @@ public class ProductsController {
 
 
         }
-
-
-        model.addAttribute("sizeList", sizeList);
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("colorList", colorList);
-        model.addAttribute("productList", productList);
-        return "home";
+        return productList;
     }
-
 
 
     @PostMapping("/filterData")
@@ -109,50 +136,54 @@ public class ProductsController {
                              @RequestParam("filterElements") List<String> filterElements
 
     ) {
-        List<String> sizeList = new ArrayList<>();
+        List<Size> sizeList = sizeServiceImpl.listAll();
+        List<Category> categoryList = categoryServiceImpl.listAll();
+        List<String> sizeListBoots = new ArrayList<>();
         List<String> colorList = new ArrayList<>();
-        List<String> categoryList = new ArrayList<>();
-        List<Product> productList = new ArrayList<>();
+        List<String> categoryListBoots = new ArrayList<>();
+        List<Product> listToFilterProductList = new ArrayList<>();
 
         for (String poz : filterElements
         ) {
             if (categoryServiceImpl.isEqualCategory(poz)) {
-                categoryList.add(poz);
+                categoryListBoots.add(poz);
             }
             if (sizeServiceImpl.isEqualSize(poz)) {
-                sizeList.add(poz);
+                sizeListBoots.add(poz);
             }
             if (colorServiceImpl.isEqualColor(poz)) {
                 colorList.add(poz);
             }
         }
-        if (!(categoryList.isEmpty() && sizeList.isEmpty() && colorList.isEmpty())) {
-            productList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
-                    sizeList,
-                    categoryList,
+        if (!(categoryListBoots.isEmpty() && sizeListBoots.isEmpty() && colorList.isEmpty())) {
+            listToFilterProductList = productServiceImpl.getFilteredBySizesAndCategoryAndColors(
+                    sizeListBoots,
+                    categoryListBoots,
                     colorList
             );
         }
-        if (categoryList.isEmpty()) {
-            productList = productServiceImpl.getFilteredBySizesAndColors(sizeList, colorList);
+        if (categoryListBoots.isEmpty()) {
+            listToFilterProductList = productServiceImpl.getFilteredBySizesAndColors(sizeListBoots, colorList);
         }
-        if (sizeList.isEmpty()) {
-            productList = productServiceImpl.getFilteredByCategoryAndColors(categoryList, colorList);
+        if (sizeListBoots.isEmpty()) {
+            listToFilterProductList = productServiceImpl.getFilteredByCategoryAndColors(categoryListBoots, colorList);
         }
         if (colorList.isEmpty()) {
-            productList = productServiceImpl.getFilteredBySizesAndCategory(sizeList, categoryList);
+            listToFilterProductList = productServiceImpl.getFilteredBySizesAndCategory(sizeListBoots, categoryListBoots);
         }
-        if (categoryList.isEmpty() && colorList.isEmpty()) {
-            productList = productServiceImpl.getFilteredBySize(sizeList);
+        if (categoryListBoots.isEmpty() && colorList.isEmpty()) {
+            listToFilterProductList = productServiceImpl.getFilteredBySize(sizeListBoots);
         }
-        if (colorList.isEmpty() && sizeList.isEmpty()) {
-            productList = productServiceImpl.getFilteredByCategory(categoryList);
+        if (colorList.isEmpty() && sizeListBoots.isEmpty()) {
+            listToFilterProductList = productServiceImpl.getFilteredByCategory(categoryListBoots);
         }
-        if (categoryList.isEmpty() && sizeList.isEmpty()) {
-            productList = productServiceImpl.getFilteredByColor(colorList);
+        if (categoryListBoots.isEmpty() && sizeListBoots.isEmpty()) {
+            listToFilterProductList = productServiceImpl.getFilteredByColor(colorList);
         }
+        List<Product> productList = groupingProductList(listToFilterProductList);
 
-
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("sizeList", sizeList);
         model.addAttribute("productList", productList);
         return "home";
     }
@@ -237,37 +268,42 @@ public class ProductsController {
 
     @GetMapping("/asc")
     public String asc(Model model) {
-        List<Product> productList = productServiceImpl.getAscList();
         List<Size> sizeList = sizeServiceImpl.listAll();
-        List<Category> categoryList = categoryServiceImpl.listAll();
-
-        model.addAttribute("productList", productList);
+        List<Color> colorList = colorServiceImpl.listAll();
+        List<Product> listToFilterProductList = productServiceImpl.getAscList();
+        List<Product> productList;
+        productList = groupingProductList(listToFilterProductList);
         model.addAttribute("sizeList", sizeList);
-        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("productList", productList);
         return "home";
     }
 
     @GetMapping("/desc")
     public String desc(Model model) {
-        List<Product> productList = productServiceImpl.getDescList();
-        ;
-        List<Category> categoryList = categoryServiceImpl.listAll();
         List<Size> sizeList = sizeServiceImpl.listAll();
-
-        model.addAttribute("productList", productList);
+        List<Color> colorList = colorServiceImpl.listAll();
+        List<Product> listToFilterProductList = productServiceImpl.getDescList();
+        List<Product> productList;
+        productList = groupingProductList(listToFilterProductList);
         model.addAttribute("sizeList", sizeList);
-        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("productList", productList);
         return "home";
     }
 
     @GetMapping("/alphabetically")
     public String alphabetically(Model model) {
-        List<Product> productList = productServiceImpl.getAlphabeticallySortedList();
         List<Size> sizeList = sizeServiceImpl.listAll();
-        List<Category> categoryList = categoryServiceImpl.listAll();
+        List<Color> colorList = colorServiceImpl.listAll();
+        List<Product> listToFilterProductList = productServiceImpl.getAlphabeticallySortedList();
+        List<Product> productList;
+        productList = groupingProductList(listToFilterProductList);
+
+
 
         model.addAttribute("sizeList", sizeList);
-        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("colorList", colorList);
         model.addAttribute("productList", productList);
         return "home";
     }
