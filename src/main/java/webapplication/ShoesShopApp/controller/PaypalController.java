@@ -15,6 +15,7 @@ import webapplication.ShoesShopApp.model.Product;
 import webapplication.ShoesShopApp.model.ShoppingCart;
 import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.model.dto.ProductDto;
+import webapplication.ShoesShopApp.repository.ProductRepository;
 import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
 import webapplication.ShoesShopApp.repository.UserRepository;
 import webapplication.ShoesShopApp.service.paypal.PaypalService;
@@ -46,6 +47,9 @@ public class PaypalController {
     private ShoppingCartRepository shoppingCartRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     UserRepository userRepository;
 
     @GetMapping("/payment")
@@ -60,13 +64,12 @@ public class PaypalController {
     }
 
     @PostMapping("/pay")
-    public String payment(@ModelAttribute("order") Order order, @PathVariable("id") long id) {
+    public String payment(@ModelAttribute("order") Order order, @AuthenticationPrincipal UserDetails currentUser) {
+        updateProductRecordAfterBuy(currentUser);
         try {
             Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
                     order.getIntent(), order.getDescription(), "http://localhost:9090/" + CANCEL_URL,
                     "http://localhost:9090/" + SUCCESS_URL);
-
-
             for (Links link : payment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
                     return "redirect:" + link.getHref();
@@ -123,6 +126,18 @@ public class PaypalController {
         }
         itemUserList.clear();
         return forwarding;
+    }
+
+    public void updateProductRecordAfterBuy(@AuthenticationPrincipal UserDetails currentUser){
+        User user = (User) userRepository.findByEmail(currentUser.getUsername());
+        List<ShoppingCart> itemUserList = shoppingCartService.findUserItemList(user.getId());
+
+        for (ShoppingCart userItem : itemUserList) {
+            Product product = productServiceImpl.getProductById(userItem.getProduct().getProductId());
+            product.setAmount(product.getAmount() - userItem.getQuantity());
+            productRepository.save(product);
+            shoppingCartService.delete(userItem);
+        }
     }
 
 }
