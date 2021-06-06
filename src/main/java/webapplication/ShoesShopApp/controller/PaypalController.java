@@ -23,6 +23,7 @@ import webapplication.ShoesShopApp.service.shoppingcart.ShoppingCartService;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -48,15 +49,14 @@ public class PaypalController {
     UserRepository userRepository;
 
     @GetMapping("/payment")
-    public String payment(Model model) {
+    public String payment(Model model, @AuthenticationPrincipal UserDetails currentUser) {
 
-        List<ShoppingCart> userProductList = shoppingCartService.shoppingCartList();
         BigDecimal totalPrice = shoppingCartService.getTotalPriceOfProduct();
-        //return ifShouldExistChangeValue(currentUser);
-
+        List<ShoppingCart> userProductList = shoppingCartService.shoppingCartList();
         model.addAttribute("userProductList", userProductList);
         model.addAttribute("totalPrice",totalPrice);
-        return "payment";
+        return isExistsProductValue(currentUser);
+
     }
 
     @PostMapping("/pay")
@@ -65,7 +65,6 @@ public class PaypalController {
             Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
                     order.getIntent(), order.getDescription(), "http://localhost:9090/" + CANCEL_URL,
                     "http://localhost:9090/" + SUCCESS_URL);
-
 
 
             for (Links link : payment.getLinks()) {
@@ -80,7 +79,6 @@ public class PaypalController {
         }
         return "redirect:/payment";
     }
-
 
 
     @GetMapping(value = CANCEL_URL)
@@ -101,35 +99,30 @@ public class PaypalController {
         }
         return "redirect:/payment";
     }
-    public String ifShouldExistChangeValue(@AuthenticationPrincipal UserDetails currentUser) {
+
+    public String isExistsProductValue(@AuthenticationPrincipal UserDetails currentUser) {
+
+        String forwarding = "payment";
         User user = (User) userRepository.findByEmail(currentUser.getUsername());
         List<ShoppingCart> itemUserList = shoppingCartService.findUserItemList(user.getId());
-        List<Product> productList = productServiceImpl.listAll();
 
-        String cos = "redirect:/shoppingCart";
-        for (ShoppingCart userItem : itemUserList
-        ) {
-            if(userItem.getProduct().equals(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)))){
 
-                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() >= userItem.getQuantity()){
-                    userItem.setQuantity(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount());
-                    shoppingCartService.save(userItem);
-                    cos = "redirect:/shoppingCart";
-                }
-                if(productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount() == 0){
-                    shoppingCartRepository.delete(userItem);
-                    cos = "redirect:/shoppingCart";
-                }
-                if((userItem.getQuantity())<=productList.get((Integer.parseInt(userItem.getProduct().getProductId().toString())-1)).getAmount()){
-                    cos = "payment";
-                }
+        for (ShoppingCart userItem : itemUserList) {
+            Product product = productServiceImpl.getProductById(userItem.getProduct().getProductId());
 
+            if (product.getAmount() < userItem.getQuantity()) {
+                userItem.setQuantity(product.getAmount());
+                shoppingCartService.save(userItem);
+                forwarding = "redirect:/shoppingCart";
+            }
+            if (product.getAmount() == 0) {
+                shoppingCartService.delete(userItem);
+                forwarding = "redirect:/shoppingCart";
             }
 
         }
-        return cos;
-
+        itemUserList.clear();
+        return forwarding;
     }
-
 
 }

@@ -106,7 +106,7 @@
                         </div>
                         </th:block>
                         <hr />
-                        <form action="payment" method="get">
+                        <form action="payment" method="get" th:object="${shoppingCart}">
                         <div class="total-amt d-flex justify-content-between font-weight-bold">
                             <p>The total amount of (including VAT)</p>
                             <p>$<span id="total_cart_amt" th:text="${finalPrice}"></span></p>
