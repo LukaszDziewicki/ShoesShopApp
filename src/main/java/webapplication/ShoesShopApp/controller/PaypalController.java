@@ -54,9 +54,9 @@ public class PaypalController {
 
     @GetMapping("/payment")
     public String payment(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-
-        BigDecimal totalPrice = shoppingCartService.getTotalPriceOfProduct();
-        List<ShoppingCart> userProductList = shoppingCartService.shoppingCartList();
+        User user = (User) userRepository.findByEmail(currentUser.getUsername());
+        BigDecimal totalPrice = shoppingCartService.getTotalPriceOfProduct(user);
+        List<ShoppingCart> userProductList = shoppingCartService.findUserItemList(user.getId());
         model.addAttribute("userProductList", userProductList);
         model.addAttribute("totalPrice",totalPrice);
         return isExistsProductValue(currentUser);

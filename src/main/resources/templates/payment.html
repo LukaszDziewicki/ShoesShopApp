@@ -53,12 +53,13 @@
 
             <div class="container">
                 <h4>Cart <span class="price"  style="color:black"><i class="fa fa-shopping-cart"></i> <b th:text="${amountOfProducts}"></b></span></h4>
-
+                <hr>
                 <th:block th:each="product : ${userProductList}">
 
                     <p th:text="${product.product.category} + ' ' +${product.product.productName}+   '&nbsp; &nbsp; &nbsp; &nbsp;' + 'X' + ${product.quantity}"></p>
-                    <hr>
+
                     <p><b>Price</b> <span class="price"th:text="${product.product.price} * ${product.quantity}" style="color:black"></span></p>
+                    <hr>
                 </th:block>
 
                 <p><b>Total</b> <span class="price"  th:text="${totalPrice}" style="color:black"></span></p>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import webapplication.ShoesShopApp.model.ShoppingCart;
+import webapplication.ShoesShopApp.model.User;
 import webapplication.ShoesShopApp.repository.ShoppingCartRepository;
 
 import java.math.BigDecimal;
@@ -23,11 +24,13 @@ public class ShoppingCartService {
     }
 
 
-    public BigDecimal getTotalPriceOfProduct() {
+    public BigDecimal getTotalPriceOfProduct(User user) {
         List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (ShoppingCart shoppingCart : shoppingCartList) {
-            totalPrice = totalPrice.add(BigDecimal.valueOf(shoppingCart.getQuantity()).multiply(shoppingCart.getProduct().getPrice()));
+            if(shoppingCart.getUser().getId().equals(user.getId())) {
+                totalPrice = totalPrice.add(BigDecimal.valueOf(shoppingCart.getQuantity()).multiply(shoppingCart.getProduct().getPrice()));
+            }
         }
 
         return totalPrice;

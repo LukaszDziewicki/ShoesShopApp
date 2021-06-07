@@ -468,7 +468,7 @@ public class ProductsController {
                 userProductList.add(productBasket);
             }
         }
-        finalPrice = shoppingCartService.getTotalPriceOfProduct();
+        finalPrice = shoppingCartService.getTotalPriceOfProduct(user);
 
 
         model.addAttribute("productList",productList);
