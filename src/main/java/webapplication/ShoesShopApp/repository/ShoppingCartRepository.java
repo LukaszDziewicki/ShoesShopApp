@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import webapplication.ShoesShopApp.model.Product;
 import webapplication.ShoesShopApp.model.ShoppingCart;
+import webapplication.ShoesShopApp.service.shoppingcart.ShoppingCartService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,5 +21,9 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart,Integ
     void updateQuantity(@Param("quantity") int quantity, @Param("id") int shoppingCartId);
 
     List<ShoppingCart> getShoppingCartByUserId(long userId);
+
+    @Modifying
+    @Transactional
+    void deleteShoppingCartByProductProductId(long productId);
 }
 

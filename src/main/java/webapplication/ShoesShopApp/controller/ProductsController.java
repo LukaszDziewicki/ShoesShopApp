@@ -261,6 +261,7 @@ public class ProductsController {
 
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable(name = "id") long id) {
+        shoppingCartService.deleteByProductId(id);
         productService.delete(id);
         return "redirect:/dataadminPanel";
     }
@@ -372,14 +373,14 @@ public class ProductsController {
     }
 
     @PostMapping("/details/save")
-    public String details(ShoppingCart shoppingCart, @AuthenticationPrincipal UserDetails currentUser, @RequestParam("userItem") String item
+    public String details(ShoppingCart shoppingCart, @AuthenticationPrincipal UserDetails currentUser, @RequestParam("userItem") Long item
     ) {
-        List<Product> productList = productServiceImpl.listAll();
 
         List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
         User user = (User) userRepository.findByEmail(currentUser.getUsername());
         shoppingCart.setUser(user);
-        shoppingCart.setProduct(productList.get(Integer.parseInt(item)-1));
+        Product product = productServiceImpl.getProductById(item);
+        shoppingCart.setProduct(product); // product id list ma 6 a product id = 10
 
         if (shoppingCartList.isEmpty()) {
             shoppingCartRepository.save(shoppingCart);
@@ -392,7 +393,7 @@ public class ProductsController {
                         shoppingCartList.get(i).getUser().equals(user)) {
                     int sum = shoppingCartList.get(i).getQuantity() + shoppingCart.getQuantity();
                     if(sum >= shoppingCartList.get(i).getProduct().getAmount()){
-                        shoppingCartList.get(i).setQuantity(productList.get(Integer.parseInt(item)-1).getAmount());
+                        shoppingCartList.get(i).setQuantity(product.getAmount());
                         shoppingCartRepository.save(shoppingCartList.get(i));
                         productExists = true;
                     } else {
@@ -451,19 +452,20 @@ public class ProductsController {
         for (ShoppingCart item : itemList) {
             if (item.getUser().getId().equals(user.getId())) {
                 userProductCartToDelete.add(item);
-                Product product = new Product();
-                product.setProductId(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getProductId());
-                product.setProductName(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getProductName());
-                product.setAmount(item.getQuantity());
-                product.setColors(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getColors());
-                product.setSizes(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getSizes());
-                product.setPrice(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getPrice());
-                product.setCategory(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getCategory());
-                product.setPrimaryImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getPrimaryImage());
-                product.setSecondImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getSecondImage());
-                product.setThirdImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getThirdImage());
-                product.setFourthImage(productList.get((Integer.parseInt(item.getProduct().getProductId().toString())-1)).getFourthImage());
-                userProductList.add(product);
+                Product product = productServiceImpl.getProductById(item.getProduct().getProductId());
+                Product productBasket = new Product();
+                productBasket.setProductId(product.getProductId());
+                productBasket.setProductName(product.getProductName());
+                productBasket.setAmount(item.getQuantity());
+                productBasket.setColors(product.getColors());
+                productBasket.setSizes(product.getSizes());
+                productBasket.setPrice(product.getPrice());
+                productBasket.setCategory(product.getCategory());
+                productBasket.setPrimaryImage(product.getPrimaryImage());
+                productBasket.setSecondImage(product.getSecondImage());
+                productBasket.setThirdImage(product.getThirdImage());
+                productBasket.setFourthImage(product.getFourthImage());
+                userProductList.add(productBasket);
             }
         }
         finalPrice = shoppingCartService.getTotalPriceOfProduct();

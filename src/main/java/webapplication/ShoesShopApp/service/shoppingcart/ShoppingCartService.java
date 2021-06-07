@@ -49,4 +49,6 @@ public class ShoppingCartService {
     }
 
 
+    public void deleteByProductId(long productId){shoppingCartRepository.deleteShoppingCartByProductProductId(productId);}
+
 }
