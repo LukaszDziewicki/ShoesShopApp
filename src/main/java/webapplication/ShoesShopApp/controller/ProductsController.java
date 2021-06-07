@@ -341,7 +341,7 @@ public class ProductsController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateProduct(@ModelAttribute("product") ProductDto productDto, @PathVariable("id") Long id
+    public String updateProduct(@Valid Product productDto, @PathVariable("id") Long id
     ) {
         productServiceImpl.editSpecificProduct(id, productDto);
         return "redirect:/dataadminPanel";

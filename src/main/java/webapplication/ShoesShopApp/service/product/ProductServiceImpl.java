@@ -214,7 +214,7 @@ public class ProductServiceImpl {
         }
     }*/
 
-   public void editSpecificProduct(long id, ProductDto productDto){
+   public void editSpecificProduct(long id, Product productDto){
        Product product = getProductById(id);
        product.setProductName(productDto.getProductName());
        product.setAmount(productDto.getAmount());
