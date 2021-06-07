@@ -22,6 +22,8 @@ public class ProductDto {
     public ProductDto(String productName, int amount, BigDecimal price, String primaryImage,
                       String secondImage, String thirdImage, String fourthImage,
                       Set<Size> sizes, Set<Color> colors, Category category) {
+
+        this(productName,amount);
         this.productName = productName;
         this.amount = amount;
         this.price = price;
@@ -35,8 +37,12 @@ public class ProductDto {
     }
 
     public ProductDto(String productName, int amount) {
+        this();
         this.productName = productName;
         this.amount = amount;
+    }
+
+    public ProductDto() {
     }
 
     public String getProductName() {

@@ -8,7 +8,7 @@ import java.util.Set;
 public class EditUserStatusDto {
 
     private Set<Role> roles;
-    private boolean blocked; //shift ctrl strzałka w górę
+    private boolean blocked;
 
 
     public Set<Role> getRoles() {

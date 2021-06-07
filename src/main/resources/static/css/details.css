@@ -182,32 +182,33 @@ img{
     display: flex;
     flex-wrap: wrap;
 }
-button:hover{
+.sButton button:hover{
     display: block;
     background: black;
     color: white;
 }
-/*button:active{
+.sButton button:active{
     display: block;
     background: black;
     color: white;
 }
-button:focus{
+.sButton button:focus{
     background: black;
     color: white;
     display: block;
 }
-button:visited  {
+.sButton button:visited  {
     display: block;
     background: black;
     color: white;
 }
-button:checked  {
+.sButton button:checked  {
     display: block;
     background: black;
     color: white;
-}*/
-button {
+}
+.sButton button {
+    align-items: center;
     min-width: 42px;
     height: 42px;
     line-height: 42px;
@@ -217,7 +218,6 @@ button {
     background-color: #fff;
     font-size: 12px;
     text-transform: uppercase;
-    text-align: center;
     cursor: pointer;
     margin: 0 8px 8px 0;
     font-style: normal;

@@ -87,10 +87,13 @@
 
             <div class = "purchase-info">
                 <input type = "number" min = "1" th:max="${product.amount}" th:field="*{quantity}">
+                <div class="add_to_cart">
                 <button sec:authorize = "isAuthenticated()" type = "sumbit" class = "btn">
                     Add to Cart <i class = "fas fa-shopping-cart"></i>
                 </button>
 
+
+                </div>
                 <a href="/registration" sec:authorize = "!isAuthenticated()" type = "button" class = "btn">
                     Add to Cart <i class = "fas fa-shopping-cart"></i>
                 </a>

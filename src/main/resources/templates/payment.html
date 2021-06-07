@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<!--<div th:include="navbar"></div>-->
 <div class="row">
     <div class="column">
         <div class="card" style="margin-left: 200px">
@@ -48,14 +49,14 @@
     </div>
 
     <div class="column">
-        <div class="card" style="margin-right: 200px;">
+        <div class="card" style="margin-right: 200px;" >
 
             <div class="container">
                 <h4>Cart <span class="price"  style="color:black"><i class="fa fa-shopping-cart"></i> <b th:text="${amountOfProducts}"></b></span></h4>
 
                 <th:block th:each="product : ${userProductList}">
 
-                    <p th:text="${product.product.productName} + ' ' +${product.product.category} +   '&nbsp; &nbsp; &nbsp; &nbsp;' + 'X' + ${product.quantity}"></p>
+                    <p th:text="${product.product.category} + ' ' +${product.product.productName}+   '&nbsp; &nbsp; &nbsp; &nbsp;' + 'X' + ${product.quantity}"></p>
                     <hr>
                     <p><b>Price</b> <span class="price"th:text="${product.product.price} * ${product.quantity}" style="color:black"></span></p>
                 </th:block>
@@ -66,6 +67,7 @@
         </div>
     </div>
 </div>
+
 </body>
 
 </html>

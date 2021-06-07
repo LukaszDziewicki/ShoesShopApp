@@ -117,26 +117,10 @@ public class User {
         this.blocked = blocked;
     }
 
-    public void addRole(Role role){
-        this.roles.add(role);
-        role.getUser().add(this);
-    }
-
-    public void removeRole(Role role) {
-        this.roles.remove(role);
-        role.getUser().remove(this);
-    }
 
     public void addAddress(Address address){
         this.addresses.add(address);
         address.getUsers().add(this);
-    }
-
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
     }
 
 
